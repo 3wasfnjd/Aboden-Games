@@ -9,25 +9,25 @@
       "name": "عبودين",
       "role": "التصميم والبرمجة",
       "bio": "يحوّل أفكار الفريق إلى ألعاب، ويصممها ويبرمجها بمساعدة الذكاء الاصطناعي.",
-      "photo": "assets/team/aboden.webp"
+      "photo": "assets/team/aboden-avatar.webp"
     },
     {
       "name": "ناصر",
       "role": "الفكرة وأسلوب اللعب",
       "bio": "",
-      "photo": "assets/team/nasser.webp"
+      "photo": "assets/team/nasser-avatar.webp"
     },
     {
       "name": "جود",
       "role": "الفكرة وأسلوب اللعب",
       "bio": "",
-      "photo": "assets/team/joud.webp"
+      "photo": "assets/team/joud-avatar.webp"
     },
     {
       "name": "نجد",
       "role": "الفكرة وأسلوب اللعب",
       "bio": "",
-      "photo": "assets/team/najd.webp"
+      "photo": "assets/team/najd-avatar.webp"
     }
   ],
   "quest": {
