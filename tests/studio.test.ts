@@ -76,7 +76,7 @@ test('AR page lists the lab experiences, mobile only, with designed art and live
  assert.equal(list.length,8);
  for(const x of list){assert.ok(ar.includes(x.title));assert.ok(existsSync('public/'+x.image));assert.ok(ar.includes('/ar-lab/'+x.file));assert.ok(existsSync('public/ar-lab/'+x.file));}
  assert.ok(!ar.includes('رماية عبودين'));assert.ok(!existsSync('public/ar-lab/gallery.html'));assert.ok(ar.includes('حرب الألوان AR'));
- assert.equal((ar.match(/class="ar-exp-device"/g)||[]).length,8);
+ assert.equal((ar.match(/data-experience/g)||[]).length,8);assert.equal((ar.match(/للجوال فقط<\/span><a class="card-play"/g)||[]).length,8);
 });
 test('studio page shows the tools the owner asked for',()=>{
  const html=renderStudio();for(const n of ['Claude','ChatGPT','Gemini','Tripo AI','GitHub'])assert.ok(html.includes(n));
