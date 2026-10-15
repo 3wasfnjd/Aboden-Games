@@ -165,3 +165,18 @@ p{font-size:inherit}
 .contact-intro .text-link{display:flex;width:fit-content}
 .contact-intro .contact-email{margin-block:22px 4px;font-size:16px;color:var(--accent);gap:10px}
 .contact-intro .contact-email .icon{width:20px;height:20px}
+
+/* Owner-supplied character cut-outs, one per page, beside the page heading. */
+.char{display:block;height:auto;max-width:none;pointer-events:none;user-select:none}
+.heading-with-char{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:clamp(16px,4vw,48px)}
+.heading-with-char .page-heading{max-width:none}
+.heading-with-char .char{width:clamp(150px,19vw,260px);margin-bottom:clamp(-30px,-2vw,-10px)}
+.section-heading.has-char{position:relative;align-items:flex-end}
+.section-heading.has-char .char{width:clamp(130px,15vw,210px);margin-bottom:clamp(-90px,-6vw,-40px);position:relative;z-index:2;order:3}
+@media(max-width:600px){
+ .heading-with-char{grid-template-columns:minmax(0,1fr) 108px;gap:10px}
+ .heading-with-char .char{width:108px;margin-bottom:24px}
+ .section-heading.has-char .char{position:absolute;left:0;top:-10px;width:96px;margin:0}
+ .section-heading.has-char .section-note{display:none}
+}
+@media(prefers-reduced-motion:no-preference){.char{animation:char-in .7s var(--ease) both}@keyframes char-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}}
