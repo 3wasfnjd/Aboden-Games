@@ -40,12 +40,12 @@ test('game platform sections distinguish touch web games and Quest',()=>{
  assert.equal(groups['ar-aboden'].mobile,false);
  assert.doesNotMatch(renderQuest(),/href="https:\/\/.*(?:store|horizon)/);
 });
-test('contact preparation never reports delivery with no configured email',()=>{
- assert.match(renderContact(),/لا يتم إرسالها من هذا النموذج/);
- assert.match(renderSupport(),/لا يتم إرسالها من هذا النموذج/);
+test('contact uses the owner-provided studio email and never claims the form sent it',()=>{
  const studio=JSON.parse(read('src/data/studio.json'));
+ assert.equal(studio.contactEmail,'aboden.games@gmail.com');assert.equal(studio.supportEmail,'aboden.games@gmail.com');
+ for(const html of [renderContact(),renderSupport()]){assert.ok(html.includes('data-email="aboden.games@gmail.com"'));assert.match(html,/تطبيق بريدك/);assert.doesNotMatch(html,/تم الإرسال|أُرسلت بنجاح/);}
+ assert.ok(renderContact().includes('href="mailto:aboden.games@gmail.com"'));
  assert.deepEqual(studio.team.map((m:any)=>m.name),['عبودين','ناصر','جود','نجد']);
- assert.equal(studio.contactEmail,'');
 });
 test('team story and photo slot render without inventing a photo',()=>{
  const team=renderTeam(),studioPage=renderStudio();
