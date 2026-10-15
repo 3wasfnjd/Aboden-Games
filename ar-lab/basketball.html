@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#05070b">
+  <title>رماية السلة — عبودين AR</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@8thwall/engine-binary@1/dist/xr.js"
+          async crossorigin="anonymous" data-preload-chunks="slam"></script>
+
+  <script type="importmap">
+  {
+    "imports":{
+      "three":"https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js"
+    }
+  }
+  </script>
+
+  <style>
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    :root{--app-w:100vw;--app-h:100dvh}
+    html{margin:0;width:100%;height:100%;overflow:hidden;background:#03060b}
+    body{
+      position:fixed;left:0;top:0;margin:0;
+      width:var(--app-w);height:var(--app-h);
+      overflow:hidden;background:#03060b;touch-action:none;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
+      color:#fff;overscroll-behavior:none;
+    }
+    #camerafeed{
+      position:fixed!important;left:0!important;top:0!important;
+      width:var(--app-w)!important;height:var(--app-h)!important;
+      display:block!important;z-index:0!important;
+    }
+    .ui{position:fixed;left:0;top:0;width:var(--app-w);height:var(--app-h);z-index:20;pointer-events:none}
+    .top{
+      position:absolute;
+      top:max(14px,env(safe-area-inset-top));
+      left:112px;right:14px;
+      display:flex;align-items:center;justify-content:flex-end;gap:10px;
+    }
+    .home-btn{
+      position:fixed;
+      left:14px;
+      top:max(14px,env(safe-area-inset-top));
+      z-index:60;
+      pointer-events:auto;
+      text-decoration:none;
+      color:#fff;
+      background:rgba(5,10,17,.76);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:999px;
+      padding:9px 13px;
+      font-size:12px;
+      font-weight:900;
+      line-height:1;
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      box-shadow:0 8px 28px rgba(0,0,0,.24);
+      touch-action:manipulation;
+    }
+    .home-btn:active{transform:scale(.96)}
+    .pill{
+      background:rgba(5,10,17,.70);
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      border-radius:999px;padding:9px 12px;
+      box-shadow:0 8px 28px rgba(0,0,0,.25);
+      font-size:12px;font-weight:800;
+    }
+    .crosshair{
+      position:absolute;left:50%;top:46%;
+      width:46px;height:46px;transform:translate(-50%,-50%);
+      border-radius:50%;
+      border:2.5px solid rgba(255,255,255,.55);
+      box-shadow:0 0 14px rgba(0,0,0,.5),inset 0 0 10px rgba(0,0,0,.25);
+      transition:border-color .12s,box-shadow .12s;
+    }
+    .crosshair:before{
+      content:"";position:absolute;left:50%;top:50%;
+      width:5px;height:5px;border-radius:50%;
+      background:rgba(255,255,255,.75);
+      transform:translate(-50%,-50%);
+    }
+    .crosshair.good{border-color:#7dffb0;box-shadow:0 0 18px rgba(125,255,176,.55)}
+    .crosshair.ok{border-color:#ffe07d;box-shadow:0 0 16px rgba(255,224,125,.4)}
+    .guide{
+      position:absolute;left:50%;top:70%;
+      width:min(88vw,420px);
+      transform:translate(-50%,-50%);
+      text-align:center;line-height:1.8;font-size:14px;
+      text-shadow:0 2px 14px rgba(0,0,0,.95);
+    }
+    .guide b{display:block;font-size:20px;margin-bottom:5px}
+    .guide.hidden{display:none}
+    .hitflash{
+      position:absolute;inset:0;
+      border:0 solid rgba(255,255,255,0);
+      pointer-events:none;transition:.12s;
+    }
+    .hitflash.on{border-width:6px;border-color:rgba(125,255,176,.5)}
+    .hitflash.miss{border-color:rgba(255,120,120,.42)}
+    .toast{
+      position:absolute;left:50%;top:16%;
+      transform:translate(-50%,-6px);opacity:0;
+      transition:.18s;background:rgba(5,10,17,.82);
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;padding:9px 14px;font-size:12px;white-space:nowrap;
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    .recenter{
+      pointer-events:auto;
+      position:absolute;
+      left:18px;
+      bottom:max(30px,env(safe-area-inset-bottom));
+      border:1px solid rgba(255,255,255,.17);
+      background:rgba(5,10,17,.72);
+      color:#fff;border-radius:16px;
+      padding:11px 14px;font-weight:850;
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    }
+    #intro{
+      position:fixed;inset:0;z-index:40;
+      background:radial-gradient(circle at 50% 28%,#3a2a12 0,#0a101a 46%,#03060b 100%);
+      display:flex;align-items:flex-end;justify-content:center;
+      padding:22px 18px max(28px,env(safe-area-inset-bottom));
+    }
+    .card{
+      width:min(100%,520px);
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:28px;padding:24px;
+      backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
+    }
+    .card .ball{
+      width:78px;height:78px;margin:0 auto 18px;
+      border-radius:50%;
+      background:radial-gradient(circle at 32% 28%,#ffb15c,#e8791d 62%,#b95a10 100%);
+      box-shadow:inset -10px -10px 20px rgba(0,0,0,.28),0 18px 45px rgba(232,121,29,.28);
+      position:relative;overflow:hidden;
+    }
+    .card .ball:before,.card .ball:after{
+      content:"";position:absolute;background:rgba(20,10,0,.55);
+    }
+    .card .ball:before{left:50%;top:0;width:2px;height:100%;transform:translateX(-50%)}
+    .card .ball:after{left:0;top:50%;width:100%;height:2px;transform:translateY(-50%)}
+    .card h1{margin:0 0 10px;font-size:28px;text-align:center}
+    .card p{margin:0 0 18px;color:#d6dce6;font-size:14px;line-height:1.85;text-align:center}
+    .start{
+      width:100%;height:58px;border:0;border-radius:18px;
+      background:#fff;color:#091019;font-size:16px;font-weight:950;
+    }
+    .tiny{font-size:11px!important;color:#aab4c3!important;margin-top:12px!important}
+    .error{display:none;margin-top:12px;color:#ffc0c0;font-size:12px;line-height:1.7;text-align:center}
+  </style>
+<meta name="robots" content="noindex, nofollow"/><meta name="theme-color" content="#0B1730"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="stylesheet" href="./brand.css"/>
+</head>
+<body>
+  <canvas id="camerafeed"></canvas>
+  <a class="home-btn" href="/ar/" aria-label="العودة إلى الصفحة الرئيسية"><img class="aboden-mark" src="/assets/brand/symbol-white.svg" alt="" width="20" height="20"/> عبودين قيمز</a>
+
+  <div class="ui" id="gameUi" style="display:none">
+    <div class="top">
+      <div class="pill">🏀 <span id="score">0</span> نقطة · تتابع <span id="streak">0</span></div>
+    </div>
+
+    <div class="crosshair" id="crosshair"></div>
+
+    <div class="guide" id="guide">
+      <b>وجّه الجوال نحو السلة</b>
+      اسحب إصبعك للأعلى بسرعة معتدلة لتسديد الكرة نحو منتصف الدائرة.
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <div class="hitflash" id="hitflash"></div>
+
+    <button class="recenter" id="recenterBtn">إعادة توزيع</button>
+  </div>
+
+  <div id="intro">
+    <div class="card">
+      <div class="ball"></div>
+      <h1>رماية السلة</h1>
+      <p>بعد تشغيل الكاميرا ستظهر سلة كرة سلة أمامك داخل الغرفة. وجّه الجوال حتى تتوسّط الدائرة السلة، ثم اسحب إصبعك للأعلى على الشاشة للتسديد.</p>
+      <button class="start" id="startBtn" disabled>جاري تجهيز AR…</button>
+      <div class="error" id="errorBox"></div>
+      <p class="tiny">السلة والكرة نماذج ثلاثية الأبعاد حقيقية، والمؤثرات والصوت مولّدة داخل الصفحة مباشرة.</p>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/loaders/GLTFLoader.js';
+    window.THREE = THREE;
+
+    const canvas = document.getElementById('camerafeed');
+    const intro = document.getElementById('intro');
+    const gameUi = document.getElementById('gameUi');
+    const startBtn = document.getElementById('startBtn');
+    const errorBox = document.getElementById('errorBox');
+    const scoreEl = document.getElementById('score');
+    const streakEl = document.getElementById('streak');
+    const guide = document.getElementById('guide');
+    const crosshair = document.getElementById('crosshair');
+    const recenterBtn = document.getElementById('recenterBtn');
+    const toast = document.getElementById('toast');
+    const hitflash = document.getElementById('hitflash');
+
+    let xrReady = false;
+    let xrStarted = false;
+    let scene, camera, renderer;
+    let score = 0;
+    let streak = 0;
+    let bestStreak = 0;
+    let lastTime = performance.now();
+
+    const GRAVITY = 9.4;
+    const BALL_RADIUS = .121;
+    const RIM_RADIUS = .225;
+    const SCORE_RADIUS = .175;
+    const OUTER_RADIUS = .32;
+    const HOOP_DISTANCE = 6.2;
+    const HOOP_HEIGHT = 2.15;
+
+    // Virtual floor the ball bounces off of instead of sinking through —
+    // there's no real hit-test/depth surface tracked in this experience,
+    // so floorY (an assumed real-world height, set in placeHoop()) is
+    // treated as a solid plane for the ball only.
+    const FLOOR_BOUNCE_RESTITUTION = .42;
+    const FLOOR_BOUNCE_FRICTION = .65;
+    const FLOOR_SETTLE_SPEED = .55;
+
+    // Measured directly off hoop.glb: after loading it through
+    // GLTFLoader (which resolves the model's own baked axis-correction
+    // node matrices into a proper Y-up scene), its pole base sits at
+    // local (0,0,0) and the rim/net cluster sits near local
+    // (0, 3.18, 1.62). There's no separate "rim" node in the mesh to
+    // read this from exactly — it was read off a to-scale render with a
+    // 0.1m grid overlay, so treat it as a close approximation (the
+    // scoring radius already carries enough forgiveness for that).
+    const HOOP_MODEL_RIM_LOCAL_Y = 3.18;
+    const HOOP_MODEL_RIM_LOCAL_Z = 1.62;
+
+    const roomCenter = new THREE.Vector3();
+    const playForward = new THREE.Vector3(0,0,-1);
+    const playRight = new THREE.Vector3(1,0,0);
+
+    let hoopGroup = null;
+    const rimCenterWorld = new THREE.Vector3();
+    const hoopForward = new THREE.Vector3();
+    const hoopRight = new THREE.Vector3();
+    const hoopUp = new THREE.Vector3(0,1,0);
+    let floorY = 0;
+
+    let ballMesh = null;
+    let ball = {
+      flying:false,
+      position:new THREE.Vector3(),
+      prevPosition:new THREE.Vector3(),
+      velocity:new THREE.Vector3(),
+      life:0,
+      scored:null,
+      settleTimer:0
+    };
+
+    const sparkles = [];
+    const _tmpA = new THREE.Vector3();
+    const _tmpB = new THREE.Vector3();
+
+    // ---------------------------------------------------------------
+    // Viewport / camera-fill handling (matches the other AR pages here)
+    // ---------------------------------------------------------------
+    function syncVisualViewport(){
+      const vv = window.visualViewport;
+      const w = Math.round(vv?.width || window.innerWidth || document.documentElement.clientWidth);
+      const h = Math.round(vv?.height || window.innerHeight || document.documentElement.clientHeight);
+
+      document.documentElement.style.setProperty('--app-w',w+'px');
+      document.documentElement.style.setProperty('--app-h',h+'px');
+
+      canvas.style.setProperty('width',w+'px','important');
+      canvas.style.setProperty('height',h+'px','important');
+
+      requestAnimationFrame(()=>{
+        if(renderer?.setSize) renderer.setSize(w,h,false);
+      });
+    }
+
+    syncVisualViewport();
+    window.addEventListener('resize',syncVisualViewport,{passive:true});
+    window.addEventListener('orientationchange',()=>{
+      setTimeout(syncVisualViewport,80);
+      setTimeout(syncVisualViewport,350);
+    },{passive:true});
+    window.visualViewport?.addEventListener('resize',syncVisualViewport,{passive:true});
+
+    function notify(msg){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(window.__bballToast);
+      window.__bballToast = setTimeout(()=>toast.classList.remove('show'),1150);
+    }
+
+    // ---------------------------------------------------------------
+    // Procedural audio (no network fetches — everything synthesized)
+    // ---------------------------------------------------------------
+    let audioCtx = null;
+    let audioMaster = null;
+    let audioCompressor = null;
+    let noiseBuffer = null;
+
+    function ensureAudio(){
+      if(!audioCtx){
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if(!Ctx) return null;
+        audioCtx = new Ctx();
+
+        audioCompressor = audioCtx.createDynamicsCompressor();
+        audioCompressor.threshold.value = -10;
+        audioCompressor.knee.value = 10;
+        audioCompressor.ratio.value = 4;
+        audioCompressor.attack.value = .002;
+        audioCompressor.release.value = .22;
+
+        audioMaster = audioCtx.createGain();
+        audioMaster.gain.value = .85;
+        audioMaster.connect(audioCompressor);
+        audioCompressor.connect(audioCtx.destination);
+      }
+      if(audioCtx.state === 'suspended') audioCtx.resume().catch(()=>{});
+      return audioCtx;
+    }
+
+    function makeOutput(pan=0,gain=1){
+      const ctx = ensureAudio();
+      if(!ctx || !audioMaster) return null;
+      const g = ctx.createGain();
+      g.gain.value = gain;
+      if(ctx.createStereoPanner){
+        const p = ctx.createStereoPanner();
+        p.pan.value = THREE.MathUtils.clamp(pan,-1,1);
+        g.connect(p);
+        p.connect(audioMaster);
+      }else{
+        g.connect(audioMaster);
+      }
+      return g;
+    }
+
+    function getNoiseBuffer(){
+      const ctx = ensureAudio();
+      if(!ctx) return null;
+      if(!noiseBuffer){
+        noiseBuffer = ctx.createBuffer(1,Math.floor(ctx.sampleRate*.5),ctx.sampleRate);
+        const data = noiseBuffer.getChannelData(0);
+        for(let i=0;i<data.length;i++) data[i] = Math.random()*2-1;
+      }
+      return noiseBuffer;
+    }
+
+    function playSwish(pan=0){
+      const ctx = ensureAudio();
+      const buf = getNoiseBuffer();
+      const out = makeOutput(pan,.55);
+      if(!ctx || !buf || !out) return;
+
+      const src = ctx.createBufferSource();
+      src.buffer = buf;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.Q.value = .8;
+      const now = ctx.currentTime;
+      filter.frequency.setValueAtTime(2600,now);
+      filter.frequency.exponentialRampToValueAtTime(480,now+.36);
+
+      out.gain.setValueAtTime(.0001,now);
+      out.gain.exponentialRampToValueAtTime(.5,now+.02);
+      out.gain.exponentialRampToValueAtTime(.0001,now+.4);
+
+      src.connect(filter);
+      filter.connect(out);
+      src.start(now);
+      src.stop(now+.42);
+    }
+
+    function playClank(pan=0){
+      const ctx = ensureAudio();
+      const out = makeOutput(pan,.5);
+      if(!ctx || !out) return;
+      const now = ctx.currentTime;
+
+      [920,1380].forEach((freq,i)=>{
+        const osc = ctx.createOscillator();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq,now);
+        osc.frequency.exponentialRampToValueAtTime(freq*.6,now+.14);
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(i===0?.5:.3,now);
+        g.gain.exponentialRampToValueAtTime(.0001,now+.16);
+        osc.connect(g);
+        g.connect(out);
+        osc.start(now);
+        osc.stop(now+.18);
+      });
+    }
+
+    function playThud(pan=0,gain=.4){
+      const ctx = ensureAudio();
+      const out = makeOutput(pan,gain);
+      if(!ctx || !out) return;
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(140,now);
+      osc.frequency.exponentialRampToValueAtTime(60,now+.12);
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(.6,now);
+      g.gain.exponentialRampToValueAtTime(.0001,now+.14);
+      osc.connect(g);
+      g.connect(out);
+      osc.start(now);
+      osc.stop(now+.16);
+    }
+
+    function makeSparkleTexture(){
+      const size = 64;
+      const c = document.createElement('canvas');
+      c.width = size; c.height = size;
+      const ctx = c.getContext('2d');
+      const g = ctx.createRadialGradient(size/2,size/2,0,size/2,size/2,size/2);
+      g.addColorStop(0,'rgba(255,255,255,1)');
+      g.addColorStop(.4,'rgba(255,238,190,.9)');
+      g.addColorStop(1,'rgba(255,200,90,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(0,0,size,size);
+      const tex = new THREE.CanvasTexture(c);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      return tex;
+    }
+
+    let sparkleTexture = null;
+
+    function spawnSparkles(position,count=14,color=0x8dffbd){
+      sparkleTexture ||= makeSparkleTexture();
+      for(let i=0;i<count;i++){
+        const mat = new THREE.SpriteMaterial({
+          map:sparkleTexture,color,transparent:true,opacity:1,
+          depthWrite:false,blending:THREE.AdditiveBlending
+        });
+        const sprite = new THREE.Sprite(mat);
+        sprite.position.copy(position);
+        sprite.scale.setScalar(THREE.MathUtils.randFloat(.03,.06));
+        scene.add(sprite);
+        const v = new THREE.Vector3(
+          THREE.MathUtils.randFloatSpread(1),
+          THREE.MathUtils.randFloat(.1,1),
+          THREE.MathUtils.randFloatSpread(1)
+        ).normalize().multiplyScalar(THREE.MathUtils.randFloat(.4,1.1));
+        sparkles.push({sprite,velocity:v,life:THREE.MathUtils.randFloat(.35,.6),maxLife:.6});
+      }
+    }
+
+    function updateSparkles(dt){
+      for(let i=sparkles.length-1;i>=0;i--){
+        const s = sparkles[i];
+        s.life -= dt;
+        if(s.life<=0){
+          scene.remove(s.sprite);
+          s.sprite.material.dispose();
+          sparkles.splice(i,1);
+          continue;
+        }
+        s.velocity.y -= 1.4*dt;
+        s.sprite.position.addScaledVector(s.velocity,dt);
+        s.sprite.material.opacity = Math.max(0,s.life/s.maxLife);
+      }
+    }
+
+    // ---------------------------------------------------------------
+    // Real GLB models (hoop.glb / ball.glb) — loaded once into
+    // normalized templates, then cloned per use.
+    // ---------------------------------------------------------------
+    const gltfLoader = new GLTFLoader();
+
+    function loadGLTFScene(url){
+      return new Promise((resolve,reject)=>{
+        gltfLoader.load(url,gltf=>resolve(gltf.scene || gltf.scenes?.[0]),undefined,reject);
+      });
+    }
+
+    let ballTemplate = null;
+    let hoopTemplate = null;
+
+    async function prepareModels(){
+      const [ballRaw,hoopRaw] = await Promise.all([
+        loadGLTFScene('./assets/basketball/ball.glb'),
+        loadGLTFScene('./assets/basketball/hoop.glb')
+      ]);
+
+      // Ball: a plain sphere authored at an arbitrary raw scale —
+      // normalize from its own measured bounding box to BALL_RADIUS.
+      ballRaw.updateMatrixWorld(true);
+      const ballBox = new THREE.Box3().setFromObject(ballRaw);
+      const ballSize = new THREE.Vector3();
+      const ballCenter = new THREE.Vector3();
+      ballBox.getSize(ballSize);
+      ballBox.getCenter(ballCenter);
+      const ballRadius = Math.max(ballSize.x,ballSize.y,ballSize.z)/2;
+
+      ballTemplate = new THREE.Group();
+      ballRaw.position.sub(ballCenter);
+      ballTemplate.add(ballRaw);
+      ballTemplate.scale.setScalar(BALL_RADIUS/Math.max(ballRadius,1e-6));
+      ballTemplate.traverse(o=>{ if(o.isMesh){ o.castShadow=false; o.receiveShadow=false; } });
+
+      // Hoop: rendering the raw asset from both sides confirmed the
+      // rim/net face the model's own local +Z, with the pole/backboard
+      // mount on the -Z/near-zero side. That matches what this group
+      // needs directly: for a plain Object3D (not a camera/light),
+      // Object3D.lookAt() points local +Z at the target — the -Z-facing
+      // convention only applies to cameras/lights, which override both
+      // lookAt() and getWorldDirection() to flip it. So the model is
+      // used as-is, no orientation correction needed.
+      hoopRaw.updateMatrixWorld(true);
+      hoopTemplate = new THREE.Group();
+      hoopTemplate.add(hoopRaw);
+      hoopTemplate.traverse(o=>{ if(o.isMesh){ o.castShadow=false; o.receiveShadow=false; } });
+    }
+
+    function placeHoop(){
+      if(hoopGroup?.group) scene.remove(hoopGroup.group);
+
+      floorY = roomCenter.y - 1.4;
+
+      const newHoop = hoopTemplate.clone(true);
+
+      // Scale so the rim lands at HOOP_HEIGHT above the assumed floor,
+      // with the model's own floor-contact point (local Y=0, the pole
+      // base) sitting exactly on that floor.
+      const scale = (HOOP_HEIGHT-floorY)/HOOP_MODEL_RIM_LOCAL_Y;
+      newHoop.scale.setScalar(scale);
+
+      const pos = roomCenter.clone().addScaledVector(playForward,HOOP_DISTANCE);
+      pos.y = floorY;
+      newHoop.position.copy(pos);
+
+      const faceTarget = new THREE.Vector3(roomCenter.x,floorY,roomCenter.z);
+      newHoop.lookAt(faceTarget);
+
+      scene.add(newHoop);
+
+      const rimLocalPos = new THREE.Vector3(0,HOOP_MODEL_RIM_LOCAL_Y,HOOP_MODEL_RIM_LOCAL_Z);
+      hoopGroup = { group:newHoop, rimLocalPos };
+
+      rimCenterWorld.copy(newHoop.localToWorld(rimLocalPos.clone()));
+      // newHoop.getWorldDirection() (the plain-Object3D version, which
+      // reads local +Z — see the note in prepareModels()) points from
+      // the backboard toward the shooter. hoopForward is defined as the
+      // opposite: the direction a ball travels through the rim, from
+      // the shooter's side toward the board.
+      newHoop.getWorldDirection(_tmpA);
+      hoopForward.copy(_tmpA).multiplyScalar(-1).normalize();
+      hoopRight.crossVectors(hoopUp,hoopForward).normalize();
+    }
+
+    // ---------------------------------------------------------------
+    // Ball
+    // ---------------------------------------------------------------
+    function buildBall(){
+      ballMesh = ballTemplate.clone(true);
+      scene.add(ballMesh);
+    }
+
+    function handPosition(out){
+      // Ball rests near the bottom of the view, tracking the camera like a held object.
+      return camera.localToWorld(out.set(0,-.30,-.55));
+    }
+
+    function resetBallToHand(){
+      ball.flying = false;
+      ball.scored = null;
+      ball.settleTimer = 0;
+      handPosition(ball.position);
+      ballMesh.position.copy(ball.position);
+      ballMesh.rotation.set(0,0,0);
+    }
+
+    function computeAimTarget(){
+      if(!camera || !hoopGroup) return null;
+      const origin = camera.getWorldPosition(_tmpA);
+      const dir = camera.getWorldDirection(_tmpB);
+      const denom = dir.dot(hoopForward);
+      if(Math.abs(denom) < 1e-4) return null;
+
+      const toPlane = new THREE.Vector3().subVectors(rimCenterWorld,origin).dot(hoopForward)/denom;
+      if(toPlane <= 0) return null;
+
+      const point = origin.clone().addScaledVector(dir,toPlane);
+      const offset = point.clone().sub(rimCenterWorld);
+      const lateral = offset.dot(hoopRight);
+      const vertical = offset.dot(hoopUp);
+      const radial = Math.hypot(lateral,vertical);
+      return {point,radial};
+    }
+
+    function updateCrosshair(){
+      if(ball.flying){
+        crosshair.classList.remove('good','ok');
+        return;
+      }
+      const aim = computeAimTarget();
+      if(!aim){
+        crosshair.classList.remove('good','ok');
+        return;
+      }
+      crosshair.classList.toggle('good',aim.radial <= SCORE_RADIUS);
+      crosshair.classList.toggle('ok',aim.radial > SCORE_RADIUS && aim.radial <= OUTER_RADIUS);
+    }
+
+    function shoot(target,flightTime,originScreenX){
+      const start = ball.position.clone();
+      const vx = (target.x-start.x)/flightTime;
+      const vz = (target.z-start.z)/flightTime;
+      const vy = (target.y-start.y)/flightTime + .5*GRAVITY*flightTime;
+
+      ball.velocity.set(vx,vy,vz);
+      ball.flying = true;
+      ball.scored = null;
+      ball.life = 3.2;
+      ball.prevPosition.copy(start);
+
+      const pan = THREE.MathUtils.clamp((originScreenX/window.innerWidth-.5)*1.6,-.8,.8);
+      playThud(pan,.16);
+      guide.classList.add('hidden');
+      if(navigator.vibrate) navigator.vibrate(10);
+    }
+
+    function resolveShotOutcome(radial,crossPoint,pan){
+      if(radial <= SCORE_RADIUS){
+        score++;
+        streak++;
+        bestStreak = Math.max(bestStreak,streak);
+        scoreEl.textContent = score;
+        streakEl.textContent = streak;
+        playSwish(pan);
+        spawnSparkles(crossPoint,16,0x8dffbd);
+        hitflash.classList.remove('miss');
+        hitflash.classList.add('on');
+        setTimeout(()=>hitflash.classList.remove('on'),140);
+        const lines = streak>=3
+          ? ['سلسلة رائعة! 🔥','لا يُوقَف!','احترافي جدًا!']
+          : ['🏀 سلة نظيفة!','في المكان الصحيح!','تسديدة موفقة!'];
+        notify(lines[Math.floor(Math.random()*lines.length)]);
+        if(navigator.vibrate) navigator.vibrate([16,16,28]);
+      }else if(radial <= OUTER_RADIUS){
+        streak = 0;
+        streakEl.textContent = streak;
+        playClank(pan);
+        spawnSparkles(crossPoint,6,0xffcf6b);
+        hitflash.classList.add('on','miss');
+        setTimeout(()=>hitflash.classList.remove('on','miss'),120);
+        notify('ارتدت من الحلقة!');
+      }else{
+        streak = 0;
+        streakEl.textContent = streak;
+        notify('فاتت السلة، حاول مرة أخرى');
+      }
+    }
+
+    function updateBallPhysics(dt){
+      if(!ball.flying){
+        if(!ball.settleTimer){
+          handPosition(ball.position);
+          ballMesh.position.copy(ball.position);
+        }
+        return;
+      }
+
+      ball.life -= dt;
+      ball.prevPosition.copy(ball.position);
+
+      ball.velocity.y -= GRAVITY*dt;
+      ball.position.addScaledVector(ball.velocity,dt);
+      ballMesh.position.copy(ball.position);
+      ballMesh.rotation.x += dt*6;
+      ballMesh.rotation.z += dt*2.4;
+
+      if(ball.scored === null){
+        const d0 = new THREE.Vector3().subVectors(ball.prevPosition,rimCenterWorld).dot(hoopForward);
+        const d1 = new THREE.Vector3().subVectors(ball.position,rimCenterWorld).dot(hoopForward);
+        // hoopForward points from the rim toward the backboard (away
+        // from the shooter), so a ball flying from the player through
+        // the rim goes from the near side (d<=0) to the far side (d>0).
+        if(d0 <= 0 && d1 > 0){
+          const u = d0/(d0-d1);
+          const crossPoint = ball.prevPosition.clone().lerp(ball.position,u);
+          const offset = crossPoint.clone().sub(rimCenterWorld);
+          const lateral = offset.dot(hoopRight);
+          const vertical = offset.dot(hoopUp);
+          const radial = Math.hypot(lateral,vertical);
+          const pan = THREE.MathUtils.clamp(lateral*1.4,-.9,.9);
+
+          ball.scored = radial <= SCORE_RADIUS;
+          resolveShotOutcome(radial,crossPoint,pan);
+        }
+      }
+
+      // Virtual floor: bounce (with energy/friction loss) instead of
+      // sinking through, then settle once the bounce is too weak to
+      // read as a real bounce anymore.
+      const floorContactY = floorY+BALL_RADIUS;
+      if(ball.position.y <= floorContactY && ball.velocity.y < 0){
+        ball.position.y = floorContactY;
+
+        const impactSpeed = Math.abs(ball.velocity.y);
+        ball.velocity.y = -ball.velocity.y*FLOOR_BOUNCE_RESTITUTION;
+        ball.velocity.x *= FLOOR_BOUNCE_FRICTION;
+        ball.velocity.z *= FLOOR_BOUNCE_FRICTION;
+
+        playThud(0,THREE.MathUtils.clamp(impactSpeed*.05,.08,.3));
+        if(navigator.vibrate) navigator.vibrate(6);
+
+        if(Math.abs(ball.velocity.y) < FLOOR_SETTLE_SPEED && !ball.settleTimer){
+          if(ball.scored === null){
+            streak = 0;
+            streakEl.textContent = streak;
+            notify('فاتت السلة، حاول مرة أخرى');
+          }
+          ball.settleTimer = .3;
+        }
+      }
+
+      if(ball.settleTimer > 0){
+        ball.settleTimer -= dt;
+        if(ball.settleTimer <= 0) resetBallToHand();
+      }else if(ball.life <= 0){
+        if(ball.scored === null){
+          streak = 0;
+          streakEl.textContent = streak;
+          notify('فاتت السلة، حاول مرة أخرى');
+        }
+        resetBallToHand();
+      }
+    }
+
+    // ---------------------------------------------------------------
+    // Swipe input
+    // ---------------------------------------------------------------
+    let swipeActive = false;
+    let swipeStartX = 0, swipeStartY = 0, swipeStartT = 0;
+
+    function onPointerDown(e){
+      if(!xrStarted || ball.flying) return;
+      if(e.target.closest('button,a')) return;
+      swipeActive = true;
+      swipeStartX = e.clientX;
+      swipeStartY = e.clientY;
+      swipeStartT = performance.now();
+      ensureAudio();
+    }
+
+    function onPointerUp(e){
+      if(!swipeActive) return;
+      swipeActive = false;
+      if(!xrStarted || ball.flying) return;
+
+      const dx = e.clientX - swipeStartX;
+      const dy = e.clientY - swipeStartY;
+      const dt = Math.max(.03,(performance.now()-swipeStartT)/1000);
+      const dist = Math.hypot(dx,dy);
+
+      if(-dy < 40 || Math.abs(dy) < Math.abs(dx)*.6){
+        notify('اسحب إصبعك للأعلى بشكل مستقيم للتسديد');
+        return;
+      }
+
+      const aim = computeAimTarget();
+      if(!aim){
+        notify('وجّه الجوال نحو السلة أولًا');
+        return;
+      }
+
+      const speed = dist/dt;
+      const flightTime = THREE.MathUtils.clamp(
+        THREE.MathUtils.mapLinear(speed,350,2000,1.05,.58),
+        .55,1.1
+      );
+
+      shoot(aim.point,flightTime,e.clientX);
+    }
+
+    document.addEventListener('pointerdown',onPointerDown);
+    document.addEventListener('pointerup',onPointerUp);
+
+    recenterBtn.addEventListener('click',(e)=>{
+      e.preventDefault();
+      if(!camera) return;
+      updatePlayZoneFromCamera();
+      placeHoop();
+      resetBallToHand();
+      score = 0; streak = 0;
+      scoreEl.textContent = '0';
+      streakEl.textContent = '0';
+      guide.classList.remove('hidden');
+      try{ XR8.XrController.recenter(); }catch(err){}
+      notify('تم إعادة وضع السلة أمامك');
+    });
+
+    function updatePlayZoneFromCamera(){
+      if(!camera) return;
+      camera.getWorldPosition(roomCenter);
+      camera.getWorldDirection(playForward);
+      playForward.y = 0;
+      if(playForward.lengthSq() < .0001) playForward.set(0,0,-1);
+      playForward.normalize();
+      playRight.set(-playForward.z,0,playForward.x).normalize();
+    }
+
+    // ---------------------------------------------------------------
+    // Scene setup / XR lifecycle
+    // ---------------------------------------------------------------
+    async function setupScene(){
+      const xrScene = XR8.Threejs.xrScene();
+      scene = xrScene.scene;
+      camera = xrScene.camera;
+      renderer = xrScene.renderer;
+
+      renderer.shadowMap.enabled = false;
+      syncVisualViewport();
+      setTimeout(syncVisualViewport,80);
+      setTimeout(syncVisualViewport,350);
+
+      scene.add(new THREE.HemisphereLight(0xffffff,0x66707e,1.8));
+      const key = new THREE.DirectionalLight(0xffffff,1.4);
+      key.position.set(2,4,1);
+      scene.add(key);
+
+      camera.position.set(0,1.5,2.0);
+      XR8.XrController.updateCameraProjectionMatrix({
+        origin:camera.position,
+        facing:camera.quaternion
+      });
+
+      updatePlayZoneFromCamera();
+      await prepareModels();
+      placeHoop();
+      buildBall();
+      resetBallToHand();
+
+      lastTime = performance.now();
+    }
+
+    function tick(){
+      if(!scene || !camera) return;
+      const now = performance.now();
+      const dt = Math.min(1/30,(now-lastTime)/1000 || .016);
+      lastTime = now;
+
+      updateBallPhysics(dt);
+      updateSparkles(dt);
+      updateCrosshair();
+    }
+
+    function worldModule(){
+      return{
+        name:'aboden-basketball',
+        onStart:async()=>{
+          try{
+            await setupScene();
+            window.dispatchEvent(new Event('resize'));
+          }catch(err){
+            console.error(err);
+            notify('فشل تجهيز التجربة');
+          }
+        },
+        // Runs inside XR8's own per-frame pipeline (same tick that just
+        // updated the AR camera pose) instead of a detached
+        // requestAnimationFrame loop, so the ball/hoop no longer lag a
+        // frame behind fast camera movement.
+        onUpdate:tick,
+        onException:(error)=>{
+          console.error(error);
+          notify('حدث خطأ في التتبع');
+        }
+      };
+    }
+
+    startBtn.addEventListener('click',()=>{
+      if(!xrReady || xrStarted) return;
+
+      ensureAudio();
+
+      xrStarted = true;
+      startBtn.disabled = true;
+      startBtn.textContent = 'جاري فتح الكاميرا…';
+      errorBox.style.display = 'none';
+
+      try{
+        intro.style.display = 'none';
+        gameUi.style.display = 'block';
+        XR8.run({canvas});
+        syncVisualViewport();
+        setTimeout(syncVisualViewport,120);
+        setTimeout(syncVisualViewport,500);
+        setTimeout(syncVisualViewport,1200);
+      }catch(err){
+        console.error(err);
+        xrStarted = false;
+        intro.style.display = 'flex';
+        gameUi.style.display = 'none';
+        errorBox.style.display = 'block';
+        errorBox.textContent = 'تعذر تشغيل AR. حدّث الصفحة وحاول مرة أخرى.';
+        startBtn.disabled = false;
+        startBtn.textContent = 'حاول مرة أخرى';
+      }
+    });
+
+    function initializeXR(){
+      if(xrReady || !window.XR8 || !window.THREE) return;
+      try{
+        XR8.XrController.configure({
+          disableWorldTracking:false,
+          enableLighting:true,
+          enableWorldPoints:true,
+          scale:'responsive'
+        });
+
+        XR8.addCameraPipelineModules([
+          XR8.GlTextureRenderer.pipelineModule(),
+          XR8.Threejs.pipelineModule(),
+          XR8.XrController.pipelineModule(),
+          worldModule()
+        ]);
+
+        xrReady = true;
+        startBtn.disabled = false;
+        startBtn.textContent = 'ابدأ التجربة';
+      }catch(err){
+        console.error(err);
+        errorBox.style.display = 'block';
+        errorBox.textContent = 'لم يكتمل تحميل محرك AR. أعد تحميل الصفحة.';
+      }
+    }
+
+    if(window.XR8) initializeXR();
+    else window.addEventListener('xrloaded',initializeXR,{once:true});
+
+    setTimeout(()=>{
+      if(!xrReady){
+        errorBox.style.display = 'block';
+        errorBox.textContent = 'محرك AR يستغرق وقتًا أطول من المتوقع. تحقق من الاتصال ثم أعد تحميل الصفحة.';
+      }
+    },12000);
+  </script>
+</body>
+</html>

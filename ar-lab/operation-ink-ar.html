@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#05070b">
+  <title>حرب الألوان AR — عبودين</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@8thwall/engine-binary@1/dist/xr.js"
+          async crossorigin="anonymous" data-preload-chunks="slam"></script>
+
+  <script type="importmap">
+  {
+    "imports":{
+      "three":"https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+      "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+    }
+  }
+  </script>
+
+  <style>
+    *{
+      box-sizing:border-box;-webkit-tap-highlight-color:transparent;
+      -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-user-drag:none
+    }
+    :root{--app-w:100vw;--app-h:100dvh;--active-paint:#25c9ff}
+    html,body{
+      margin:0;width:100%;height:100%;overflow:hidden;background:#02050a;
+      -webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:none
+    }
+    body{
+      position:fixed;left:0;top:0;width:var(--app-w);height:var(--app-h);
+      color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
+      touch-action:none;overscroll-behavior:none
+    }
+    #camerafeed{
+      position:fixed!important;left:0!important;top:0!important;
+      width:var(--app-w)!important;height:var(--app-h)!important;
+      display:block!important;z-index:0!important
+    }
+    .ui{position:fixed;inset:0;width:var(--app-w);height:var(--app-h);z-index:20;pointer-events:none}
+    button,a{touch-action:manipulation}
+    .home-btn{
+      position:fixed;left:10px;top:max(10px,env(safe-area-inset-top));z-index:70;
+      pointer-events:auto;text-decoration:none;color:#fff;background:rgba(4,8,14,.78);
+      border:1px solid rgba(255,255,255,.13);border-radius:999px;padding:7px 10px;
+      font-size:11px;font-weight:900;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)
+    }
+    .crosshair{
+      position:absolute;left:50%;top:50%;width:40px;height:40px;transform:translate(-50%,-50%);
+      filter:drop-shadow(0 2px 8px rgba(0,0,0,.85))
+    }
+    .crosshair:before,.crosshair:after{content:"";position:absolute;background:rgba(255,255,255,.95);border-radius:3px}
+    .crosshair:before{width:2px;height:40px;left:19px;top:0}
+    .crosshair:after{width:40px;height:2px;left:0;top:19px}
+    .crosshair i{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--active-paint);left:17px;top:17px;box-shadow:0 0 8px var(--active-paint)}
+    .guide{
+      position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);
+      width:min(88vw,430px);padding:12px 16px;text-align:center;line-height:1.8;
+      text-shadow:0 2px 16px rgba(0,0,0,.95);font-size:14px
+    }
+    .guide b{display:block;font-size:20px;margin-bottom:5px}
+    .guide.hidden{display:none}
+    .status{
+      position:absolute;left:50%;top:max(11px,env(safe-area-inset-top));transform:translateX(-50%);
+      background:rgba(4,8,14,.58);border:1px solid rgba(255,255,255,.10);
+      border-radius:999px;padding:7px 11px;font-size:11px;font-weight:800;
+      backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);white-space:nowrap
+    }
+    .combat-hud{
+      position:absolute;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));
+      height:44px;pointer-events:none
+    }
+    .weapon-strip{
+      position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+      display:flex;direction:ltr;gap:3px;padding:3px;border-radius:14px;
+      background:rgba(4,8,14,.62);border:1px solid rgba(255,255,255,.10);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);pointer-events:auto
+    }
+    .weapon{
+      width:54px;height:38px;display:grid;place-items:center;padding:0;
+      border-radius:11px;border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.035);color:#d7dde5
+    }
+    .weapon.selected{background:rgba(255,255,255,.14);border-color:var(--weapon-color);box-shadow:inset 0 0 0 1px var(--weapon-color)}
+    .weapon canvas{width:48px;height:28px;display:block;pointer-events:none}
+    .damage{
+      position:fixed;inset:0;z-index:18;pointer-events:none;overflow:hidden
+    }
+    .paint-hit{
+      position:absolute;width:clamp(90px,28vw,140px);height:clamp(90px,28vw,140px);
+      background:radial-gradient(ellipse at 47% 48%,var(--paint-color) 0 27%,transparent 28%),
+        radial-gradient(ellipse at 62% 32%,var(--paint-color) 0 11%,transparent 12%),
+        radial-gradient(ellipse at 28% 63%,var(--paint-color) 0 13%,transparent 14%),
+        radial-gradient(circle at 77% 68%,var(--paint-color) 0 5%,transparent 6%),
+        radial-gradient(circle at 23% 24%,var(--paint-color) 0 4%,transparent 5%),
+        radial-gradient(circle at 58% 84%,var(--paint-color) 0 3%,transparent 4%);
+      animation:paint-hit .75s ease-out forwards
+    }
+    @keyframes paint-hit{
+      0%{opacity:0;transform:rotate(var(--splat-angle)) scale(.55)}
+      14%,55%{opacity:.78;transform:rotate(var(--splat-angle)) scale(1)}
+      100%{opacity:0;transform:rotate(var(--splat-angle)) scale(1.07)}
+    }
+    .toast{
+      position:absolute;left:50%;top:13%;transform:translate(-50%,-7px);
+      opacity:0;transition:.2s;background:rgba(4,8,14,.84);border:1px solid rgba(255,255,255,.14);
+      border-radius:999px;padding:9px 14px;font-size:12px;font-weight:800;white-space:nowrap
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    #intro,#gameover{
+      position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center;
+      padding:24px 20px max(30px,env(safe-area-inset-bottom));
+      background:radial-gradient(circle at 50% 30%,#242b34 0,#0b1017 48%,#03060a 100%);
+      color:#fff
+    }
+    #gameover{display:none;background:rgba(3,6,10,.86);align-items:center}
+    .card{
+      width:min(100%,520px);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+      border-radius:28px;padding:24px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)
+    }
+    .card h1{margin:0 0 9px;font-size:28px}
+    .card p{margin:0 0 18px;color:#d4dbe4;font-size:14px;line-height:1.8}
+    .start{
+      width:100%;height:58px;border:0;border-radius:18px;background:#fff;color:#081018;
+      font-size:16px;font-weight:950
+    }
+    .tiny{margin-top:11px!important;color:#9da8b6!important;font-size:11px!important;text-align:center}
+    .error{display:none;margin-top:12px;color:#ffc0c0;font-size:12px;line-height:1.7}
+    @media(max-width:430px){
+      .weapon{width:48px;height:36px}
+      .weapon canvas{width:44px;height:26px}
+      .weapon-strip{gap:2px}
+    }
+  </style>
+<meta name="robots" content="noindex, nofollow"/><meta name="theme-color" content="#0B1730"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="stylesheet" href="./brand.css"/>
+</head>
+<body>
+  <canvas id="camerafeed"></canvas>
+  <div class="damage" id="damageFlash"></div>
+  <a class="home-btn" href="/ar/"><img class="aboden-mark" src="/assets/brand/symbol-white.svg" alt="" width="20" height="20"/> عبودين قيمز</a>
+
+  <div class="ui" id="gameUi" style="display:none">
+    <div class="status" id="statusText">جاري تثبيت الساحة…</div>
+    <div class="guide" id="guide">
+      <b>وجّه الجوال أمامك</b>
+      ستظهر المواجهة تلقائيًا عند بدء التتبع، بدون مسح دقيق أو زر تثبيت.
+    </div>
+    <div class="crosshair" id="crosshair"><i></i></div>
+    <div class="toast" id="toast"></div>
+
+    <div class="combat-hud">
+      <div class="weapon-strip" id="weaponStrip" aria-label="اختيار السلاح"></div>
+    </div>
+  </div>
+
+  <div id="intro">
+    <div class="card">
+      <h1>حرب الألوان — AR</h1>
+      <p>تحدّي كرات الألوان بالواقع المعزز. بعد فتح الكاميرا ستظهر المواجهة تلقائيًا أمامك. لكل سلاح لون، ولكل جندي لون مختلف — وكرات الرمي وآثارها تطابق لون صاحبها.</p>
+      <button class="start" id="startBtn" disabled>جاري تجهيز محرك AR…</button>
+      <div class="error" id="errorBox"></div>
+      <p class="tiny">وضع تجربة بصحة غير محدودة — المس الشاشة للإطلاق.</p>
+    </div>
+  </div>
+
+  <div id="gameover">
+    <div class="card">
+      <h1>انتهت المواجهة</h1>
+      <p id="gameoverText">تمت إصابتك.</p>
+      <button class="start" id="restartBtn">ابدأ من جديد</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { FastTrackingGate } from './js/ar/FastTrackingGate.js?v=1';
+    import { OperationInkCombat, WEAPONS, preloadSoldierAsset } from './js/ar/OperationInkCombat.js?v=4';
+
+    window.THREE=THREE;
+
+    const canvas=document.getElementById('camerafeed');
+    const intro=document.getElementById('intro');
+    const gameUi=document.getElementById('gameUi');
+    const startBtn=document.getElementById('startBtn');
+    const errorBox=document.getElementById('errorBox');
+    const guide=document.getElementById('guide');
+    const statusText=document.getElementById('statusText');
+    const toast=document.getElementById('toast');
+    const weaponStrip=document.getElementById('weaponStrip');
+    const damageFlash=document.getElementById('damageFlash');
+    const gameover=document.getElementById('gameover');
+    const gameoverText=document.getElementById('gameoverText');
+    const restartBtn=document.getElementById('restartBtn');
+
+    let xrReady=false,xrStarted=false,scene,camera,renderer,combat=null;
+    let lastTick=performance.now(),sceneReady=false;
+    let placed=false,groundRing=null;
+    const trackingGate=new FastTrackingGate();
+    const raycaster=new THREE.Raycaster();
+    const centerNdc=new THREE.Vector2(0,0);
+    const groundPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+    const hitPoint=new THREE.Vector3();
+    const estimatedForward=new THREE.Vector3(0,0,-1);
+
+    let audioCtx=null,audioMaster=null,audioNoise=null,lastPaintImpact=-Infinity;
+
+    function syncVisualViewport(){
+      const vv=window.visualViewport;
+      const w=Math.round(vv?.width||window.innerWidth||document.documentElement.clientWidth);
+      const h=Math.round(vv?.height||window.innerHeight||document.documentElement.clientHeight);
+      document.documentElement.style.setProperty('--app-w',w+'px');
+      document.documentElement.style.setProperty('--app-h',h+'px');
+      canvas.style.setProperty('width',w+'px','important');
+      canvas.style.setProperty('height',h+'px','important');
+      requestAnimationFrame(()=>renderer?.setSize?.(w,h,false));
+    }
+    syncVisualViewport();
+    window.addEventListener('resize',syncVisualViewport,{passive:true});
+    window.addEventListener('orientationchange',()=>{setTimeout(syncVisualViewport,80);setTimeout(syncVisualViewport,350);},{passive:true});
+    window.visualViewport?.addEventListener('resize',syncVisualViewport,{passive:true});
+
+    function notify(msg){
+      toast.textContent=msg;toast.classList.add('show');
+      clearTimeout(window.__operationToast);
+      window.__operationToast=setTimeout(()=>toast.classList.remove('show'),1150);
+    }
+
+    function ensureAudio(){
+      if(!audioCtx){
+        audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+        audioMaster=audioCtx.createGain();audioMaster.gain.value=.72;audioMaster.connect(audioCtx.destination);
+        audioNoise=audioCtx.createBuffer(1,Math.ceil(audioCtx.sampleRate*.12),audioCtx.sampleRate);
+        const samples=audioNoise.getChannelData(0);
+        for(let i=0;i<samples.length;i++)samples[i]=Math.random()*2-1;
+      }
+      if(audioCtx.state==='suspended') audioCtx.resume().catch(()=>{});
+      return audioCtx;
+    }
+
+    function playPaintSound({impact=false,enemy=false}={}){
+      const ctx=ensureAudio(),now=ctx.currentTime;
+      if(impact && now-lastPaintImpact<.035)return;
+      if(impact)lastPaintImpact=now;
+      const duration=impact?.10:.065,volume=enemy?.13:impact?.23:.32;
+      const noise=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),envelope=ctx.createGain();
+      noise.buffer=audioNoise;filter.type='bandpass';filter.frequency.value=impact?850:1500;filter.Q.value=.65;
+      envelope.gain.setValueAtTime(volume,now);envelope.gain.exponentialRampToValueAtTime(.001,now+duration);
+      noise.connect(filter);filter.connect(envelope);envelope.connect(audioMaster);
+      const pop=ctx.createOscillator(),popGain=ctx.createGain();
+      pop.type='sine';pop.frequency.setValueAtTime(impact?220:430,now);pop.frequency.exponentialRampToValueAtTime(80,now+duration);
+      popGain.gain.setValueAtTime(volume*.65,now);popGain.gain.exponentialRampToValueAtTime(.001,now+duration);
+      pop.connect(popGain);popGain.connect(audioMaster);
+      noise.start(now);noise.stop(now+duration);pop.start(now);pop.stop(now+duration);
+      noise.onended=()=>{noise.disconnect();filter.disconnect();envelope.disconnect();pop.disconnect();popGain.disconnect();};
+    }
+
+    function showPaintHit(color){
+      while(damageFlash.childElementCount>=3)damageFlash.firstElementChild.remove();
+      const splat=document.createElement('i');splat.className='paint-hit';
+      splat.style.setProperty('--paint-color','#'+(color??0xffae26).toString(16).padStart(6,'0'));
+      splat.style.setProperty('--splat-angle',Math.round(Math.random()*360)+'deg');
+      splat.style.left=(Math.random()>.5?4:73)+'%';splat.style.top=(30+Math.random()*35)+'%';
+      damageFlash.append(splat);splat.addEventListener('animationend',()=>splat.remove(),{once:true});
+    }
+
+    function combatEvent(e){
+      if(e.type==='player-shot'){
+        playPaintSound();
+      }else if(e.type==='enemy-shot'){
+        playPaintSound({enemy:true});
+      }else if(e.type==='enemy-hit'){
+        playPaintSound({impact:true});
+      }else if(e.type==='world-hit'){
+        playPaintSound({impact:true,enemy:true});
+      }else if(e.type==='player-hit'){
+        showPaintHit(e.color);playPaintSound({impact:true,enemy:true});
+        if(navigator.vibrate) navigator.vibrate(25);
+      }else if(e.type==='weapon-change'){
+        notify('السلاح: '+(WEAPONS[e.weapon]?.label||e.weapon));
+      }else if(e.type==='enemy-dead'){
+        notify('تم إسقاط الهدف');
+      }else if(e.type==='wave-start'){
+        notify('الموجة '+e.wave+' — '+e.count+' جنود');
+      }
+    }
+
+    function updateHud(h){
+      document.documentElement.style.setProperty('--active-paint','#'+WEAPONS[h.weapon].color.toString(16).padStart(6,'0'));
+      document.querySelectorAll('.weapon').forEach(button=>{
+        const selected=button.dataset.weapon===h.weapon;
+        button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',String(selected));
+      });
+    }
+
+    function drawWeaponIcon(canvas,name){
+      const ratio=Math.min(window.devicePixelRatio||1,2),w=48,h=28;
+      canvas.width=w*ratio;canvas.height=h*ratio;
+      const ctx=canvas.getContext('2d');ctx.scale(ratio,ratio);
+      ctx.fillStyle='#'+WEAPONS[name].color.toString(16).padStart(6,'0');ctx.strokeStyle=ctx.fillStyle;
+      ctx.lineWidth=2;ctx.lineCap='round';ctx.lineJoin='round';
+      const polygon=points=>{
+        ctx.beginPath();ctx.moveTo(points[0][0],points[0][1]);
+        for(let i=1;i<points.length;i++)ctx.lineTo(points[i][0],points[i][1]);
+        ctx.closePath();ctx.fill();
+      };
+      if(name==='pistol'){
+        ctx.fillRect(11,7,25,6);ctx.fillRect(34,8,7,3);
+        polygon([[22,13],[31,13],[28,24],[22,23],[20,17]]);
+      }else if(name==='ak'){
+        polygon([[3,14],[11,8],[16,10],[15,16],[7,18]]);
+        ctx.fillRect(14,9,19,7);ctx.fillRect(32,10,12,3);
+        polygon([[22,16],[29,16],[28,24],[23,23],[20,18]]);
+        ctx.fillRect(16,16,4,6);
+      }else if(name==='smg'){
+        ctx.strokeRect(5,10,8,6);ctx.fillRect(12,8,22,9);ctx.fillRect(33,10,10,3);
+        polygon([[19,17],[25,17],[24,24],[20,24]]);ctx.fillRect(28,17,4,5);
+      }else if(name==='shotgun'){
+        polygon([[3,15],[10,9],[17,11],[16,16],[8,19]]);
+        ctx.fillRect(15,9,27,3);ctx.fillRect(15,14,27,2);ctx.fillRect(25,12,9,6);
+      }else if(name==='sniper'){
+        polygon([[2,16],[10,10],[17,11],[17,16],[8,19]]);
+        ctx.fillRect(15,10,29,3);ctx.fillRect(18,15,10,3);
+        ctx.fillRect(20,6,13,3);ctx.beginPath();ctx.arc(20,7.5,2.4,0,Math.PI*2);ctx.fill();
+        polygon([[17,17],[22,17],[20,23],[17,23]]);
+      }
+      ctx.beginPath();ctx.arc(45,11,1.5,0,Math.PI*2);ctx.fill();
+    }
+
+    function buildWeaponSelector(){
+      for(const name of ['pistol','ak','smg','shotgun','sniper']){
+        const button=document.createElement('button'),icon=document.createElement('canvas');
+        button.type='button';button.className='weapon';button.dataset.weapon=name;
+        button.style.setProperty('--weapon-color','#'+WEAPONS[name].color.toString(16).padStart(6,'0'));
+        button.classList.toggle('selected',name==='ak');
+        button.setAttribute('aria-label',WEAPONS[name].label);button.setAttribute('aria-pressed',String(name==='ak'));
+        button.append(icon);weaponStrip.append(button);drawWeaponIcon(icon,name);
+      }
+    }
+
+    buildWeaponSelector();
+    // Download/parse while the intro/AR engine is loading, not after placement.
+    // Combat still has its primitive fallback if this request is slow or fails.
+    preloadSoldierAsset();
+
+    function createGroundRing(){
+      groundRing=new THREE.Mesh(
+        new THREE.RingGeometry(2.15,2.18,96).rotateX(-Math.PI/2),
+        new THREE.MeshBasicMaterial({color:0xd7e4ee,transparent:true,opacity:.11,depthWrite:false})
+      );
+      groundRing.visible=false;scene.add(groundRing);
+    }
+
+    function createCombat(anchor){
+      if(combat) combat.dispose();
+      combat=new OperationInkCombat({scene,camera,onEvent:combatEvent,onHud:updateHud});
+      combat.reset(anchor);
+      groundRing.position.copy(anchor);groundRing.position.y+=.006;groundRing.visible=true;
+      placed=true;guide.classList.add('hidden');
+      statusText.textContent='المواجهة بدأت — المس أي مكان للإطلاق';
+      notify('بدأت المواجهة');
+    }
+
+    function updatePlacement(now){
+      if(placed)return;
+      if(!trackingGate.ready(now)){
+        statusText.textContent='جاري تثبيت الساحة…';
+        return;
+      }
+
+      camera.updateMatrixWorld(true);raycaster.setFromCamera(centerNdc,camera);
+      const floorHit=raycaster.ray.direction.y<-.04 && raycaster.ray.intersectPlane(groundPlane,hitPoint) && hitPoint.distanceTo(camera.position)<=6;
+      if(!floorHit){
+        camera.getWorldDirection(estimatedForward);estimatedForward.y=0;
+        if(estimatedForward.lengthSq()<.01)estimatedForward.set(0,0,-1);else estimatedForward.normalize();
+        camera.getWorldPosition(hitPoint);hitPoint.addScaledVector(estimatedForward,2.8);hitPoint.y=0;
+      }
+      // Capture once: do not drag the arena with later camera movement.
+      createCombat(hitPoint.clone());
+    }
+
+    function tick(now){
+      if(!sceneReady||!camera) return;
+      const dt=Math.min(.05,Math.max(0,(now-lastTick)/1000||.016));lastTick=now;
+      updatePlacement(now);
+      const tracking=trackingGate.ready(now);
+      if(combat){combat.setTracking(tracking);combat.update(dt);}
+      if(placed && !tracking) statusText.textContent='التتبع ضعيف — حرّك الجوال ببطء';
+      else if(placed) statusText.textContent='المواجهة تعمل';
+    }
+
+    async function setupScene(){
+      const xrScene=XR8.Threejs.xrScene();
+      scene=xrScene.scene;camera=xrScene.camera;renderer=xrScene.renderer;
+      renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+      syncVisualViewport();
+      scene.add(new THREE.HemisphereLight(0xffffff,0x59636f,1.55));
+      const key=new THREE.DirectionalLight(0xffffff,1.55);key.position.set(2,5,1);key.castShadow=true;scene.add(key);
+      createGroundRing();
+      trackingGate.reset();
+      sceneReady=true;lastTick=performance.now();
+      intro.style.display='none';gameUi.style.display='block';
+      statusText.textContent='جاري تثبيت الساحة…';
+    }
+
+    function worldModule(){
+      return{
+        name:'aboden-operation-ink-ar',
+        onStart:async()=>{
+          try{await setupScene();window.dispatchEvent(new Event('resize'));}
+          catch(err){console.error(err);startupFailure('تعذر تجهيز تجربة القتال. أعد تحميل الصفحة وحاول مرة أخرى.');}
+        },
+        onUpdate:({processCpuResult})=>{
+          if(!sceneReady) return;
+          if(document.hidden){trackingGate.reset();combat?.setTracking(false);lastTick=performance.now();return;}
+          const now=performance.now(),reality=processCpuResult?.reality;
+          trackingGate.observe({now,status:reality?.trackingStatus,position:reality?.position});
+          tick(now);
+        },
+        onCameraStatusChange:({status})=>{
+          if(status==='failed') startupFailure('تعذر فتح الكاميرا. اسمح بالكاميرا ثم أعد المحاولة.');
+        },
+        onException:(err)=>{
+          console.error(err);
+          trackingGate.reset();combat?.setTracking(false);
+          statusText.textContent='توقف التتبع مؤقتًا';
+        }
+      };
+    }
+
+    function startupFailure(message){
+      trackingGate.reset();combat?.setTracking(false);
+      xrStarted=false;sceneReady=false;startBtn.disabled=false;startBtn.textContent='حاول مرة أخرى';
+      intro.style.display='flex';gameUi.style.display='none';errorBox.style.display='block';errorBox.textContent=message;
+    }
+
+    function recenter(){
+      if(!xrStarted) return;
+      if(combat){combat.dispose();combat=null;}
+      damageFlash.replaceChildren();
+      placed=false;groundRing.visible=false;
+      trackingGate.reset();
+      guide.classList.remove('hidden');statusText.textContent='جاري تثبيت الساحة…';
+      gameover.style.display='none';
+      try{XR8.XrController.recenter();}catch{}
+      notify('تمت المعايرة');
+    }
+
+    document.querySelectorAll('.weapon').forEach(btn=>{
+      btn.addEventListener('pointerdown',e=>{
+        e.preventDefault();e.stopPropagation();
+        if(!combat) return;
+        combat.setWeapon(btn.dataset.weapon);
+      });
+    });
+
+    function isCombatControl(target){
+      return target instanceof Element && !!target.closest('button,a,.weapon-strip,#intro,#gameover');
+    }
+
+    // Fire from any non-control area of the screen. Holding keeps AK/SMG firing
+    // automatically; semi-auto weapons still fire once per touch.
+    document.addEventListener('pointerdown',e=>{
+      if(!e.isPrimary || isCombatControl(e.target) || !placed || !combat) return;
+      e.preventDefault();
+      ensureAudio();
+      combat.triggerDown();
+    },{passive:false});
+
+    const stopFire=()=>combat?.triggerUp();
+    document.addEventListener('pointerup',stopFire,{passive:true});
+    document.addEventListener('pointercancel',stopFire,{passive:true});
+
+    restartBtn.addEventListener('click',()=>{gameover.style.display='none';recenter();});
+
+    // iOS Safari may still select text or magnify on rapid taps even with the
+    // viewport lock. Cancel its non-standard gestures without affecting firing.
+    const preventSafariGesture=e=>e.preventDefault();
+    for(const type of ['gesturestart','gesturechange','gestureend','dblclick','selectstart']){
+      document.addEventListener(type,preventSafariGesture,{passive:false});
+    }
+    document.addEventListener('touchmove',e=>{
+      if(e.touches.length>1)e.preventDefault();
+    },{passive:false});
+
+    document.addEventListener('visibilitychange',()=>{
+      trackingGate.reset();
+      combat?.setTracking(false);lastTick=performance.now();
+    });
+
+    startBtn.addEventListener('click',()=>{
+      if(!xrReady||xrStarted) return;
+      ensureAudio();
+      xrStarted=true;startBtn.disabled=true;startBtn.textContent='جاري فتح الكاميرا…';errorBox.style.display='none';
+      try{XR8.run({canvas});syncVisualViewport();}
+      catch(err){console.error(err);startupFailure('تعذر تشغيل AR. حدّث الصفحة وحاول مرة أخرى.');}
+    });
+
+    function initializeXR(){
+      if(xrReady||!window.XR8||!window.THREE) return;
+      try{
+        XR8.XrController.configure({
+          disableWorldTracking:false,
+          enableLighting:true,
+          enableWorldPoints:false,
+          scale:'absolute'
+        });
+        XR8.addCameraPipelineModules([
+          XR8.GlTextureRenderer.pipelineModule(),
+          XR8.Threejs.pipelineModule(),
+          XR8.XrController.pipelineModule(),
+          worldModule()
+        ]);
+        xrReady=true;startBtn.disabled=false;startBtn.textContent='ابدأ التجربة';
+      }catch(err){
+        console.error(err);errorBox.style.display='block';errorBox.textContent='لم يكتمل تحميل محرك AR. أعد تحميل الصفحة.';
+      }
+    }
+
+    if(window.XR8) initializeXR();
+    else window.addEventListener('xrloaded',initializeXR,{once:true});
+
+    setTimeout(()=>{
+      if(!xrReady){errorBox.style.display='block';errorBox.textContent='محرك AR يستغرق وقتًا أطول من المتوقع. تحقق من الاتصال ثم أعد تحميل الصفحة.';}
+    },12000);
+  </script>
+</body>
+</html>
