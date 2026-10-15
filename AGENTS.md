@@ -52,3 +52,4 @@
 - Character cut-outs (owner-supplied, 2026-10-15) in `public/assets/characters/`, one per page and never grouped: Aboden in Quest 3 → home hero beside «اللعب يبدأ بفكرة» (replaces the old logo scene); Nasser with controller → games page; girl drawing (pink) → contact; girl pointing (purple) → support. Owner confirmed: جود is the pink girl (drawing), نجد is the purple girl (pointing).
 - Contact and support pages (owner, 2026-10-15): no forms — the studio email is shown as text with a short paragraph on what to write. On support, a `?game=` link from a game page puts the game name into the email subject.
 - deploy.yml skips publishing when main has already moved past the run's commit (the newer queued run publishes), so back-to-back merges no longer fail with rejected pushes or verification timeouts.
+- The AR lab has no detail page of its own (owner, 2026-10-15): its card and launch link go to `/ar/#experiences`, and `/projects/ar-aboden/` only forwards there.

@@ -40,7 +40,7 @@ test('no unapproved cards, routes or fixtures appear in homepage',()=>{
  const html=renderHome();
  assert.equal((html.match(/data-project /g)||[]).length,8);assert.ok(!html.includes('test-fixture'));
  assert.equal((renderGames().match(/data-filter=/g)||[]).length,6);
- for(const project of loadCatalog()) assert.ok(html.includes('projects/'+project.slug+'/'));
+ for(const project of loadCatalog()) assert.ok(html.includes(project.slug==='ar-aboden'?'/ar/#experiences':'projects/'+project.slug+'/'));
  assert.ok(!html.includes('projects/aboden-fun/'));
 });
 test('RTL and preview noindex are explicit',()=>{
