@@ -1,0 +1,78 @@
+{
+ "source": "3wasfnjd/AR-Aboden index.html at commit 56a234fcad485d9eddee4c6e0da8ebae040f5ae4. Owner instruction 2026-10-15: «انقل قائمة تجارب المختبر بأوصافها وروابطها وصمم لها صور» وصنفها للجوال فقط؛ تجربتا الرماية تظهران.",
+ "device": "mobile",
+ "experiences": [
+  {
+   "slug": "arena",
+   "file": "arena.html",
+   "title": "الحلبة والتفحيط",
+   "description": "ثبّت الحلبة وشاهد سيارة مصغّرة تؤدي عرض درفت تلقائيًا مع دخان الكفرات وآثار الإطارات.",
+   "status": "متاحة الآن",
+   "image": "assets/ar/arena.webp"
+  },
+  {
+   "slug": "balloons",
+   "file": "balloons.html",
+   "title": "صيد المناطيد",
+   "description": "حرّك الجوال للتصويب على الأهداف التي تحوم داخل الغرفة، ثم فجّرها وارفع نقاطك.",
+   "status": "تجريبية",
+   "image": "assets/ar/balloons.webp"
+  },
+  {
+   "slug": "horror",
+   "file": "horror.html",
+   "title": "الرعب المتجول",
+   "description": "ترول ضخم يظهر من بعيد ثم يمشي نحو الجوال بحركة Walk أصلية ويتوقف قبل الاقتراب الشديد.",
+   "status": "تجريبية",
+   "image": "assets/ar/horror.webp"
+  },
+  {
+   "slug": "basketball",
+   "file": "basketball.html",
+   "title": "رماية السلة",
+   "description": "وجّه الجوال نحو السلة الظاهرة في المكان، واسحب إصبعك للأعلى لتسديد الكرة وتسجيل النقاط.",
+   "status": "تجريبية",
+   "image": "assets/ar/basketball.webp"
+  },
+  {
+   "slug": "laser",
+   "file": "laser.html",
+   "title": "عرض الليزر AR",
+   "description": "ثبّت جهاز ليزر داخل المكان وشاهد عروض ILDA متحركة في الهواء مع أشعة خارجة من جهاز الإسقاط.",
+   "status": "جديدة",
+   "image": "assets/ar/laser.webp"
+  },
+  {
+   "slug": "ink",
+   "file": "operation-ink-ar.html",
+   "title": "حرب الألوان AR",
+   "description": "مواجهة جنود داخل المكان بأسلحة متعددة وذكاء اصطناعي يعيد التموضع ويهاجم على شكل موجات متزايدة.",
+   "status": "جديدة",
+   "image": "assets/ar/ink.webp"
+  },
+  {
+   "slug": "gallery",
+   "file": "gallery.html",
+   "title": "رماية عبودين",
+   "description": "افتح الكاميرا مباشرة، وجّه علامة التصويب إلى البطّات والعلب أمامك واضغط إطلاق.",
+   "status": "تجريبية",
+   "image": "assets/ar/gallery.webp"
+  },
+  {
+   "slug": "photo",
+   "file": "photo.html",
+   "title": "تركيب صورة AR",
+   "description": "اختر صورة أو فيديو، اعرضه بشكل دائري بحواف متدرجة، واضبط الحجم والدوران والشفافية ثم ثبّته في وضع 3D.",
+   "status": "جديدة",
+   "image": "assets/ar/photo.webp"
+  },
+  {
+   "slug": "sand",
+   "file": "sand.html",
+   "title": "الكتابة على الرمل",
+   "description": "اكتب وارسم بإصبعك على رمل تفاعلي، شاهد الحبيبات تتحرك، ثم امسح رسمك بموجة بحر. بدون كاميرا.",
+   "status": "جديدة",
+   "image": "assets/ar/sand.webp"
+  }
+ ]
+}
