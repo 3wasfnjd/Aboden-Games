@@ -39,7 +39,7 @@ test('root deployment can use the same renderer',()=>assert.ok(renderHome('/').i
 test('no unapproved cards, routes or fixtures appear in homepage',()=>{
  const html=renderHome();
  assert.equal((html.match(/data-project /g)||[]).length,8);assert.ok(!html.includes('test-fixture'));
- assert.equal((renderGames().match(/data-filter=/g)||[]).length,7);
+ assert.equal((renderGames().match(/data-filter=/g)||[]).length,6);
  for(const project of loadCatalog()) assert.ok(html.includes('projects/'+project.slug+'/'));
  assert.ok(!html.includes('projects/aboden-fun/'));
 });

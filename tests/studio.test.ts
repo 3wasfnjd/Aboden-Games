@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { loadCatalog } from '../src/lib/catalog.ts';
-import {renderHome,renderGames,renderProject,renderStudio,renderTeam,renderSupport,renderContact,renderQuest,renderLicenses} from '../src/lib/site.ts';
+import {renderHome,renderGames,renderProject,renderStudio,renderTeam,renderSupport,renderContact,renderQuest,renderLicenses,renderAR} from '../src/lib/site.ts';
 import {filterProjects,composeMessage} from '../public/app.js';
 const read=(p:string)=>readFileSync(p,'utf8');
 const hash=(p:string)=>createHash('sha256').update(readFileSync(p)).digest('hex');
@@ -22,7 +22,7 @@ test('every migrated source file is retained; game covers, approvals and catalog
  }
 });
 test('all public studio HTML removes repository links and internal repository names',()=>{
- const pages=[renderHome(),renderGames(),renderStudio(),renderTeam(),renderSupport(),renderContact(),renderQuest(),renderLicenses(),...loadCatalog().map(p=>renderProject(p))];
+ const pages=[renderHome(),renderGames(),renderStudio(),renderTeam(),renderSupport(),renderContact(),renderQuest(),renderLicenses(),renderAR(),...loadCatalog().map(p=>renderProject(p))];
  for(const html of pages){
   assert.doesNotMatch(html,/href=["'][^"']*(?:github\.com|api\.github\.com|raw\.githubusercontent\.com)/i);
   assert.doesNotMatch(html.replace(/<[^>]*>/g,''),/GitHub|مستودع|3wasfnjd\//i);
@@ -42,8 +42,22 @@ test('game platform sections distinguish touch web games and Quest',()=>{
 test('contact preparation never reports delivery with no configured email',()=>{
  assert.match(renderContact(),/لا يتم إرسالها من هذا النموذج/);
  assert.match(renderSupport(),/لا يتم إرسالها من هذا النموذج/);
- assert.match(renderTeam(),/قريبًا/);
- assert.equal(JSON.parse(read('src/data/studio.json')).team.length,0);
+ const studio=JSON.parse(read('src/data/studio.json'));
+ assert.deepEqual(studio.team.map((m:any)=>m.name),['عبودين','ناصر','جود','نجد']);
+ assert.equal(studio.contactEmail,'');
+});
+test('team story and photo slot render without inventing a photo',()=>{
+ const team=renderTeam(),studioPage=renderStudio();
+ for(const name of ['عبودين','ناصر','جود','نجد'])assert.ok(team.includes(name));
+ assert.match(studioPage,/id="story"/);assert.match(studioPage,/الذكاء الاصطناعي/);
+ if(!JSON.parse(read('src/data/studio.json')).familyPhoto)assert.match(team,/صورة الفريق قريبًا/);
+});
+test('augmented reality has its own page, separate from the games grid',()=>{
+ const ar=renderAR(),games=renderGames();
+ assert.match(ar,/مختبر عبودين/);assert.match(ar,/الكتابة على الرمل/);
+ assert.ok(ar.includes('https://3wasfnjd.github.io/AR-Aboden/'));
+ assert.doesNotMatch(games.split('id="game-grid"')[1].split('</div><div class="empty-state"')[0],/projects\/ar-aboden\//);
+ assert.ok(games.includes('href="/ar/"'));assert.ok(renderHome().includes('href="/ar/"'));
 });
 test('Arabic search intersects text and genre and handles no results',()=>{
  const projects=[{category:'أكشن',search:'بوم BOOM مطاردات'},{category:'قيادة',search:'هجولة Hajwala'}];
