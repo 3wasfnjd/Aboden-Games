@@ -82,3 +82,10 @@ test('studio page shows the tools the owner asked for',()=>{
  const html=renderStudio();for(const n of ['Claude','ChatGPT','Gemini','Tripo AI','GitHub'])assert.ok(html.includes(n));
 });
 test('licences page credits the GPL sand experience',()=>{const html=renderLicenses();assert.match(html,/Sandboard/);assert.ok(html.includes('ar-lab/js/sand/LICENSE.txt'));});
+test('every studio page carries the content security policy and referrer policy',()=>{
+ for(const html of [renderHome(),renderGames(),renderStudio(),renderTeam(),renderSupport(),renderContact(),renderAR(),renderLicenses()]){
+  assert.match(html,/http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self';/);
+  assert.match(html,/name="referrer" content="strict-origin-when-cross-origin"/);
+ }
+ assert.ok(existsSync('public/.well-known/security.txt'));
+});
