@@ -70,3 +70,10 @@ test('support message includes user-selected details as text',()=>{
  const text=composeMessage({kind:'support',name:'عبدالله',subject:'دحروج — Meta Quest',device:'Quest 3',message:'المشكلة عند البدء'});
  for(const phrase of ['عبدالله','دحروج — Meta Quest','Quest 3','المشكلة عند البدء'])assert.ok(text.includes(phrase));
 });
+test('AR page lists all nine lab experiences, mobile only, with designed art and live links',()=>{
+ const ar=renderAR(),list=JSON.parse(read('src/data/ar-experiences.json')).experiences;
+ assert.equal(list.length,9);
+ for(const x of list){assert.ok(ar.includes(x.title));assert.ok(existsSync('public/'+x.image));assert.ok(ar.includes('https://3wasfnjd.github.io/AR-Aboden/'+x.file));}
+ assert.ok(ar.includes('رماية عبودين'));assert.ok(ar.includes('حرب الألوان AR'));
+ assert.equal((ar.match(/class="ar-exp-device"/g)||[]).length,9);
+});

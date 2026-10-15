@@ -35,11 +35,12 @@
 
 - Team provided by the owner: عبودين (design and programming with AI assistance) and the owner's children ناصر وجود ونجد (game idea and play style). Do not add other members or invent bios.
 - Family image: the owner supplied an illustration on 2026-10-15, stored as `public/assets/team/aboden-family.webp`. Use only owner-supplied images here; never substitute a stock or self-generated image.
-- Augmented-reality experiences have their own page at `/ar/`, separate from the games grid. The experience list comes only from the approved AR-Aboden description.
+- Augmented-reality experiences have their own page at `/ar/`, separate from the games grid. Owner instruction 2026-10-15: «انقل قائمة تجارب المختبر بأوصافها وروابطها وصمم لها صور», mobile only, both shooting experiences shown. Data in `src/data/ar-experiences.json` (verbatim from the lab index), designed art in `public/assets/ar/`.
 - Accent colour `--accent:#ff8a3d` (sunset orange) is approved to break the navy/white palette; use it for highlights only.
 
 ## Design refresh — 2026-10-15
 
 - Owner asked for better image layout/quality, smaller typography and less all-navy background. Overrides live in `public/assets/refresh.css` (loaded last): fluid type scale, 4:5 poster cards (whole artwork kept with a blurred fill), sand-coloured bands (`.band-sand`).
 - Owner allowed taking images from the game repositories or designing new ones. Higher-resolution copies and the designed AR-lab poster live in `public/assets/posters/`; each is recorded in `src/data/poster-sources.json` and wired through `poster`/`art` in `game-sections.json`. Original `assets/projects/` covers stay byte-identical.
-- Team portraits (`public/assets/team/*-avatar.webp`) are small face crops of the owner-supplied team illustration (2026-10-15), linked via `photo` in studio.json. The owner wants them small, not large.
+- Team portraits (`public/assets/team/{aboden,nasser,joud,najd}.webp`) are each member's full quadrant of the owner-supplied team illustration, frame and details intact (no face crops, no upscaling). Show them small.
+- Search indexing stays off (noindex) until the owner says the site is finished.
