@@ -9,9 +9,10 @@ export function composeMessage({kind,name,subject,device,message}) {
  return [kind==='support'?'طلب دعم — عبودين قيمز':'تواصل — عبودين قيمز',name?`الاسم: ${name}`:'',`الموضوع: ${subject}`,device?`الجهاز: ${device}`:'','',message].filter((s,i)=>s||i===4).join('\n');
 }
 if(typeof document!=='undefined') {
+ const EN=document.documentElement.lang==='en',L=(ar,en)=>EN?en:ar;
  const menu=document.querySelector('.menu-toggle'),nav=document.querySelector('#mobile-nav');
- function closeMenu(){if(!menu||!nav)return;nav.hidden=true;menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','فتح القائمة');}
- menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';nav.hidden=open;menu.setAttribute('aria-expanded',String(!open));menu.setAttribute('aria-label',open?'فتح القائمة':'إغلاق القائمة');});
+ function closeMenu(){if(!menu||!nav)return;nav.hidden=true;menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label',L('فتح القائمة','Open menu'));}
+ menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';nav.hidden=open;menu.setAttribute('aria-expanded',String(!open));menu.setAttribute('aria-label',open?L('فتح القائمة','Open menu'):L('إغلاق القائمة','Close menu'));});
  nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&nav&&!nav.hidden){closeMenu();menu.focus();}});
  document.addEventListener('click',event=>{if(nav&&!nav.hidden&&!event.target.closest('.site-header'))closeMenu();});
@@ -22,7 +23,7 @@ if(typeof document!=='undefined') {
   const visible=new Set(filterProjects(cards.map((el,i)=>({i,category:el.dataset.category,search:el.dataset.search})),search?.value||'',category).map(x=>x.i));
   cards.forEach((card,i)=>{card.hidden=!visible.has(i);});
   filters.forEach(button=>{const active=button.dataset.filter===category;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});
-  const count=document.querySelector('#results-count');if(count)count.textContent=`${visible.size} من ${cards.length} ألعاب`;
+  const count=document.querySelector('#results-count');if(count)count.textContent=EN?`${visible.size} of ${cards.length} games`:`${visible.size} من ${cards.length} ألعاب`;
   const empty=document.querySelector('#no-results');if(empty)empty.hidden=visible.size>0;
  }
  search?.addEventListener('input',updateGames);
@@ -32,8 +33,8 @@ if(typeof document!=='undefined') {
  // Support: a ?game= link from a game page goes into the email subject.
  const supportMail=document.querySelector('[data-support-mail]'),game=new URLSearchParams(location.search).get('game');
  if(supportMail&&game&&game.length<=80){
-  const subject=`دعم — ${game}`;supportMail.href=`mailto:${supportMail.dataset.supportMail}?subject=${encodeURIComponent(subject)}`;
-  const note=document.querySelector('[data-support-game]');if(note){note.textContent=`رسالتك عن: ${game}`;note.hidden=false;}
+  const subject=EN?`Support — ${game}`:`دعم — ${game}`;supportMail.href=`mailto:${supportMail.dataset.supportMail}?subject=${encodeURIComponent(subject)}`;
+  const note=document.querySelector('[data-support-game]');if(note){note.textContent=EN?`Your message is about: ${game}`:`رسالتك عن: ${game}`;note.hidden=false;}
  }
 
 }
