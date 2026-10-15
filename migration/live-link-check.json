@@ -1,0 +1,58 @@
+[
+  {
+    "game": "motri",
+    "url": "https://3wasfnjd.github.io/Motri/",
+    "status": 200,
+    "finalUrl": "https://3wasfnjd.github.io/Motri/",
+    "htmlBytesRead": 58666
+  },
+  {
+    "game": "dahrooj",
+    "url": "https://3wasfnjd.github.io/Dahrooj/",
+    "status": 200,
+    "finalUrl": "https://3wasfnjd.github.io/Dahrooj/",
+    "htmlBytesRead": 154240
+  },
+  {
+    "game": "boom",
+    "url": "https://3wasfnjd.github.io/Boom/",
+    "status": 200,
+    "finalUrl": "https://3wasfnjd.github.io/Boom/",
+    "htmlBytesRead": 4844
+  },
+  {
+    "game": "aboden-hero",
+    "url": "https://3wasfnjd.github.io/Aboden-Hero/",
+    "status": 200,
+    "finalUrl": "https://3wasfnjd.github.io/Aboden-Hero/",
+    "htmlBytesRead": 8754
+  },
+  {
+    "game": "big-battles",
+    "url": "https://3wasfnjd.github.io/BIG-BATTLES/",
+    "status": 200,
+    "finalUrl": "https://3wasfnjd.github.io/BIG-BATTLES/",
+    "htmlBytesRead": 12068
+  },
+  {
+    "game": "hajwala",
+    "url": "https://3wasfnjd.github.io/hajwala/",
+    "status": 200,
+    "finalUrl": "https://3wasfnjd.github.io/hajwala/",
+    "htmlBytesRead": 4618
+  },
+  {
+    "game": "sandline",
+    "url": "https://3wasfnjd.github.io/SANDLINE/",
+    "status": 200,
+    "finalUrl": "https://3wasfnjd.github.io/SANDLINE/",
+    "htmlBytesRead": 2348
+  },
+  {
+    "game": "ar-aboden",
+    "url": "https://3wasfnjd.github.io/AR-Aboden/",
+    "status": 200,
+    "finalUrl": "https://3wasfnjd.github.io/AR-Aboden/",
+    "htmlBytesRead": 13864
+  }
+]

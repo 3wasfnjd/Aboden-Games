@@ -1,0 +1,8 @@
+/* Retain the complete approved artwork on every card and detail page. */
+.project-card{display:flex;flex-direction:column}
+.project-card>.card-main{flex:1}
+.project-cover{isolation:isolate;background:#081327}
+.project-cover::before{content:"";position:absolute;inset:-24px;background-image:var(--project-art);background-size:cover;background-position:center;filter:blur(24px);opacity:.2;z-index:-1}
+.project-cover img{object-fit:contain;position:relative}
+.project-category{z-index:1}
+.detail-cover{object-fit:contain;background:#081327}

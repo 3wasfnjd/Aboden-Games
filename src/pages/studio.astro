@@ -1,0 +1,5 @@
+---
+import { renderStudio } from '../lib/site.ts';
+const html = renderStudio(import.meta.env.BASE_URL);
+---
+<Fragment set:html={html} />

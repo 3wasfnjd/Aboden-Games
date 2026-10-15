@@ -1,0 +1,5 @@
+---
+import { renderContact } from '../lib/site.ts';
+const html = renderContact(import.meta.env.BASE_URL);
+---
+<Fragment set:html={html} />

@@ -1,0 +1,51 @@
+name: Publish Aboden Games studio
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['build-info.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: publish-built-pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'aboden-games1/aboden-games1.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Validate approvals, preserve games and policies, build
+        run: npm run build
+      - run: python3 scripts/verify-build.py
+      - name: Prepare Pages without deleting existing files
+        run: node scripts/sync-pages.mjs
+      - name: Commit generated site
+        run: |
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'Publish verified Aboden Games studio [skip ci]'
+            git push origin HEAD:main
+          fi
+      - name: Request Pages publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
+      - name: Verify published revision and preserved privacy policy
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl --connect-timeout 10 --max-time 20 -fsS "https://abodengames.com/build-info.json?revision=${GITHUB_SHA}" -o /tmp/live-build.json && jq -e --arg sha "$GITHUB_SHA" '.source == $sha' /tmp/live-build.json >/dev/null; then
+              python3 scripts/verify-published.py
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
