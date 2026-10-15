@@ -20,5 +20,13 @@
   "ar-lab-poster.webp": {
     "repository": null,
     "note": "Studio-designed typographic poster (brand colours and logo only, no gameplay imagery), made at the owner's request on 2026-10-15."
+  },
+  "dahrooj-quest-keyart.webp": {
+    "repository": null,
+    "note": "Owner-supplied Dahrooj Meta Quest key art (2026-10-15); replaces dahrooj-cover.jpg in the home feature, games Quest card, Quest page hero and AR page. dahrooj-cover.jpg itself stays byte-identical."
+  },
+  "dahrooj-quest-presskit.webp": {
+    "repository": null,
+    "note": "Owner-supplied Dahrooj presentation sheet (2026-10-15), shown on the Dahrooj Meta Quest page."
   }
 }

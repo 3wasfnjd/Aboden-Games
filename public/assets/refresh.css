@@ -209,3 +209,6 @@ html[dir=ltr] .project-category{right:auto;left:12px}
 html[dir=ltr] .skip-link{right:auto;left:20px}
 html[dir=ltr] .desktop-nav a[aria-current]:after{right:auto;left:50%}
 html[lang=en] body{letter-spacing:0}
+.quest-presskit{margin:clamp(40px,5vw,72px) 0 var(--section-space);border-radius:20px;overflow:hidden;border:1px solid var(--line)}
+.quest-presskit img{width:100%;height:auto;display:block}
+.quest-hero{width:100%;height:auto;border-radius:20px}
