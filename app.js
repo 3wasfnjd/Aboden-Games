@@ -20,7 +20,7 @@ if(typeof document!=='undefined') {
   const visible=new Set(filterProjects(cards.map((el,i)=>({i,category:el.dataset.category,search:el.dataset.search})),search?.value||'',category).map(x=>x.i));
   cards.forEach((card,i)=>{card.hidden=!visible.has(i);});
   filters.forEach(button=>{const active=button.dataset.filter===category;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});
-  const count=document.querySelector('#results-count');if(count)count.textContent=`${visible.size} من ${cards.length} ألعاب وتجارب`;
+  const count=document.querySelector('#results-count');if(count)count.textContent=`${visible.size} من ${cards.length} ألعاب`;
   const empty=document.querySelector('#no-results');if(empty)empty.hidden=visible.size>0;
  }
  search?.addEventListener('input',updateGames);
