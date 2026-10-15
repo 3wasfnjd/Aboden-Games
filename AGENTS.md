@@ -37,3 +37,8 @@
 - Family image: the owner supplied an illustration on 2026-10-15, stored as `public/assets/team/aboden-family.webp`. Use only owner-supplied images here; never substitute a stock or self-generated image.
 - Augmented-reality experiences have their own page at `/ar/`, separate from the games grid. The experience list comes only from the approved AR-Aboden description.
 - Accent colour `--accent:#ff8a3d` (sunset orange) is approved to break the navy/white palette; use it for highlights only.
+
+## Design refresh — 2026-10-15
+
+- Owner asked for better image layout/quality, smaller typography and less all-navy background. Overrides live in `public/assets/refresh.css` (loaded last): fluid type scale, 4:5 poster cards (whole artwork kept with a blurred fill), sand-coloured bands (`.band-sand`).
+- Owner allowed taking images from the game repositories or designing new ones. Higher-resolution copies and the designed AR-lab poster live in `public/assets/posters/`; each is recorded in `src/data/poster-sources.json` and wired through `poster`/`art` in `game-sections.json`. Original `assets/projects/` covers stay byte-identical.
