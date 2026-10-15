@@ -29,21 +29,35 @@ jobs:
         run: node scripts/sync-pages.mjs
       - name: Commit generated site
         run: |
+          # A newer merge on main has its own run (queued behind this one); let it publish instead of racing it.
+          git fetch --quiet origin main
+          if [ "$(git rev-parse origin/main)" != "$GITHUB_SHA" ]; then
+            echo "::notice::main moved past $GITHUB_SHA; the newer run publishes the site."
+            echo "SUPERSEDED=1" >> "$GITHUB_ENV"
+            exit 0
+          fi
           if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git commit -m 'Publish verified Aboden Games studio [skip ci]'
             git push origin HEAD:main
           fi
+          echo "PUBLISHED_HEAD=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
       - name: Request Pages publication
+        if: env.SUPERSEDED != '1'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
       - name: Verify published revision and preserved privacy policy
+        if: env.SUPERSEDED != '1'
         run: |
           for attempt in $(seq 1 30); do
             if curl --connect-timeout 10 --max-time 20 -fsS "https://abodengames.com/build-info.json?revision=${GITHUB_SHA}" -o /tmp/live-build.json && jq -e --arg sha "$GITHUB_SHA" '.source == $sha' /tmp/live-build.json >/dev/null; then
               python3 scripts/verify-published.py
+              exit 0
+            fi
+            if [ "$(git ls-remote origin refs/heads/main | cut -f1)" != "$PUBLISHED_HEAD" ]; then
+              echo "::notice::A newer commit reached main while waiting; its run verifies the live site."
               exit 0
             fi
             sleep 5
