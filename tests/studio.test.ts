@@ -55,7 +55,7 @@ test('team story and photo slot render without inventing a photo',()=>{
 test('augmented reality has its own page, separate from the games grid',()=>{
  const ar=renderAR(),games=renderGames();
  assert.match(ar,/مختبر عبودين/);assert.match(ar,/الكتابة على الرمل/);
- assert.ok(ar.includes('https://3wasfnjd.github.io/AR-Aboden/'));
+ assert.ok(ar.includes('/ar-lab/arena.html'));assert.doesNotMatch(ar,/3wasfnjd\.github\.io\/AR-Aboden/);
  assert.doesNotMatch(games.split('id="game-grid"')[1].split('</div><div class="empty-state"')[0],/projects\/ar-aboden\//);
  assert.ok(games.includes('href="/ar/"'));assert.ok(renderHome().includes('href="/ar/"'));
 });
@@ -73,7 +73,7 @@ test('support message includes user-selected details as text',()=>{
 test('AR page lists all nine lab experiences, mobile only, with designed art and live links',()=>{
  const ar=renderAR(),list=JSON.parse(read('src/data/ar-experiences.json')).experiences;
  assert.equal(list.length,9);
- for(const x of list){assert.ok(ar.includes(x.title));assert.ok(existsSync('public/'+x.image));assert.ok(ar.includes('https://3wasfnjd.github.io/AR-Aboden/'+x.file));}
+ for(const x of list){assert.ok(ar.includes(x.title));assert.ok(existsSync('public/'+x.image));assert.ok(ar.includes('/ar-lab/'+x.file));assert.ok(existsSync('public/ar-lab/'+x.file));}
  assert.ok(ar.includes('رماية عبودين'));assert.ok(ar.includes('حرب الألوان AR'));
  assert.equal((ar.match(/class="ar-exp-device"/g)||[]).length,9);
 });

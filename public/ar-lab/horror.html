@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#050607">
+  <title>الرعب المتجول · ABODEN AR</title>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/@8thwall/engine-binary@1/dist/xr.js"
+    async crossorigin
+    data-preload-chunks="slam"
+  ></script>
+
+  <script type="importmap">
+  {
+    "imports":{
+      "three":"https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+      "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+    }
+  }
+  </script>
+
+  <style>
+    :root{--app-w:100vw;--app-h:100dvh;color-scheme:dark}
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html{
+      margin:0;width:100%;height:100%;min-height:100%;
+      background:#000;overflow:hidden
+    }
+    body{
+      position:fixed;left:0;top:0;margin:0;
+      width:var(--app-w);height:var(--app-h);min-height:var(--app-h);
+      overflow:hidden;overscroll-behavior:none;background:#000;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,Arial,sans-serif;
+      touch-action:none
+    }
+    #camerafeed{
+      position:fixed!important;
+      left:0!important;top:0!important;
+      right:auto!important;bottom:auto!important;
+      margin:0!important;padding:0!important;
+      width:var(--app-w)!important;height:var(--app-h)!important;
+      min-width:var(--app-w)!important;min-height:var(--app-h)!important;
+      max-width:none!important;max-height:none!important;
+      display:block!important;z-index:0!important;
+      transform:none!important;
+      filter:none!important;-webkit-filter:none!important;
+      opacity:1!important
+    }
+    .ui{
+      position:fixed;left:0;top:0;
+      width:var(--app-w);height:var(--app-h);
+      z-index:20;pointer-events:none;color:#fff
+    }
+    .home-btn{
+      position:fixed;left:14px;top:max(14px,env(safe-area-inset-top));z-index:60;
+      pointer-events:auto;text-decoration:none;color:#fff;
+      background:rgba(4,5,6,.78);border:1px solid rgba(255,255,255,.13);
+      border-radius:999px;padding:9px 13px;font-size:12px;font-weight:900;
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)
+    }
+    .top{
+      position:absolute;left:112px;right:14px;top:max(14px,env(safe-area-inset-top));
+      display:flex;justify-content:space-between;gap:8px;pointer-events:none
+    }
+    .pill{
+      min-height:38px;display:flex;align-items:center;gap:7px;
+      padding:0 12px;border-radius:999px;
+      background:rgba(5,6,7,.72);border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px);
+      font-size:11px;font-weight:900
+    }
+    .status .dot{
+      width:7px;height:7px;border-radius:50%;background:#d95e65;
+      box-shadow:0 0 10px rgba(217,94,101,.8)
+    }
+    .status.ready .dot{background:#84efae;box-shadow:0 0 10px rgba(132,239,174,.75)}
+    .guide{
+      position:absolute;left:50%;top:82px;transform:translateX(-50%);
+      width:min(88vw,360px);padding:10px 14px;border-radius:16px;text-align:center;
+      background:rgba(3,4,5,.70);border:1px solid rgba(255,255,255,.11);
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+      font-size:11px;line-height:1.55;color:#d8dadd
+    }
+    .guide b{display:block;color:#fff;font-size:12px;margin-bottom:2px}
+    .guide.hidden{display:none}
+    .placement{
+      position:absolute;right:16px;bottom:max(20px,env(safe-area-inset-bottom));
+      display:flex;gap:8px;pointer-events:auto
+    }
+    .action{
+      border:1px solid rgba(255,255,255,.14);border-radius:16px;
+      background:rgba(4,5,6,.78);color:#fff;
+      padding:12px 15px;font-weight:900;font-size:12px;
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)
+    }
+    .action.primary{background:#eee;color:#090a0b}
+    .action:disabled{opacity:.42;filter:saturate(.5)}
+    .placement.placed #placeBtn{display:none}
+    .placement.placed #resetBtn{background:rgba(4,5,6,.70)}
+    .reticle{
+      position:absolute;left:50%;top:50%;width:26px;height:26px;
+      transform:translate(-50%,-50%);border:1px solid rgba(255,255,255,.82);
+      border-radius:50%;box-shadow:0 0 18px rgba(255,255,255,.18);
+      opacity:0;transition:opacity .2s
+    }
+    .reticle.on{opacity:1}
+    .reticle:before,.reticle:after{
+      content:"";position:absolute;left:50%;top:50%;background:rgba(255,255,255,.8)
+    }
+    .reticle:before{width:6px;height:1px;transform:translate(-50%,-50%)}
+    .reticle:after{width:1px;height:6px;transform:translate(-50%,-50%)}
+    .toast{
+      position:absolute;left:50%;bottom:105px;transform:translate(-50%,12px);
+      padding:9px 13px;border-radius:999px;background:rgba(4,5,6,.82);
+      border:1px solid rgba(255,255,255,.12);font-size:11px;font-weight:800;
+      opacity:0;transition:.2s;white-space:nowrap
+    }
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    #intro{
+      position:fixed;inset:0;z-index:50;
+      display:flex;align-items:flex-end;justify-content:center;
+      padding:22px 18px max(30px,env(safe-area-inset-bottom));
+      background:
+        radial-gradient(circle at 50% 20%,rgba(90,17,25,.22),transparent 38%),
+        linear-gradient(#060708,#010101);
+      color:#fff
+    }
+    .card{
+      width:min(100%,520px);padding:25px;border-radius:26px;
+      background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.10);
+      backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)
+    }
+    .eyebrow{color:#d96a73;font-size:11px;font-weight:900;letter-spacing:.16em;margin-bottom:8px}
+    .card h1{font-size:29px;margin:0 0 9px}
+    .card p{margin:0 0 18px;color:#c9cbd0;font-size:13px;line-height:1.8}
+    .start{
+      width:100%;height:58px;border:0;border-radius:18px;
+      background:#eee;color:#08090a;font-size:16px;font-weight:950
+    }
+    .start:disabled{opacity:.46}
+    .tiny{margin-top:11px!important;margin-bottom:0!important;text-align:center;color:#878b91!important;font-size:10.5px!important}
+    .error{display:none;margin-top:12px;color:#ffb9bd;font-size:11px;line-height:1.6}
+  </style>
+<meta name="robots" content="noindex, nofollow"/><meta name="theme-color" content="#0B1730"/><link rel="icon" href="/favicon.svg" type="image/svg+xml"/><link rel="stylesheet" href="./brand.css"/>
+</head>
+<body>
+  <canvas id="camerafeed"></canvas>
+  <a class="home-btn" href="/ar/"><img class="aboden-mark" src="/assets/brand/symbol-white.svg" alt="" width="20" height="20"/> عبودين قيمز</a>
+
+  <div class="ui" id="gameUi">
+    <div class="top">
+      <div class="pill">👻 الرعب المتجول</div>
+      <div class="pill status" id="status"><span class="dot"></span><span id="statusText">جاهز</span></div>
+    </div>
+
+    <div class="guide" id="guide">
+      <b>امسح أرضية الغرفة</b>
+      وجّه الكاميرا نحو الأرض وحرّك الجوال ببطء. عندما يثبت المؤشر على الأرض اضغط «ثبّت الأرض».
+    </div>
+
+    <div class="reticle" id="reticle"></div>
+    <div class="toast" id="toast"></div>
+
+    <div class="placement" id="placementControls">
+      <button class="action primary" id="placeBtn" disabled>ثبّت الأرض</button>
+      <button class="action" id="resetBtn">إعادة مسح</button>
+    </div>
+  </div>
+
+  <div id="intro">
+    <div class="card">
+      <div class="eyebrow">ABODEN AR · HORROR</div>
+      <h1>الرعب المتجول</h1>
+      <p>زومبي ببدلة Hazmat يظهر أمامك من مسافة آمنة، ثم يمشي باتجاه الجوال ويتوقف قبل الاقتراب الشديد.</p>
+      <button class="start" id="startBtn" disabled>جاري تجهيز المحرك…</button>
+      <div class="error" id="errorBox"></div>
+      <p class="tiny">يفضل مساحة فارغة نسبيًا وتحريك الجوال ببطء أثناء التتبع.<br>3D: Zombie Hazmat · LxNazarov / Sketchfab · CC Attribution</p>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+
+    window.THREE=THREE;
+
+    const canvas=document.getElementById('camerafeed');
+    const intro=document.getElementById('intro');
+    const startBtn=document.getElementById('startBtn');
+    const errorBox=document.getElementById('errorBox');
+    const status=document.getElementById('status');
+    const statusText=document.getElementById('statusText');
+    const guide=document.getElementById('guide');
+    const reticleEl=document.getElementById('reticle');
+    const toast=document.getElementById('toast');
+    const placeBtn=document.getElementById('placeBtn');
+    const resetBtn=document.getElementById('resetBtn');
+    const placementControls=document.getElementById('placementControls');
+
+    let xrReady=false;
+    let xrStarted=false;
+    let scene,camera,renderer;
+
+    let placed=false;
+    let surfaceReady=false;
+    let stableMs=0;
+    let lastTime=performance.now();
+
+    // Ground calibration uses XR8 SLAM world points instead of assuming Y=0.
+    // We collect a stable horizontal cluster while the user scans the floor,
+    // then lock all actor movement to that calibrated Y level.
+    let floorY=null;
+    let floorEstimate=null;
+    let floorJitter=Infinity;
+    let floorPointCount=0;
+    const floorSamples=[];
+    const FLOOR_SAMPLE_WINDOW=26;
+    const FLOOR_MIN_POINTS=14;
+    const FLOOR_BIN_SIZE=.055;
+    const FLOOR_BAND=.085;
+
+    const raycaster=new THREE.Raycaster();
+    const centerNdc=new THREE.Vector2(0,0);
+    const floorPlane=new THREE.Plane(new THREE.Vector3(0,1,0),0);
+    const hitPoint=new THREE.Vector3();
+    const stablePoint=new THREE.Vector3();
+    const prevHit=new THREE.Vector3(999,999,999);
+
+    const playOrigin=new THREE.Vector3();
+    const playForward=new THREE.Vector3(0,0,-1);
+    const playRight=new THREE.Vector3(1,0,0);
+
+    const START_MIN_DISTANCE=9.5;
+    const START_MAX_DISTANCE=11.5;
+    const STALK_STOP_DISTANCE=3.40;
+    const STALK_SIDE_OFFSET=.16;
+
+    const actors=[];
+    const mixers=[];
+
+    function syncVisualViewport(){
+      const vv=window.visualViewport;
+      const w=Math.round(vv?.width||window.innerWidth||document.documentElement.clientWidth);
+      const h=Math.round(vv?.height||window.innerHeight||document.documentElement.clientHeight);
+
+      document.documentElement.style.setProperty('--app-w',w+'px');
+      document.documentElement.style.setProperty('--app-h',h+'px');
+
+      const cameraCanvas=document.getElementById('camerafeed');
+      if(cameraCanvas){
+        cameraCanvas.style.setProperty('left','0px','important');
+        cameraCanvas.style.setProperty('top','0px','important');
+        cameraCanvas.style.setProperty('width',w+'px','important');
+        cameraCanvas.style.setProperty('height',h+'px','important');
+      }
+
+      // XR8 may resize the canvas after its own frame/layout pass.
+      // Re-apply both CSS size and Three renderer size so the camera feed
+      // keeps the same aspect ratio and sharpness as the working arena page.
+      requestAnimationFrame(()=>{
+        if(cameraCanvas){
+          cameraCanvas.style.setProperty('left','0px','important');
+          cameraCanvas.style.setProperty('top','0px','important');
+          cameraCanvas.style.setProperty('width',w+'px','important');
+          cameraCanvas.style.setProperty('height',h+'px','important');
+        }
+
+        if(renderer&&renderer.setSize){
+          renderer.setSize(w,h,false);
+        }
+      });
+    }
+
+    syncVisualViewport();
+    window.addEventListener('resize',syncVisualViewport,{passive:true});
+    window.addEventListener('orientationchange',()=>{
+      setTimeout(syncVisualViewport,80);
+      setTimeout(syncVisualViewport,350);
+    },{passive:true});
+    if(window.visualViewport){
+      window.visualViewport.addEventListener('resize',syncVisualViewport,{passive:true});
+      window.visualViewport.addEventListener('scroll',syncVisualViewport,{passive:true});
+    }
+
+    function notify(msg){
+      toast.textContent=msg;
+      toast.classList.add('show');
+      clearTimeout(window.__horrorToast);
+      window.__horrorToast=setTimeout(()=>toast.classList.remove('show'),1500);
+    }
+
+    function setStatus(text,ready=false){
+      statusText.textContent=text;
+      status.classList.toggle('ready',ready);
+    }
+
+    function cameraHorizontalForward(out){
+      camera.getWorldDirection(out);
+      out.y=0;
+      if(out.lengthSq()<.0001) out.set(0,0,-1);
+      return out.normalize();
+    }
+
+    function median(values){
+      if(!values.length)return null;
+      const sorted=values.slice().sort((a,b)=>a-b);
+      const m=Math.floor(sorted.length/2);
+      return sorted.length%2?sorted[m]:(sorted[m-1]+sorted[m])*.5;
+    }
+
+    function resetFloorCalibration(){
+      floorY=null;
+      floorEstimate=null;
+      floorJitter=Infinity;
+      floorPointCount=0;
+      floorSamples.length=0;
+      stableMs=0;
+      surfaceReady=false;
+      floorPlane.constant=0;
+      stablePoint.set(0,0,0);
+      prevHit.set(999,999,999);
+      placeBtn.disabled=true;
+    }
+
+    function estimateFloorFromWorldPoints(worldPoints){
+      if(!camera||!Array.isArray(worldPoints)||!worldPoints.length){
+        floorPointCount=0;
+        return false;
+      }
+
+      const camPos=camera.getWorldPosition(new THREE.Vector3());
+      const camForward=camera.getWorldDirection(new THREE.Vector3()).normalize();
+      const candidates=[];
+      const bins=new Map();
+
+      // Cap work per frame on mobile while keeping the point cloud spatially broad.
+      const stride=Math.max(1,Math.ceil(worldPoints.length/700));
+
+      for(let i=0;i<worldPoints.length;i+=stride){
+        const wp=worldPoints[i];
+        const p=wp?.position;
+        if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)||!Number.isFinite(p.z))continue;
+        if(Number.isFinite(wp.confidence)&&wp.confidence<.20)continue;
+
+        const dx=p.x-camPos.x;
+        const dy=p.y-camPos.y;
+        const dz=p.z-camPos.z;
+        const d=Math.hypot(dx,dy,dz);
+        if(d<.18||d>6.5)continue;
+
+        // While scanning the floor, keep points in the camera's broad forward cone
+        // and below the camera. This rejects most ceiling / behind-camera points.
+        const alignment=(dx*camForward.x+dy*camForward.y+dz*camForward.z)/d;
+        // A real floor should be meaningfully below a hand-held phone.
+        // Reject nearby horizontal surfaces such as tables, beds and sofas.
+        if(alignment<.20||p.y>camPos.y-.42||p.y<camPos.y-3.0)continue;
+
+        const key=Math.round(p.y/FLOOR_BIN_SIZE);
+        let bucket=bins.get(key);
+        if(!bucket){
+          bucket=[];
+          bins.set(key,bucket);
+        }
+        bucket.push(p.y);
+        candidates.push(p);
+      }
+
+      if(candidates.length<FLOOR_MIN_POINTS){
+        floorPointCount=candidates.length;
+        return false;
+      }
+
+      let maxCount=0;
+      for(const bucket of bins.values())maxCount=Math.max(maxCount,bucket.length);
+
+      // Prefer the lowest trustworthy horizontal cluster, not simply the
+      // largest cluster. This prevents a dense table/sofa surface from being
+      // mistaken for the floor while the user scans downward.
+      const denseThreshold=Math.max(
+        FLOOR_MIN_POINTS,
+        Math.ceil(maxCount*.38)
+      );
+      const denseKeys=[...bins.entries()]
+        .filter(([,bucket])=>bucket.length>=denseThreshold)
+        .map(([key])=>key)
+        .sort((a,b)=>a-b);
+
+      const bestKey=denseKeys.length?denseKeys[0]:null;
+      const bestCount=bestKey===null?maxCount:bins.get(bestKey).length;
+
+      if(bestKey===null||bestCount<FLOOR_MIN_POINTS){
+        floorPointCount=bestCount;
+        return false;
+      }
+
+      const bucketY=bestKey*FLOOR_BIN_SIZE;
+      const bandValues=[];
+      for(const p of candidates){
+        if(Math.abs(p.y-bucketY)<=FLOOR_BAND)bandValues.push(p.y);
+      }
+
+      const frameFloor=median(bandValues);
+      if(frameFloor===null||bandValues.length<FLOOR_MIN_POINTS){
+        floorPointCount=bandValues.length;
+        return false;
+      }
+
+      floorPointCount=bandValues.length;
+      floorSamples.push(frameFloor);
+      if(floorSamples.length>FLOOR_SAMPLE_WINDOW)floorSamples.shift();
+
+      floorEstimate=median(floorSamples);
+      const deviations=floorSamples.map(v=>Math.abs(v-floorEstimate));
+      floorJitter=median(deviations)??Infinity;
+
+      return floorSamples.length>=10 && floorJitter<.035;
+    }
+
+    function makeLocomotionInPlace(clip){
+      // The AR actor itself handles forward movement. Imported Mixamo-style
+      // clips often contain translation on Hips/Root/Pelvis, which makes the
+      // mesh drift or float above our calibrated floor. Freeze only those
+      // locomotion translation tracks at their first keyed position while
+      // retaining all bone rotations and limb animation.
+      const fixed=clip.clone();
+
+      for(const track of fixed.tracks){
+        if(!/\.position$/i.test(track.name))continue;
+
+        const targetName=track.name.slice(0,-'.position'.length);
+        if(!/(hips|root|pelvis|armature)/i.test(targetName))continue;
+
+        const values=track.values;
+        if(!values||values.length<3)continue;
+
+        const x0=values[0];
+        const y0=values[1];
+        const z0=values[2];
+
+        for(let i=0;i+2<values.length;i+=3){
+          values[i]=x0;
+          values[i+1]=y0;
+          values[i+2]=z0;
+        }
+      }
+
+      fixed.resetDuration();
+      return fixed;
+    }
+
+    async function loadGLB(path){
+      const loader=new GLTFLoader();
+      return await new Promise((resolve,reject)=>loader.load(path,resolve,undefined,reject));
+    }
+
+    function normalizeModel(raw,{height=1.55,modelYaw=0}={}){
+      // Keep the imported GLB root transform exactly as authored.
+      // Apply scene-facing rotation on a wrapper rather than mutating the
+      // skinned model's original transform.
+      const content=new THREE.Group();
+      content.add(raw);
+
+      raw.updateMatrixWorld(true);
+
+      const box=new THREE.Box3().setFromObject(raw);
+      const center=new THREE.Vector3();
+      box.getCenter(center);
+
+      // Recenter on the floor in the wrapper's coordinate system.
+      raw.position.x-=center.x;
+      raw.position.z-=center.z;
+      raw.position.y-=box.min.y;
+
+      content.rotation.y=modelYaw;
+      content.updateMatrixWorld(true);
+
+      const orientedBox=new THREE.Box3().setFromObject(content);
+      const orientedSize=new THREE.Vector3();
+      orientedBox.getSize(orientedSize);
+
+      const wrapper=new THREE.Group();
+      wrapper.add(content);
+      wrapper.scale.setScalar(height/Math.max(orientedSize.y,.001));
+
+      wrapper.traverse(o=>{
+        if(!o.isMesh)return;
+
+        o.castShadow=false;
+        o.receiveShadow=false;
+
+        const original=Array.isArray(o.material)?o.material:[o.material];
+        const unlit=original.map(m=>{
+          if(!m)return m;
+
+          const mat=new THREE.MeshBasicMaterial({
+            map:m.map||null,
+            color:m.color?.clone?.()||new THREE.Color(0xffffff),
+            transparent:!!m.transparent,
+            opacity:m.opacity??1,
+            alphaMap:m.alphaMap||null,
+            alphaTest:m.alphaTest||0,
+            side:m.side,
+            depthTest:m.depthTest!==false,
+            depthWrite:m.depthWrite!==false,
+            vertexColors:!!m.vertexColors,
+            toneMapped:false
+          });
+
+          mat.name=(m.name||'zombie')+'_unlit';
+          return mat;
+        });
+
+        o.material=Array.isArray(o.material)?unlit:unlit[0];
+      });
+
+      return wrapper;
+    }
+
+    const tempCameraPos=new THREE.Vector3();
+    const tempCameraForward=new THREE.Vector3();
+    const tempCameraRight=new THREE.Vector3();
+
+    function updateStalkTarget(actor){
+      camera.getWorldPosition(tempCameraPos);
+      tempCameraPos.y=playOrigin.y;
+
+      cameraHorizontalForward(tempCameraForward);
+      tempCameraRight.set(-tempCameraForward.z,0,tempCameraForward.x).normalize();
+
+      // Stop in front of the phone instead of walking into the camera.
+      actor.target.copy(tempCameraPos)
+        .addScaledVector(tempCameraForward,STALK_STOP_DISTANCE)
+        .addScaledVector(tempCameraRight,actor.sideOffset);
+      actor.target.y=playOrigin.y;
+    }
+
+    function createActor(root,{
+      speed=.14,
+      turnRate=1.55,
+      forwardOffset=0,
+      mixer=null,
+      action=null
+    }={}){
+      const actor={
+        root,
+        speed,
+        turnRate,
+        forwardOffset,
+        mixer,
+        action,
+        target:new THREE.Vector3(),
+        currentSpeed:0,
+        baseY:0,
+        sideOffset:THREE.MathUtils.randFloat(-STALK_SIDE_OFFSET,STALK_SIDE_OFFSET),
+        retargetTimer:0,
+      };
+
+      root.visible=false;
+      scene.add(root);
+      actors.push(actor);
+      if(mixer) mixers.push(mixer);
+      return actor;
+    }
+
+    async function loadCharacters(){
+      const zombieGltf=await loadGLB('./assets/horror/zombie_hazmat.glb');
+
+      // Keep the hazmat zombie slightly oversized for horror presence while
+      // remaining believable relative to the AR floor.
+      const zombie=normalizeModel(zombieGltf.scene,{height:3.20,modelYaw:0});
+      let mixer=null;
+      let action=null;
+
+      if(zombieGltf.animations?.length){
+        mixer=new THREE.AnimationMixer(zombie);
+        const sourceClip=zombieGltf.animations.find(a=>/^walk$/i.test(a.name))
+          || zombieGltf.animations.find(a=>/walk/i.test(a.name))
+          || zombieGltf.animations[0];
+        const clip=makeLocomotionInPlace(sourceClip);
+
+        action=mixer.clipAction(clip);
+        action.setLoop(THREE.LoopRepeat,Infinity);
+        action.timeScale=.48;
+        action.play();
+        action.paused=true;
+      }
+
+      createActor(zombie,{
+        speed:.18,
+        turnRate:.92,
+        forwardOffset:0,
+        mixer,
+        action
+      });
+    }
+
+    function updateActors(dt){
+      const dir=new THREE.Vector3();
+
+      for(const a of actors){
+        a.retargetTimer-=dt;
+        if(a.retargetTimer<=0){
+          updateStalkTarget(a);
+          a.retargetTimer=.12;
+        }
+
+        dir.subVectors(a.target,a.root.position);
+        dir.y=0;
+        const distance=dir.length();
+
+        let desiredSpeed=0;
+        let hasDirection=false;
+
+        if(distance>.10){
+          dir.divideScalar(distance);
+          hasDirection=true;
+
+          // Slow down smoothly as she reaches the phone's safe stopping point.
+          const slowDown=THREE.MathUtils.smoothstep(distance,.10,.85);
+          desiredSpeed=a.speed*(.18+.82*slowDown);
+        }
+
+        const response=desiredSpeed>a.currentSpeed ? 1.7 : 3.2;
+        const speedBlend=1-Math.exp(-response*dt);
+        a.currentSpeed=THREE.MathUtils.lerp(a.currentSpeed,desiredSpeed,speedBlend);
+
+        if(hasDirection && a.currentSpeed>.001){
+          const targetYaw=Math.atan2(dir.x,dir.z)+a.forwardOffset;
+          const currentYaw=a.root.rotation.y;
+
+          let diff=targetYaw-currentYaw;
+          while(diff>Math.PI) diff-=Math.PI*2;
+          while(diff<-Math.PI) diff+=Math.PI*2;
+
+          const turnBlend=1-Math.exp(-a.turnRate*dt);
+          a.root.rotation.y=currentYaw+diff*turnBlend;
+
+          const step=Math.min(distance,a.currentSpeed*dt);
+          a.root.position.addScaledVector(dir,step);
+        }
+
+        const speedRatio=a.speed>0 ? THREE.MathUtils.clamp(a.currentSpeed/a.speed,0,1) : 0;
+
+        if(a.action){
+          a.action.paused=speedRatio<.025;
+
+          if(!a.action.paused){
+            // The model has a genuine Walk clip. Keep it deliberate and
+            // synchronize the cycle with the zombie's actual approach speed.
+            const targetTimeScale=.34+.18*speedRatio;
+            a.action.timeScale=THREE.MathUtils.lerp(
+              a.action.timeScale,
+              targetTimeScale,
+              1-Math.exp(-4*dt)
+            );
+          }
+        }
+
+        if(a.mixer) a.mixer.update(dt);
+
+        // Floor anchor always wins over imported animation/root transforms.
+        // The animated skeleton stays inside this wrapper while the wrapper's
+        // world Y remains exactly on the calibrated ground plane.
+        a.root.position.y=a.baseY;
+      }
+    }
+
+    function setPlayFrameFromCamera(position){
+      playOrigin.copy(position);
+      cameraHorizontalForward(playForward);
+      playRight.set(-playForward.z,0,playForward.x).normalize();
+    }
+
+    function distributeActors(){
+      for(const a of actors){
+        const startAngle=THREE.MathUtils.degToRad(
+          THREE.MathUtils.randFloat(-22,22)
+        );
+        const startDistance=THREE.MathUtils.randFloat(
+          START_MIN_DISTANCE,
+          START_MAX_DISTANCE
+        );
+
+        a.root.position.copy(playOrigin)
+          .addScaledVector(playForward,Math.cos(startAngle)*startDistance)
+          .addScaledVector(playRight,Math.sin(startAngle)*startDistance);
+
+        a.root.position.y=playOrigin.y;
+        a.baseY=playOrigin.y;
+        a.currentSpeed=0;
+        a.sideOffset=THREE.MathUtils.randFloat(-STALK_SIDE_OFFSET,STALK_SIDE_OFFSET);
+        a.retargetTimer=0;
+        updateStalkTarget(a);
+
+        if(a.action){
+          a.action.paused=true;
+          a.action.timeScale=.48;
+        }
+      }
+    }
+
+    async function setupScene(){
+      const xrScene=XR8.Threejs.xrScene();
+      scene=xrScene.scene;
+      camera=xrScene.camera;
+      renderer=xrScene.renderer;
+
+      syncVisualViewport();
+      setTimeout(syncVisualViewport,50);
+      setTimeout(syncVisualViewport,250);
+
+      renderer.shadowMap.enabled=false;
+
+      // Zombie materials are deliberately unlit so no scene light can cast
+      // or paint visible shadows onto the model in camera passthrough.
+
+      try{
+        await loadCharacters();
+      }catch(err){
+        console.error(err);
+        errorBox.style.display='block';
+        errorBox.textContent='تعذر تحميل موديل الزومبي. تأكد من وجود zombie_hazmat.glb داخل assets/horror.';
+        notify('موديل الزومبي غير موجود في المستودع');
+      }
+
+      // XR8 owns the tracked camera pose and projection. Do not overwrite
+      // camera.position or its projection matrix here; doing so offsets the
+      // virtual characters from the real camera on iPhone.
+      resetFloorCalibration();
+      setStatus('امسح الأرض ببطء',false);
+      lastTime=performance.now();
+    }
+
+    function updatePlacement(dt,reality){
+      if(placed){
+        reticleEl.classList.remove('on');
+        return;
+      }
+
+      const trackingOk=reality?.trackingStatus==='NORMAL'
+        && reality?.trackingReason!=='INITIALIZING';
+
+      if(!trackingOk){
+        reticleEl.classList.remove('on');
+        stableMs=0;
+        surfaceReady=false;
+        placeBtn.disabled=true;
+        setStatus('ثبّت التتبع أولًا',false);
+        return;
+      }
+
+      const floorStable=estimateFloorFromWorldPoints(reality.worldPoints);
+
+      if(floorEstimate===null){
+        reticleEl.classList.remove('on');
+        stableMs=0;
+        surfaceReady=false;
+        placeBtn.disabled=true;
+        const count=Math.min(99,Math.round((floorPointCount/FLOOR_MIN_POINTS)*100));
+        setStatus(floorPointCount?'امسح الأرض '+count+'%':'وجّه الجوال للأرض',false);
+        return;
+      }
+
+      floorPlane.constant=-floorEstimate;
+      raycaster.setFromCamera(centerNdc,camera);
+      const hit=raycaster.ray.intersectPlane(floorPlane,hitPoint);
+      const camPos=camera.getWorldPosition(new THREE.Vector3());
+
+      const hitDistance=hit?hit.distanceTo(camPos):Infinity;
+      if(!hit||hitDistance<.18||hitDistance>7){
+        reticleEl.classList.remove('on');
+        stableMs=Math.max(0,stableMs-dt*900);
+        surfaceReady=false;
+        placeBtn.disabled=true;
+        setStatus('وجّه المؤشر نحو الأرض',false);
+        return;
+      }
+
+      const delta=prevHit.distanceTo(hit);
+      prevHit.copy(hit);
+
+      if(stablePoint.lengthSq()===0)stablePoint.copy(hit);
+      else stablePoint.lerp(hit,.22);
+
+      reticleEl.classList.add('on');
+
+      // Floor confidence comes from repeated horizontal world-point clusters.
+      // Small reticle motion is allowed so the user can keep scanning naturally.
+      if(floorStable&&delta<.45)stableMs+=dt*1000;
+      else stableMs=Math.max(0,stableMs-dt*700);
+
+      surfaceReady=stableMs>650;
+      placeBtn.disabled=!surfaceReady;
+
+      if(surfaceReady){
+        setStatus('تم اكتشاف الأرض',true);
+      }else{
+        const samplePct=Math.min(99,Math.round((floorSamples.length/FLOOR_SAMPLE_WINDOW)*100));
+        setStatus('مسح الأرض '+samplePct+'%',false);
+      }
+    }
+
+    function placeArea(){
+      if(!xrStarted)return;
+      if(!surfaceReady||floorEstimate===null){
+        notify('أكمل مسح الأرض أولًا');
+        return;
+      }
+
+      floorY=floorEstimate;
+      stablePoint.y=floorY;
+      floorPlane.constant=-floorY;
+
+      setPlayFrameFromCamera(stablePoint);
+      playOrigin.y=floorY;
+      distributeActors();
+      actors.forEach(a=>{
+        a.baseY=floorY;
+        a.root.position.y=floorY;
+        a.root.visible=true;
+      });
+
+      placed=true;
+      guide.classList.add('hidden');
+      placementControls.classList.add('placed');
+      resetBtn.textContent='إعادة مسح الأرض';
+      setStatus('مثبّت على الأرض',true);
+      notify('تم تثبيت الأرض والزومبي عليها');
+      if(navigator.vibrate)navigator.vibrate(25);
+    }
+
+    function resetPlacement(){
+      placed=false;
+      actors.forEach(a=>a.root.visible=false);
+      resetFloorCalibration();
+      placementControls.classList.remove('placed');
+      guide.classList.remove('hidden');
+      placeBtn.textContent='ثبّت الأرض';
+      resetBtn.textContent='إعادة مسح';
+      setStatus('امسح الأرض ببطء',false);
+      try{XR8.XrController.recenter()}catch(err){console.warn(err)}
+    }
+
+    function redistribute(){
+      // In the calibrated flow the secondary button is reserved for a fresh
+      // floor scan so a bad calibration can be corrected immediately.
+      resetPlacement();
+    }
+
+    function tick({processCpuResult}={}){
+      if(!camera||!scene)return;
+      const now=performance.now();
+      const dt=Math.min(1/30,(now-lastTime)/1000||.016);
+      lastTime=now;
+
+      const reality=processCpuResult?.reality||null;
+      updatePlacement(dt,reality);
+      if(placed)updateActors(dt);
+    }
+
+    placeBtn.addEventListener('click',()=>{
+      if(placed)resetPlacement();
+      else placeArea();
+    });
+    resetBtn.addEventListener('click',redistribute);
+
+    function worldModule(){
+      return{
+        name:'aboden-horror-world',
+        onStart:async()=>{
+          try{
+            await setupScene();
+            dispatchEvent(new Event('resize'));
+          }catch(err){
+            console.error(err);
+            notify('فشل تشغيل تجربة الرعب');
+          }
+        },
+        // Runs inside XR8's own per-frame pipeline (same tick that just
+        // updated the AR camera pose) instead of a detached
+        // requestAnimationFrame loop, so the reticle/zombie no longer lag a
+        // frame behind fast camera movement.
+        onUpdate:tick,
+        onException:error=>{
+          console.error(error);
+          notify('حدث خطأ في التتبع');
+        }
+      };
+    }
+
+    startBtn.addEventListener('click',()=>{
+      if(!xrReady||xrStarted)return;
+      xrStarted=true;
+      startBtn.disabled=true;
+      startBtn.textContent='جاري فتح الكاميرا…';
+      errorBox.style.display='none';
+
+      try{
+        intro.style.display='none';
+        XR8.run({canvas});
+        syncVisualViewport();
+        setTimeout(syncVisualViewport,120);
+        setTimeout(syncVisualViewport,500);
+        setTimeout(syncVisualViewport,1200);
+      }catch(err){
+        console.error(err);
+        xrStarted=false;
+        intro.style.display='flex';
+        startBtn.disabled=false;
+        startBtn.textContent='حاول مرة أخرى';
+        errorBox.style.display='block';
+        errorBox.textContent='تعذر تشغيل World Tracking. حدّث الصفحة وحاول مرة أخرى.';
+      }
+    });
+
+    function initializeXR(){
+      if(xrReady||!window.XR8||!window.THREE)return;
+      try{
+        XR8.XrController.configure({
+          disableWorldTracking:false,
+          enableLighting:true,
+          enableWorldPoints:true,
+          scale:'responsive'
+        });
+        XR8.addCameraPipelineModules([
+          XR8.GlTextureRenderer.pipelineModule(),
+          XR8.Threejs.pipelineModule(),
+          XR8.XrController.pipelineModule(),
+          worldModule()
+        ]);
+        xrReady=true;
+        startBtn.disabled=false;
+        startBtn.textContent='ابدأ التجربة';
+      }catch(err){
+        console.error(err);
+        errorBox.style.display='block';
+        errorBox.textContent='لم يكتمل تحميل محرك AR. حدّث الصفحة وحاول مرة أخرى.';
+      }
+    }
+
+    if(window.XR8)initializeXR();
+    else addEventListener('xrloaded',initializeXR,{once:true});
+
+    setTimeout(()=>{
+      if(!xrReady){
+        errorBox.style.display='block';
+        errorBox.textContent='المحرك ما زال يتحمل. إذا طال الانتظار حدّث الصفحة.';
+      }
+    },9000);
+  </script>
+</body>
+</html>
