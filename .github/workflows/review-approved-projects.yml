@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - name: Collect source evidence and original artwork
         env:
           GH_TOKEN: ${{ github.token }}
@@ -62,7 +62,7 @@ jobs:
           with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:
               for result in pool.map(inspect,names): pass
           PY
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: approved-project-review
           path: /tmp/project-review
