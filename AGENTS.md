@@ -30,3 +30,10 @@
 - The Meta Quest Dahrooj content was already on the destination site at af212c4. Its inclusion is preservation of existing studio content, not approval to import a new repository.
 - Use the exact approved white/navy logo and Cairo fonts. Contact details and team members must come from the owner; never invent a working inbox or send-success state.
 - Keep the existing noindex policy. Run npm test, npm run build, and python3 scripts/verify-build.py before release.
+
+## Owner instructions — 2026-10-15 (story, team, AR, accent)
+
+- Team provided by the owner: عبودين (design and programming with AI assistance) and the owner's children ناصر وجود ونجد (game idea and play style). Do not add other members or invent bios.
+- The family photo will be supplied by the owner. Until then `familyPhoto` in studio.json stays empty and a placeholder is shown; never use a stock or generated image.
+- Augmented-reality experiences have their own page at `/ar/`, separate from the games grid. The experience list comes only from the approved AR-Aboden description.
+- Accent colour `--accent:#ff8a3d` (sunset orange) is approved to break the navy/white palette; use it for highlights only.
