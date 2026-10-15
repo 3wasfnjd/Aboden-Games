@@ -187,3 +187,4 @@ p{font-size:inherit}
 .email-card p:not(.eyebrow){font-size:var(--fs-body);line-height:2}
 .email-address{display:inline-block;margin-block:22px 10px;padding:12px 20px;border-radius:12px;background:#ff8a3d1f;border:1px solid #ff8a3d66;color:var(--accent);font-weight:700;font-size:clamp(17px,1vw + 13px,22px);user-select:all;word-break:break-all}
 .email-address:hover{background:var(--accent);color:#1a0f05}
+.support-game{margin-top:14px;font-weight:700;color:var(--soft)!important}
