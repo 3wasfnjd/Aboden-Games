@@ -1,0 +1,24 @@
+{
+  "hajwala-hd.webp": {
+    "repository": "3wasfnjd/hajwala",
+    "path": "images/menu/menu-bg.jpg",
+    "gitBlobSha": "522a7f55d137a42b75101b3a7950f7a30d49a59e",
+    "note": "Same approved blob as the existing cover, re-encoded at full 704x1530 resolution; no crop or mirroring."
+  },
+  "sandline-hd.webp": {
+    "repository": "3wasfnjd/SANDLINE",
+    "path": "public/assets/night-battle-poster.webp",
+    "gitBlobSha": "2ea2303648ade61ad2570f7fa3547a750f19b934",
+    "note": "Same approved poster as the existing cover, full 1672x941 resolution."
+  },
+  "sandline-card.webp": {
+    "repository": "3wasfnjd/SANDLINE",
+    "path": "public/assets/night-battle-poster.webp",
+    "gitBlobSha": "2ea2303648ade61ad2570f7fa3547a750f19b934",
+    "note": "4:5 crop of the approved poster for the card frame; the full poster is shown on the game page."
+  },
+  "ar-lab-poster.webp": {
+    "repository": null,
+    "note": "Studio-designed typographic poster (brand colours and logo only, no gameplay imagery), made at the owner's request on 2026-10-15."
+  }
+}

@@ -71,8 +71,11 @@ test('removed AR-Shooter is absent from pages, approvals and artwork sources',()
 test('hajwala uses the owner-requested original menu artwork',()=>{
  const p=loadCatalog().find(p=>p.slug==='hajwala')!;
  assert.equal(p.cover,'assets/projects/hajwala-shas.webp');
- assert.ok(renderHome().includes(p.cover));
- assert.ok(renderProject(p).includes(p.cover));
+ // The site shows a full-resolution re-encode of the same approved Git blob (recorded in poster-sources.json).
+ const hd=JSON.parse(readFileSync('src/data/poster-sources.json','utf8'))['hajwala-hd.webp'];
+ assert.equal(hd.gitBlobSha,'522a7f55d137a42b75101b3a7950f7a30d49a59e');assert.equal(hd.path,'images/menu/menu-bg.jpg');
+ assert.ok(renderHome().includes('assets/posters/hajwala-hd.webp'));
+ assert.ok(renderProject(p).includes('assets/posters/hajwala-hd.webp'));
  const records=JSON.parse(readFileSync('src/data/cover-sources.json','utf8'));
  const source=records.find((r: any)=>r.slug==='hajwala').sources[0];
  assert.ok(source.url.endsWith('/images/menu/menu-bg.jpg'));

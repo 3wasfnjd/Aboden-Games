@@ -1,0 +1,130 @@
+/* Design refresh 2026-10-15: calmer type scale, consistent poster frames, tighter rhythm.
+   Loaded last so it overrides the earlier per-breakpoint sizes in one place. */
+:root{
+ --fs-display:clamp(34px,1.9vw + 24px,56px);
+ --fs-h1:clamp(30px,1.3vw + 22px,44px);
+ --fs-h2:clamp(23px,.8vw + 17px,31px);
+ --fs-h3:clamp(17px,.3vw + 15px,20px);
+ --fs-body:clamp(15px,.15vw + 14px,16px);
+ --fs-small:13px;
+ --section-space:clamp(56px,6vw,96px);
+}
+body{font-size:var(--fs-body);line-height:1.85}
+h1,h2,h3{letter-spacing:0;line-height:1.4}
+h1,.page-heading h1,.detail-layout h1,.not-found h1{font-size:var(--fs-h1);line-height:1.35;margin-top:0}
+.hero h1{font-size:var(--fs-display);line-height:1.3;letter-spacing:0;margin:10px 0 18px}
+h2,.section-heading h2,.studio-teaser h2,.contact-banner h2,.contact-intro h2,.message-form h2,.prose-page h2,.team-placeholder h2,.quest-details h2{font-size:var(--fs-h2);line-height:1.45}
+h3,.card-title h3,.feature-caption h3,.principles h3,.empty-state h3,.team-member h2,.ar-experience h3{font-size:var(--fs-h3);line-height:1.5}
+.quest-card h3{font-size:clamp(24px,1vw + 18px,30px)}
+p{font-size:inherit}
+.hero-description,.page-heading>p:last-child,.detail-description{font-size:var(--fs-body);line-height:1.95}
+.studio-teaser p:not(.eyebrow),.section-note,.quest-card p,.principles p,.ar-related-card p{font-size:var(--fs-small)}
+.eyebrow{font-size:11px;letter-spacing:.06em}
+/* The stroked Arabic word renders broken joins; use a solid accent instead. */
+.outline-word,.accent-outline{color:var(--accent);-webkit-text-stroke:0}
+.section{padding-block:var(--section-space)}
+.page-heading{padding-block:clamp(44px,5vw,72px) clamp(28px,3vw,44px)}
+.hero{min-height:0;padding-block:clamp(40px,6vw,84px)}
+.brand-scene{height:clamp(300px,32vw,460px)}
+.button{min-height:48px;font-size:14px;gap:18px}
+
+/* Poster cards: one 4:5 frame for every game. The whole artwork is kept (contain);
+   a blurred copy of the same art fills the frame instead of dark empty bands. */
+.project-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.project-card{border-radius:18px;background:var(--surface)}
+.project-cover{aspect-ratio:4/5;background:#081327}
+.project-cover::before{inset:-40px;filter:blur(28px) saturate(1.25);opacity:.85;transform:scale(1.1)}
+.project-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0b173000 55%,#0b1730b3);z-index:0;pointer-events:none}
+.project-cover img{z-index:0;filter:drop-shadow(0 10px 24px #02081a80);transition:transform .5s var(--ease)}
+.project-card:hover .project-cover img{transform:scale(1.035)}
+.project-copy{padding:16px 18px 10px}
+.card-title h3{font-size:18px}
+.project-english{font-size:10px;margin-top:2px}
+.project-copy p{font-size:13px;line-height:1.85;margin-top:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.project-launch{margin-inline:18px;padding-block:12px}
+.platform-label{font-size:11px}
+
+/* Detail page: full artwork inside the same framed, blurred backdrop. */
+.detail-art{position:relative;isolation:isolate;overflow:hidden;border:1px solid var(--line);border-radius:22px;aspect-ratio:4/5;max-height:620px;width:100%;background:#081327}
+.detail-art::before{content:"";position:absolute;inset:-40px;background-image:var(--project-art);background-size:cover;background-position:center;filter:blur(30px) saturate(1.2);opacity:.8;z-index:-1}
+.detail-art img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 14px 30px #02081a99)}
+.detail-layout{grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,72px);align-items:center}
+.detail-layout>div:first-child{max-width:560px}
+
+/* Home: family illustration in the "behind the play" teaser. */
+.studio-teaser.has-art{grid-template-columns:1fr 1fr;align-items:center;gap:clamp(28px,5vw,64px);border-bottom:0}
+.teaser-art{margin:0;border-radius:20px;overflow:hidden;border:1px solid var(--line)}
+.teaser-art img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+
+/* Story and team */
+.story{gap:clamp(32px,5vw,64px);padding-block:20px var(--section-space)}
+.story-copy p:not(.eyebrow){font-size:var(--fs-body);line-height:2;margin-bottom:12px}
+.family-photo img{image-rendering:auto}
+.team-initial{width:44px;height:44px;font-size:20px}
+
+@media(max-width:1150px){.project-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:860px){
+ .project-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+ .detail-layout{grid-template-columns:1fr}
+ .detail-art{max-height:520px;aspect-ratio:4/5;margin-inline:auto;max-width:420px}
+ .studio-teaser.has-art{grid-template-columns:1fr}
+}
+/* Phones: compact list rows — poster thumbnail beside the text. */
+@media(max-width:600px){
+ .project-grid{grid-template-columns:1fr;gap:12px}
+ .project-card{border-radius:14px}
+ .project-card .card-main{display:grid;grid-template-columns:104px 1fr;align-items:stretch}
+ .project-cover{aspect-ratio:4/5;height:100%}
+ .project-category{display:none}
+ .project-copy{padding:12px 14px 8px}
+ .card-title h3{font-size:17px}
+ .project-copy p{font-size:12.5px;margin-top:4px}
+ .project-launch{margin-inline:14px;padding-block:9px}
+ .hero h1{font-size:clamp(32px,9vw,40px)}
+ .section-heading h2{font-size:var(--fs-h2)}
+}
+@media print{.project-cover::before,.detail-art::before{display:none}}
+
+/* Sand bands: warm light sections that break up the all-navy page. */
+:root{--sand:#f5eee4;--sand-2:#ece2d4;--sand-ink:#0b1730;--sand-muted:#4f5b72;--sand-line:#0b17301f}
+.band-sand{background:var(--sand);color:var(--sand-ink)}
+.band-sand.bleed{box-shadow:0 0 0 100vmax var(--sand);clip-path:inset(0 -100vmax)}
+.band-sand h2,.band-sand h3,.band-sand strong{color:var(--sand-ink)}
+.band-sand p,.band-sand .section-note,.band-sand .subtle-note{color:var(--sand-muted)}
+.band-sand .eyebrow{color:#a2501a}
+.band-sand .text-link{color:var(--sand-ink)}
+.band-sand .accent-text,.band-sand .story-quote{color:#d4621a}
+.band-sand .story-copy p:not(.eyebrow){color:#34405a}
+.band-sand .story-end{color:var(--sand-ink)!important;border-color:#d4621a}
+.band-sand .family-photo{border-color:var(--sand-line);background:#fff;box-shadow:0 24px 60px #0b173026}
+.band-sand .family-photo figcaption{color:var(--sand-muted)}
+/* Cards stay dark: posters on a light wall. */
+.band-sand .project-card{color:#fff;border-color:transparent;box-shadow:0 18px 40px #0b173033}
+.band-sand .project-card h3{color:#fff}
+.band-sand .project-card p{color:#b3bfd3}
+.band-sand .project-card .text-link,.band-sand .card-play{color:var(--accent)}
+.band-sand .mobile-game{background:#fff;border-color:var(--sand-line);color:var(--sand-ink)}
+.band-sand .mobile-game small{color:var(--sand-muted)}
+.band-sand .ar-experience{background:#fff;border-color:var(--sand-line);box-shadow:0 8px 24px #0b173014}
+.band-sand .ar-experience h3{color:var(--sand-ink)}
+.band-sand .ar-index{color:#d4621a}
+.band-sand .support-tip{background:var(--sand-2);border-color:var(--sand-line)}
+.band-sand .tag{color:var(--sand-ink);border-color:var(--sand-line)}
+.ar-band{padding-block:clamp(40px,5vw,72px);margin-top:clamp(48px,6vw,90px)}
+.ar-band .ar-list-heading{margin-top:0}
+.story.band-sand{padding-block:clamp(48px,6vw,88px);margin-block:10px 40px}
+/* Detail frame follows the artwork's own shape (landscape or portrait). */
+.detail-art{aspect-ratio:auto;max-height:none;display:flex;align-items:center;justify-content:center}
+.detail-art img{width:100%;height:auto;max-height:640px;object-fit:contain}
+/* AR lab: poster column sized to the 4:5 artwork. */
+.ar-lab{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);align-items:center}
+.ar-lab>img{height:auto;aspect-ratio:4/5;object-fit:cover}
+@media(max-width:860px){.ar-lab{grid-template-columns:1fr}.ar-lab>img{max-height:480px;object-fit:contain;background:#0b1730}}
+/* Team portraits cropped from the owner's team illustration. */
+.team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.team-member.has-photo{padding:0;overflow:hidden;border-radius:20px}
+.team-photo{width:100%;height:auto;aspect-ratio:740/484;object-fit:cover;display:block;border-bottom:3px solid var(--accent)}
+.team-member .team-body{padding:20px 24px 24px}
+.team-member:not(.has-photo) .team-body{padding:0}
+@media(max-width:1150px){.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.team-grid{grid-template-columns:1fr}}

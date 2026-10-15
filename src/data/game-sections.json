@@ -27,16 +27,21 @@
   "hajwala": {
     "genre": "قيادة",
     "mobile": true,
-    "basis": "Existing approved instructions explicitly describe touch controls."
+    "basis": "Existing approved instructions explicitly describe touch controls.",
+    "poster": "assets/posters/hajwala-hd.webp",
+    "art": "assets/posters/hajwala-hd.webp"
   },
   "sandline": {
     "genre": "استراتيجية",
     "mobile": true,
-    "basis": "Existing approved instructions describe tap and drag controls."
+    "basis": "Existing approved instructions describe tap and drag controls.",
+    "poster": "assets/posters/sandline-card.webp",
+    "art": "assets/posters/sandline-hd.webp"
   },
   "ar-aboden": {
     "genre": "تجارب تفاعلية",
     "mobile": false,
-    "basis": "Device support varies; requires camera/motion or WebGPU. Do not label compatible."
+    "basis": "Device support varies; requires camera/motion or WebGPU. Do not label compatible.",
+    "poster": "assets/posters/ar-lab-poster.webp"
   }
 }
