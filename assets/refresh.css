@@ -132,7 +132,7 @@ p{font-size:inherit}
 @media(max-width:600px){.team-grid{grid-template-columns:1fr}}
 
 /* AR lab experiences: one card each, designed art + mobile-only badge. */
-.ar-exps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+
 .ar-exp{background:#fff;border:1px solid var(--sand-line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 28px #0b173014}
 .ar-exp-art img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;transition:transform .4s var(--ease)}
 .ar-exp:hover .ar-exp-art img{transform:scale(1.03)}
@@ -193,3 +193,7 @@ p{font-size:inherit}
 .hero-char .char{width:clamp(220px,26vw,360px)}
 @media(max-width:860px){.hero{display:grid;grid-template-columns:minmax(0,1fr) 170px;align-items:start;gap:12px}.hero-char{align-self:start;margin-top:30px}.hero-char .char{width:170px}}
 @media(max-width:600px){.hero{grid-template-columns:minmax(0,1fr) 108px}.hero-char .char{width:108px}}
+/* AR experiences use the game-card style; their designed art fills the frame. */
+.ar-cover img{object-fit:cover;filter:none}
+.ar-cover::before{display:none}
+.ar-card .project-copy p{-webkit-line-clamp:2}
