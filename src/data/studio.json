@@ -1,0 +1,17 @@
+{
+  "name": "عبودين قيمز",
+  "nameEn": "ABODEN GAMES",
+  "url": "https://abodengames.com",
+  "contactEmail": "",
+  "supportEmail": "",
+  "team": [],
+  "quest": {
+    "title": "دحروج",
+    "titleEn": "Dahrooj",
+    "cover": "dahrooj-cover.jpg",
+    "description": "ارمِ وفجّر وفرقع دحاريج الجلي الملونة، في حديقة مشمسة أو في غرفتك بالواقع المختلط.",
+    "platform": "Meta Quest",
+    "storeUrl": "",
+    "source": "Existing destination index.html at af212c4; retained studio content, no new repository added."
+  }
+}

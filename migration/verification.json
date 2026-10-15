@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-15",
+  "automatedTests": 42,
+  "automatedTestsPassed": 42,
+  "builtStudioPages": 17,
+  "htmlPagesIncludingPreservedPolicies": 19,
+  "workingGameLinks": 8,
+  "filesDeletedFromDestination": 0,
+  "sourceRepositoryChanged": false,
+  "existingPolicyUnchanged": true,
+  "browserVisualQA": "Unavailable: required control-browser skill is not installed in managed preview environment.",
+  "publication": "Blocked before branch creation: GitHub integration is installed for 3wasfnjd only, not the aboden-games1 organization."
+}

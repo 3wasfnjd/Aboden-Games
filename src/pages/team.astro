@@ -1,0 +1,5 @@
+---
+import { renderTeam } from '../lib/site.ts';
+const html = renderTeam(import.meta.env.BASE_URL);
+---
+<Fragment set:html={html} />

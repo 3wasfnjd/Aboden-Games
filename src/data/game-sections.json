@@ -1,0 +1,42 @@
+{
+  "motri": {
+    "genre": "قيادة",
+    "mobile": true,
+    "basis": "Existing approved instructions explicitly describe touch controls."
+  },
+  "dahrooj": {
+    "genre": "أركيد",
+    "mobile": true,
+    "basis": "Existing approved instructions describe touch, drag and throw controls."
+  },
+  "boom": {
+    "genre": "أكشن",
+    "mobile": true,
+    "basis": "Existing approved instructions explicitly describe mobile controls."
+  },
+  "aboden-hero": {
+    "genre": "مغامرات",
+    "mobile": true,
+    "basis": "Existing approved instructions describe on-screen controls."
+  },
+  "big-battles": {
+    "genre": "استراتيجية",
+    "mobile": true,
+    "basis": "Existing approved instructions describe swipe controls."
+  },
+  "hajwala": {
+    "genre": "قيادة",
+    "mobile": true,
+    "basis": "Existing approved instructions explicitly describe touch controls."
+  },
+  "sandline": {
+    "genre": "استراتيجية",
+    "mobile": true,
+    "basis": "Existing approved instructions describe tap and drag controls."
+  },
+  "ar-aboden": {
+    "genre": "تجارب تفاعلية",
+    "mobile": false,
+    "basis": "Device support varies; requires camera/motion or WebGPU. Do not label compatible."
+  }
+}

@@ -1,0 +1,5 @@
+---
+import { renderSupport } from '../lib/site.ts';
+const html = renderSupport(import.meta.env.BASE_URL);
+---
+<Fragment set:html={html} />
