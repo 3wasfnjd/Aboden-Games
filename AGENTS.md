@@ -42,4 +42,4 @@
 
 - Owner asked for better image layout/quality, smaller typography and less all-navy background. Overrides live in `public/assets/refresh.css` (loaded last): fluid type scale, 4:5 poster cards (whole artwork kept with a blurred fill), sand-coloured bands (`.band-sand`).
 - Owner allowed taking images from the game repositories or designing new ones. Higher-resolution copies and the designed AR-lab poster live in `public/assets/posters/`; each is recorded in `src/data/poster-sources.json` and wired through `poster`/`art` in `game-sections.json`. Original `assets/projects/` covers stay byte-identical.
-- Team portraits (`public/assets/team/{aboden,nasser,joud,najd}.webp`) are crops of the owner-supplied team illustration (2026-10-15), linked via `photo` in studio.json.
+- Team portraits (`public/assets/team/*-avatar.webp`) are small face crops of the owner-supplied team illustration (2026-10-15), linked via `photo` in studio.json. The owner wants them small, not large.
