@@ -1,0 +1,5 @@
+---
+import { renderContact, toEnglish } from '../../lib/site.ts';
+const html = toEnglish(renderContact('/'));
+---
+<Fragment set:html={html} />

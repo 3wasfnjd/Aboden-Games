@@ -197,3 +197,15 @@ p{font-size:inherit}
 .ar-cover img{object-fit:cover;filter:none}
 .ar-cover::before{display:none}
 .ar-card .project-copy p{-webkit-line-clamp:2}
+
+/* Language switch + English (LTR) edition. */
+.lang-switch{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:40px;padding:6px 12px;border:1px solid #ff8a3d80;border-radius:9px;color:#ffd2b3;font-weight:700;font-size:13px;letter-spacing:.04em}
+.lang-switch:hover{background:var(--accent);color:#1a0f05}
+.header-actions{display:flex;align-items:center;gap:10px}
+html[dir=ltr] .icon:has(use[href="#i-arrow"]){scale:-1 1}
+html[dir=ltr] .text-link:hover .icon,html[dir=ltr] .header-cta:hover .icon{transform:translateX(5px)}
+html[dir=ltr] .project-english,html[dir=ltr] .tool strong{text-align:left}
+html[dir=ltr] .project-category{right:auto;left:12px}
+html[dir=ltr] .skip-link{right:auto;left:20px}
+html[dir=ltr] .desktop-nav a[aria-current]:after{right:auto;left:50%}
+html[lang=en] body{letter-spacing:0}

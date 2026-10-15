@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { loadCatalog } from '../src/lib/catalog.ts';
-import {renderHome,renderGames,renderProject,renderStudio,renderTeam,renderSupport,renderContact,renderQuest,renderLicenses,renderAR} from '../src/lib/site.ts';
+import {renderHome,renderGames,renderProject,renderStudio,renderTeam,renderSupport,renderContact,renderQuest,renderLicenses,renderAR,toEnglish} from '../src/lib/site.ts';
 import {filterProjects,composeMessage} from '../public/app.js';
 const read=(p:string)=>readFileSync(p,'utf8');
 const hash=(p:string)=>createHash('sha256').update(readFileSync(p)).digest('hex');
@@ -88,4 +88,19 @@ test('every studio page carries the content security policy and referrer policy'
   assert.match(html,/name="referrer" content="strict-origin-when-cross-origin"/);
  }
  assert.ok(existsSync('public/.well-known/security.txt'));
+});
+test('English edition: every page fully translated, LTR, linked both ways',()=>{
+ const pages=[renderHome(),renderGames(),renderStudio(),renderTeam(),renderSupport(),renderContact(),renderQuest(),renderLicenses(),renderAR(),...loadCatalog().map(p=>renderProject(p))];
+ for(const ar of pages){
+  assert.match(ar,/class="lang-switch" href="\/en\//);
+  const en=toEnglish(ar);
+  assert.match(en,/<html lang="en" dir="ltr">/);
+  const text=en.replace(/<script[\s\S]*?<\/script>/g,'').replace(/<a class="lang-switch"[^>]*>عربي<\/a>/,'');
+  const visible=text.replace(/<[^>]*>/g,' ');
+  const attrs=[...text.matchAll(/ (?:alt|aria-label|title|placeholder|content)="([^"]*)"/g)].map(m=>m[1]).join(' ');
+  const left=(visible+' '+attrs).match(/[\u0600-\u06FF][^<>"]{0,40}/g);
+  assert.equal(left,null,'untranslated: '+(left||[]).slice(0,5).join(' | '));
+  assert.match(en,/class="lang-switch" href="\/(?!en\/)[^"]*" hreflang="ar"/);
+  assert.doesNotMatch(en.replace(/<a class="lang-switch"[^>]*>عربي<\/a>/,"").replace(/hreflang="ar" href="[^"]*"/,""),/href="\/(games|ar|studio|team|support|contact|licenses|projects)\//);
+ }
 });

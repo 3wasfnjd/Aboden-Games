@@ -16,7 +16,34 @@ const poster=(p:Project)=>sections()[p.slug]?.poster||p.cover;
 const art=(p:Project)=>sections()[p.slug]?.art||p.cover;
 function page(content:string,title:string,description:string,base:string,route=''):string {
  const b=basePath(base);const nav=[['','الرئيسية'],['games/','الألعاب'],['ar/','الواقع المعزز'],['studio/','الاستديو'],['team/','الفريق'],['support/','الدعم'],['contact/','تواصل معنا']].map(([url,label])=>`<a href="${b}${url}" ${route===url?'aria-current="page"':''}>${label}</a>`).join('');
- return replace(template('layout'),{CONTENT:content,TITLE:e(title),DESCRIPTION:e(description),BASE:b,CANONICAL:`https://abodengames.com${b}${route}`,NAV:nav});
+ const bilingual=route!=='404.html';
+ const langSwitch=bilingual?`<a class="lang-switch" href="${b}en/${route}" data-route="${route}" hreflang="en" lang="en">EN</a>`:'';
+ const alternates=bilingual?`<link rel="alternate" hreflang="ar" href="https://abodengames.com${b}${route}"/><link rel="alternate" hreflang="en" href="https://abodengames.com${b}en/${route}"/>`:'';
+ return replace(template('layout'),{CONTENT:content,TITLE:e(title),DESCRIPTION:e(description),BASE:b,CANONICAL:`https://abodengames.com${b}${route}`,NAV:nav,LANG_SWITCH:langSwitch,ALTERNATES:alternates});
+}
+// English edition (/en/): the Arabic page translated node by node from src/data/i18n-en.json, laid out left-to-right.
+const AR_CHARS=/[\u0600-\u06FF]/;
+const escText=(v:string)=>v.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function translate(raw:string,attr=false):string {
+ const t=raw.trim();if(!t||!AR_CHARS.test(t))return raw;
+ const en=data('i18n-en') as {strings:Record<string,string>;patterns:[string,string][]};
+ let v:string|undefined=en.strings[t];
+ if(v===undefined)for(const [re,rep] of en.patterns){const r=new RegExp(re);if(r.test(t)){v=t.replace(r,rep);break;}}
+ if(v===undefined)return raw;
+ const out=escText(v),lead=raw.match(/^\s*/)![0],trail=raw.match(/\s*$/)![0];
+ return lead+(attr?out.replace(/"/g,'&quot;'):out)+trail;
+}
+const ROUTES='games|ar|studio|team|support|contact|licenses|projects';
+export function toEnglish(html:string):string {
+ const sw=html.match(/<a class="lang-switch" href="[^"]*" data-route="([^"]*)"[^>]*>EN<\/a>/);
+ let out=sw?html.replace(sw[0],`<a class="lang-switch" href="__AR__/${sw[1]}" hreflang="ar" lang="ar">عربي</a>`):html;
+ out=out.replace('<html lang="ar" dir="rtl">','<html lang="en" dir="ltr">').replace('content="ar_SA"','content="en_US"');
+ out=out.replace(/>([^<]+)</g,(_m,t:string)=>'>'+translate(t)+'<');
+ out=out.replace(/ (alt|aria-label|title|placeholder|content)="([^"]*)"/g,(_m,k:string,v:string)=>` ${k}="${translate(v,true)}"`);
+ out=out.replace(/href="\/"/g,'href="/en/"').replace(new RegExp(`href="/(${ROUTES})([/#?])`,'g'),'href="/en/$1$2').replace(new RegExp(`url=/(${ROUTES})([/#?])`,'g'),'url=/en/$1$2');
+ out=out.replace(/(<link rel="canonical" href="|<meta property="og:url" content=")https:\/\/abodengames\.com\//g,'$1https://abodengames.com/en/');
+ out=out.replace(/href="\/en\/support\/\?game=([^"]+)"/g,(_m,q:string)=>`href="/en/support/?game=${encodeURIComponent(translate(decodeURIComponent(q)))}"`);
+ return out.replace(/__AR__\//g,'/');
 }
 function heading(kicker:string,title:string,description:string):string {return `<div class="page-heading"><p class="eyebrow">${kicker}</p><h1>${title}</h1><p>${description}</p></div>`;}
 function launch(p:Project,b='/'):string {return internal(p)?`<a class="button button-primary" href="${e(launchUrl(p,b))}">تصفّح التجارب ${icon('arrow')}</a>`:p.liveUrl?`<a class="button button-primary" href="${e(p.liveUrl)}" target="_blank" rel="noopener noreferrer">${p.category==='games'?'العب الآن':'افتح التجربة'} ${icon('out')}<span class="sr-only">يفتح في علامة تبويب جديدة</span></a>`:'<p class="project-unavailable">لا تتوفر نسخة تشغيل منشورة لهذه اللعبة.</p>';}

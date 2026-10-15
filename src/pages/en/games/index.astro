@@ -1,0 +1,5 @@
+---
+import { renderGames, toEnglish } from '../../../lib/site.ts';
+const html = toEnglish(renderGames('/'));
+---
+<Fragment set:html={html} />
