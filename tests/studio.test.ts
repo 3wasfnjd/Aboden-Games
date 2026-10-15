@@ -25,7 +25,8 @@ test('all public studio HTML removes repository links and internal repository na
  const pages=[renderHome(),renderGames(),renderStudio(),renderTeam(),renderSupport(),renderContact(),renderQuest(),renderLicenses(),renderAR(),...loadCatalog().map(p=>renderProject(p))];
  for(const html of pages){
   assert.doesNotMatch(html,/href=["'][^"']*(?:github\.com|api\.github\.com|raw\.githubusercontent\.com)/i);
-  assert.doesNotMatch(html.replace(/<[^>]*>/g,''),/GitHub|مستودع|3wasfnjd\//i);
+  // The owner-requested tools section may name GitHub as a tool; everything else must not.
+  assert.doesNotMatch(html.replace(/<section class="tools"[\s\S]*?<\/section>/,'').replace(/<[^>]*>/g,''),/GitHub|مستودع|3wasfnjd\//i);
   assert.doesNotMatch(html,/\{\{[A-Z_]+\}\}/);
   assert.match(html,/noindex, nofollow/);
   assert.doesNotMatch(html,/href="[^"']*(?:privacy-policies|dahrooj-privacy)/);
@@ -76,4 +77,7 @@ test('AR page lists all nine lab experiences, mobile only, with designed art and
  for(const x of list){assert.ok(ar.includes(x.title));assert.ok(existsSync('public/'+x.image));assert.ok(ar.includes('/ar-lab/'+x.file));assert.ok(existsSync('public/ar-lab/'+x.file));}
  assert.ok(ar.includes('رماية عبودين'));assert.ok(ar.includes('حرب الألوان AR'));
  assert.equal((ar.match(/class="ar-exp-device"/g)||[]).length,9);
+});
+test('studio page shows the tools the owner asked for',()=>{
+ const html=renderStudio();for(const n of ['Claude','ChatGPT','Gemini','Tripo AI','GitHub'])assert.ok(html.includes(n));
 });

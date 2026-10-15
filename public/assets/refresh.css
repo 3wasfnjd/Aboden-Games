@@ -151,3 +151,14 @@ p{font-size:inherit}
 .band-sand .section-note .icon{width:16px;height:16px}
 @media(max-width:1000px){.ar-exps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.ar-exps{grid-template-columns:1fr}}
+
+/* Tools strip on the studio page */
+.tools{padding-block:var(--section-space) 10px}
+.tool-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.tool{display:flex;align-items:center;gap:14px;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.tool img,.tool-mono{width:34px;height:34px;flex:none}
+.tool-mono{display:grid;place-items:center;border-radius:10px;background:#ffffff14;color:#fff;font-weight:700;font-size:18px;font-family:Cairo,sans-serif}
+.tool strong{display:block;font-size:16px;color:#fff;text-align:right}
+.tool small{display:block;font-size:12px;color:var(--muted);line-height:1.6}
+@media(max-width:1150px){.tool-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tool{padding:14px;gap:10px}}

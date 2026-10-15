@@ -1,0 +1,10 @@
+{
+ "note": "Owner request 2026-10-15: show the AI and other tools the studio uses. Logos from simple-icons 16.35.0 (CC0 package; marks belong to their owners). ChatGPT and Tripo AI have no simple-icons mark, so they show a plain name badge. Domain registrar: pending — the owner did not remember it.",
+ "tools": [
+  {"name":"Claude","kind":"ذكاء اصطناعي","logo":"assets/tools/claude.svg"},
+  {"name":"ChatGPT","kind":"ذكاء اصطناعي","logo":""},
+  {"name":"Gemini","kind":"ذكاء اصطناعي","logo":"assets/tools/googlegemini.svg"},
+  {"name":"Tripo AI","kind":"مجسمات ثلاثية الأبعاد بالذكاء الاصطناعي","logo":""},
+  {"name":"GitHub","kind":"حفظ المشاريع ونشر الموقع","logo":"assets/tools/github.svg"}
+ ]
+}
