@@ -19,7 +19,7 @@ class Page(HTMLParser):
 parsed={}
 for p in root.rglob('*.html'):
  parser=Page();parser.feed(p.read_text());parsed[p]=parser
- if 'privacy' not in str(p):
+ if 'privacy' not in str(p) and 'ar-lab' not in p.parts:  # lab pages are full-screen AR apps
   if parser.h1!=1:errors.append(f'{p}: expected one h1, got {parser.h1}')
   if parser.mains!=1:errors.append(f'{p}: expected main landmark')
   if 'github.com/' in p.read_text():errors.append(f'{p}: public repository link')

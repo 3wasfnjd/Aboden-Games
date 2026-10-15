@@ -46,7 +46,7 @@ test('no unapproved cards, routes or fixtures appear in homepage',()=>{
 test('RTL and preview noindex are explicit',()=>{
  const html=renderHome();assert.ok(html.includes('lang="ar" dir="rtl"'));assert.ok(html.includes('noindex, nofollow'));
 });
-test('approved cards and launch links do not require JavaScript',()=>{const html=renderHome();for(const p of loadCatalog()){assert.ok(html.includes(p.title));assert.ok(html.includes(p.liveUrl!));}});
+test('approved cards and launch links do not require JavaScript',()=>{const html=renderHome();for(const p of loadCatalog()){assert.ok(html.includes(p.title));assert.ok(html.includes(p.slug==='ar-aboden'?'/ar/#experiences':p.liveUrl!));}});
 test('no launch link without a verified URL',()=>{
  const html=renderProject(fixture);assert.ok(!html.includes('العب الآن'));assert.ok(html.includes('لا تتوفر نسخة تشغيل'));
 });

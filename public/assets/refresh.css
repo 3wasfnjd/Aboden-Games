@@ -122,9 +122,9 @@ p{font-size:inherit}
 @media(max-width:860px){.ar-lab{grid-template-columns:1fr}.ar-lab>img{max-height:480px;object-fit:contain;background:#0b1730}}
 /* Team: each member's full card from the owner's illustration, frame and details intact, shown small. */
 .team-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-.team-member.has-photo{padding:0;overflow:hidden;border-radius:18px;display:block}
-.team-photo{width:100%;max-width:368px;height:auto;aspect-ratio:auto;object-fit:contain;display:block;margin-inline:auto;background:#0b1730}
-.team-member .team-body{padding:14px 16px 18px}
+.team-member.has-photo{padding:0;background:none;border:0;border-radius:0;overflow:visible;display:block;text-align:center}
+.team-photo{height:clamp(170px,15vw,220px);width:auto;max-width:100%;aspect-ratio:auto;object-fit:contain;display:block;margin-inline:auto;background:none;filter:drop-shadow(0 12px 22px #02081a66)}
+.team-member .team-body{padding:12px 8px 0}
 .team-member .team-body h2{font-size:18px}
 .team-member .team-body p{font-size:13px;margin:0}
 .team-member .team-role{margin-bottom:4px}
