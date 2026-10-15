@@ -120,11 +120,12 @@ p{font-size:inherit}
 .ar-lab{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);align-items:center}
 .ar-lab>img{height:auto;aspect-ratio:4/5;object-fit:cover}
 @media(max-width:860px){.ar-lab{grid-template-columns:1fr}.ar-lab>img{max-height:480px;object-fit:contain;background:#0b1730}}
-/* Team portraits cropped from the owner's team illustration. */
-.team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
-.team-member.has-photo{padding:0;overflow:hidden;border-radius:20px}
-.team-photo{width:100%;height:auto;aspect-ratio:740/484;object-fit:cover;display:block;border-bottom:3px solid var(--accent)}
-.team-member .team-body{padding:20px 24px 24px}
-.team-member:not(.has-photo) .team-body{padding:0}
-@media(max-width:1150px){.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.team-grid{grid-template-columns:1fr}}
+/* Team: small round portraits (face crops of the owner's team illustration) beside each name. */
+.team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.team-member.has-photo{display:flex;align-items:center;gap:18px;padding:18px 20px;border-radius:18px}
+.team-photo{width:76px;height:76px;flex:none;border-radius:50%;object-fit:cover;border:3px solid var(--accent);box-shadow:0 6px 18px #02081a66}
+.team-member .team-body{padding:0;min-width:0}
+.team-member .team-body h2{font-size:19px}
+.team-member .team-body p{font-size:13px;margin:0}
+.team-member .team-role{margin-bottom:4px}
+@media(max-width:600px){.team-grid{grid-template-columns:1fr}.team-photo{width:64px;height:64px}}
