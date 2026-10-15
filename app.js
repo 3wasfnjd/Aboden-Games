@@ -1,3 +1,5 @@
+// Clickjacking guard: GitHub Pages cannot send frame headers, so refuse to render inside another site's frame.
+if(typeof window!=='undefined'&&window.top!==window.self){try{window.top.location.replace(window.location.href);}catch{document.documentElement.style.display='none';}}
 export const normalizeSearch = value => String(value).normalize('NFKD').replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').toLocaleLowerCase('ar').trim();
 export function filterProjects(projects, query, category) {
  const terms=normalizeSearch(query).split(/\s+/).filter(Boolean);

@@ -1,0 +1,4 @@
+Contact: mailto:aboden.games@gmail.com
+Expires: 2027-10-15T00:00:00.000Z
+Preferred-Languages: ar, en
+Canonical: https://abodengames.com/.well-known/security.txt
