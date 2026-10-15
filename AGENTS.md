@@ -34,6 +34,6 @@
 ## Owner instructions — 2026-10-15 (story, team, AR, accent)
 
 - Team provided by the owner: عبودين (design and programming with AI assistance) and the owner's children ناصر وجود ونجد (game idea and play style). Do not add other members or invent bios.
-- The family photo will be supplied by the owner. Until then `familyPhoto` in studio.json stays empty and a placeholder is shown; never use a stock or generated image.
+- Family image: the owner supplied an illustration on 2026-10-15, stored as `public/assets/team/aboden-family.webp`. Use only owner-supplied images here; never substitute a stock or self-generated image.
 - Augmented-reality experiences have their own page at `/ar/`, separate from the games grid. The experience list comes only from the approved AR-Aboden description.
 - Accent colour `--accent:#ff8a3d` (sunset orange) is approved to break the navy/white palette; use it for highlights only.

@@ -35,7 +35,8 @@
     "storeUrl": "",
     "source": "Existing destination index.html at af212c4; retained studio content, no new repository added."
   },
-  "familyPhoto": "",
-  "familyPhotoAlt": "عبودين مع ناصر وجود ونجد، فريق عبودين قيمز",
-  "teamSource": "Owner message 2026-10-15: team is the owner (عبودين) and the owner's children ناصر وجود ونجد; the children bring the game idea and style, the owner designs and programs with AI assistance."
+  "familyPhoto": "assets/team/aboden-family.webp",
+  "familyPhotoAlt": "رسم ملوّن لعبودين مع ناصر وجود ونجد حول اللابتوب في استديو عبودين قيمز، وحولهم فقاعات كلام مثل «وش رايكم نسوي لعبة فيها…؟» و«إيش هذا؟ ما فيك مخ!»",
+  "teamSource": "Owner message 2026-10-15: team is the owner (عبودين) and the owner's children ناصر وجود ونجد; the children bring the game idea and style, the owner designs and programs with AI assistance.",
+  "familyPhotoSource": "Illustration supplied by the owner on 2026-10-15 for the story and team pages."
 }
