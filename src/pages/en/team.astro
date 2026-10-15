@@ -1,0 +1,5 @@
+---
+import { renderTeam, toEnglish } from '../../lib/site.ts';
+const html = toEnglish(renderTeam('/'));
+---
+<Fragment set:html={html} />

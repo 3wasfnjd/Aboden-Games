@@ -1,0 +1,5 @@
+---
+import { renderSupport, toEnglish } from '../../lib/site.ts';
+const html = toEnglish(renderSupport('/'));
+---
+<Fragment set:html={html} />

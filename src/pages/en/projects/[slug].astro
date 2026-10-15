@@ -1,0 +1,9 @@
+---
+import { loadCatalog } from '../../../lib/catalog.ts';
+import { renderProject, toEnglish } from '../../../lib/site.ts';
+export function getStaticPaths() {
+  return loadCatalog().map(project => ({ params: { slug: project.slug }, props: { project } }));
+}
+const html = toEnglish(renderProject(Astro.props.project, '/'));
+---
+<Fragment set:html={html} />
