@@ -42,6 +42,7 @@
     "genre": "تجارب تفاعلية",
     "mobile": false,
     "basis": "Device support varies; requires camera/motion or WebGPU. Do not label compatible.",
-    "poster": "assets/posters/ar-lab-poster.webp"
+    "poster": "assets/posters/ar-lab-poster.webp",
+    "description": "مجموعة تجارب مستقلة: الدرفت والمناطيد والسلة وعروض الليزر وحرب الألوان وتركيب الصور والكتابة على الرمل."
   }
 }

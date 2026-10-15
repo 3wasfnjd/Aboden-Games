@@ -1,5 +1,5 @@
 {
- "source": "3wasfnjd/AR-Aboden index.html at commit 56a234fcad485d9eddee4c6e0da8ebae040f5ae4. Owner instruction 2026-10-15: «انقل قائمة تجارب المختبر بأوصافها وروابطها وصمم لها صور» وصنفها للجوال فقط؛ تجربتا الرماية تظهران.",
+ "source": "3wasfnjd/AR-Aboden index.html at commit 56a234fcad485d9eddee4c6e0da8ebae040f5ae4. Owner instruction 2026-10-15: «انقل قائمة تجارب المختبر بأوصافها وروابطها وصمم لها صور» وصنفها للجوال فقط؛ تجربتا الرماية تظهران. Owner instruction 2026-10-15 (later): «الرماية احذفها» — رماية عبودين removed.",
  "device": "mobile",
  "experiences": [
   {
@@ -49,14 +49,6 @@
    "description": "مواجهة جنود داخل المكان بأسلحة متعددة وذكاء اصطناعي يعيد التموضع ويهاجم على شكل موجات متزايدة.",
    "status": "جديدة",
    "image": "assets/ar/ink.webp"
-  },
-  {
-   "slug": "gallery",
-   "file": "gallery.html",
-   "title": "رماية عبودين",
-   "description": "افتح الكاميرا مباشرة، وجّه علامة التصويب إلى البطّات والعلب أمامك واضغط إطلاق.",
-   "status": "تجريبية",
-   "image": "assets/ar/gallery.webp"
   },
   {
    "slug": "photo",
