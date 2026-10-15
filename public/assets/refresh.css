@@ -120,3 +120,11 @@ p{font-size:inherit}
 .ar-lab{grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);align-items:center}
 .ar-lab>img{height:auto;aspect-ratio:4/5;object-fit:cover}
 @media(max-width:860px){.ar-lab{grid-template-columns:1fr}.ar-lab>img{max-height:480px;object-fit:contain;background:#0b1730}}
+/* Team portraits cropped from the owner's team illustration. */
+.team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.team-member.has-photo{padding:0;overflow:hidden;border-radius:20px}
+.team-photo{width:100%;height:auto;aspect-ratio:740/484;object-fit:cover;display:block;border-bottom:3px solid var(--accent)}
+.team-member .team-body{padding:20px 24px 24px}
+.team-member:not(.has-photo) .team-body{padding:0}
+@media(max-width:1150px){.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.team-grid{grid-template-columns:1fr}}
