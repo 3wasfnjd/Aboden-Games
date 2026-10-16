@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { loadCatalog } from '../src/lib/catalog.ts';
-import {renderHome,renderGames,renderProject,renderStudio,renderTeam,renderSupport,renderContact,renderQuest,renderLicenses,renderAR,toEnglish} from '../src/lib/site.ts';
+import {renderHome,renderGames,renderProject,renderStudio,renderTeam,renderSupport,renderContact,renderQuest,renderLicenses,renderAR,toEnglish,renderPlay} from '../src/lib/site.ts';
 import {filterProjects,composeMessage} from '../public/app.js';
 const read=(p:string)=>readFileSync(p,'utf8');
 const hash=(p:string)=>createHash('sha256').update(readFileSync(p)).digest('hex');
@@ -103,4 +103,15 @@ test('English edition: every page fully translated, LTR, linked both ways',()=>{
   assert.match(en,/class="lang-switch" href="\/(?!en\/)[^"]*" hreflang="ar"/);
   assert.doesNotMatch(en.replace(/<a class="lang-switch"[^>]*>عربي<\/a>/,"").replace(/hreflang="ar" href="[^"]*"/,""),/href="\/(games|ar|studio|team|support|contact|licenses|projects)\//);
  }
+});
+test('play pages keep players on abodengames.com: no GitHub links anywhere in the studio UI',()=>{
+ const games=loadCatalog().filter(p=>p.liveUrl&&p.slug!=='ar-aboden');
+ for(const p of games){
+  const html=renderPlay(p);
+  assert.ok(html.includes(`<iframe class="play-frame" src="${p.liveUrl}"`));
+  assert.match(html,/frame-src https:\/\/3wasfnjd\.github\.io/);
+  const en=toEnglish(html);assert.match(en,/<html lang="en"/);
+  assert.equal((en.replace(/<a class="lang-switch"[^>]*>عربي<\/a>/,'').replace(/<[^>]*>/g,' ').match(/[\u0600-\u06FF]/g)||[]).length,0);
+ }
+ for(const html of [renderHome(),renderGames(),...games.map(p=>renderProject(p))])assert.doesNotMatch(html,/href="https?:\/\/[^"]*github/);
 });
