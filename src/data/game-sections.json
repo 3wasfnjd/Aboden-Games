@@ -7,7 +7,9 @@
   "dahrooj": {
     "genre": "أركيد",
     "mobile": true,
-    "basis": "Existing approved instructions describe touch, drag and throw controls."
+    "basis": "Existing approved instructions describe touch, drag and throw controls.",
+    "poster": "assets/posters/dahrooj-quest-keyart.webp",
+    "art": "assets/posters/dahrooj-quest-keyart.webp"
   },
   "boom": {
     "genre": "أكشن",

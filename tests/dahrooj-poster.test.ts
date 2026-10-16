@@ -10,8 +10,9 @@ test('Dahrooj uses exactly the owner-attached poster on both portal views', () =
   const bytes = readFileSync('public/' + p.cover);
   assert.equal(bytes.length, 593236);
   assert.equal(createHash('sha256').update(bytes).digest('hex'), '80d2b29c8fa308bd135ac7897a4edda0007fb12ccdf3484967a85f9939f61432');
+  // Owner, 2026-10-16: «لا تختلف الويب عن الميتا» — the web card shows the same key art as Meta Quest; the approved poster file stays byte-identical.
   for (const html of [renderHome(), renderProject(p)]) {
-    assert.ok(html.includes(p.cover));
+    assert.ok(html.includes('assets/posters/dahrooj-quest-keyart.webp'));
     assert.ok(!html.includes('assets/projects/dahrooj.webp'));
   }
   assert.equal(p.liveUrl, 'https://3wasfnjd.github.io/Dahrooj/');
