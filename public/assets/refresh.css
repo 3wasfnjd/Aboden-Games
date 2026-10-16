@@ -224,3 +224,9 @@ body.is-play .site-footer{display:none}
 .play-frame{flex:1;width:100%;border:0;display:block;background:#000}
 .play-page:fullscreen .play-bar{display:none}
 @media(max-width:860px){.play-page{height:calc(100dvh - 80px)}.play-bar h1 span{display:none}}
+
+/* Brand Kit v1 touches: the symbol pattern as a faint texture on navy blocks, and the kit's 1.8 icon stroke. */
+.icon{stroke-width:1.8}
+.site-footer,.platform-strip,.contact-banner,.play-bar{position:relative;isolation:isolate}
+.site-footer::after,.platform-strip::after,.contact-banner::after,.play-bar::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:#fff;opacity:.035;-webkit-mask:url('/assets/brand/pattern.svg') 0 0/220px 220px repeat;mask:url('/assets/brand/pattern.svg') 0 0/220px 220px repeat}
+.contact-banner{border-radius:22px;padding-inline:clamp(24px,4vw,48px);background:#0e1d38}
