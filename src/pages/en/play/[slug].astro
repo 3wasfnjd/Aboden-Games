@@ -1,0 +1,9 @@
+---
+import { loadCatalog } from '../../../lib/catalog.ts';
+import { renderPlay, toEnglish } from '../../../lib/site.ts';
+export function getStaticPaths() {
+  return loadCatalog().filter(p => p.liveUrl && p.slug !== 'ar-aboden').map(project => ({ params: { slug: project.slug }, props: { project } }));
+}
+const html = toEnglish(renderPlay(Astro.props.project, '/'));
+---
+<Fragment set:html={html} />

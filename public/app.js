@@ -37,4 +37,8 @@ if(typeof document!=='undefined') {
   const note=document.querySelector('[data-support-game]');if(note){note.textContent=EN?`Your message is about: ${game}`:`رسالتك عن: ${game}`;note.hidden=false;}
  }
 
+ // Play page: focus the game for keyboard play and offer full screen where the browser allows it.
+ const frame=document.querySelector('.play-frame'),fs=document.querySelector('[data-play-fullscreen]');
+ frame?.addEventListener('load',()=>frame.focus());
+ if(frame&&fs&&(document.fullscreenEnabled||document.webkitFullscreenEnabled)){fs.hidden=false;fs.addEventListener('click',()=>{const el=document.querySelector('.play-page');(el.requestFullscreen||el.webkitRequestFullscreen)?.call(el);});}
 }

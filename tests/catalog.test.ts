@@ -46,12 +46,12 @@ test('no unapproved cards, routes or fixtures appear in homepage',()=>{
 test('RTL and preview noindex are explicit',()=>{
  const html=renderHome();assert.ok(html.includes('lang="ar" dir="rtl"'));assert.ok(html.includes('noindex, nofollow'));
 });
-test('approved cards and launch links do not require JavaScript',()=>{const html=renderHome();for(const p of loadCatalog()){assert.ok(html.includes(p.title));assert.ok(html.includes(p.slug==='ar-aboden'?'/ar/#experiences':p.liveUrl!));}});
+test('approved cards and launch links do not require JavaScript',()=>{const html=renderHome();for(const p of loadCatalog()){assert.ok(html.includes(p.title));assert.ok(html.includes(p.slug==='ar-aboden'?'/ar/#experiences':'/play/'+p.slug+'/'));}});
 test('no launch link without a verified URL',()=>{
  const html=renderProject(fixture);assert.ok(!html.includes('العب الآن'));assert.ok(html.includes('لا تتوفر نسخة تشغيل'));
 });
 test('launch links open safely',()=>{
- const html=renderProject({...fixture,liveUrl:'https://example.com/test'});assert.ok(html.includes('العب الآن'));assert.ok(html.includes('rel="noopener noreferrer"'));
+ const html=renderProject({...fixture,liveUrl:'https://example.com/test'});assert.ok(html.includes('العب الآن'));assert.ok(html.includes('href="/play/test-fixture/"'));assert.ok(!html.includes('href="https://example.com/test"'));
 });
 test('unverified device claims do not appear',()=>assert.ok(!renderProject(fixture).includes('الأجهزة التي تم التحقق منها')));
 test('project text cannot inject HTML',()=>assert.ok(!renderProject({...fixture,title:'<script>alert(1)</script>'}).includes('<script>alert(1)</script>')));

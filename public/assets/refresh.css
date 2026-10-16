@@ -212,3 +212,15 @@ html[lang=en] body{letter-spacing:0}
 .quest-presskit{margin:clamp(40px,5vw,72px) 0 var(--section-space);border-radius:20px;overflow:hidden;border:1px solid var(--line)}
 .quest-presskit img{width:100%;height:auto;display:block}
 .quest-hero{width:100%;height:auto;border-radius:20px}
+
+/* Play page: the game runs inside the studio site (abodengames.com/play/…). */
+body.is-play .site-footer{display:none}
+.play-page{display:flex;flex-direction:column;height:calc(100dvh - var(--header-h,97px));min-height:420px;background:#050c1c}
+.play-bar{display:flex;align-items:center;gap:16px;padding:8px clamp(12px,3vw,32px);border-bottom:1px solid var(--line)}
+.play-bar .text-link{margin:0;font-size:13px;white-space:nowrap}
+.play-bar h1{font-size:16px;margin:0;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.play-bar h1 span{color:var(--muted);font-size:12px;font-weight:500;margin-inline-start:6px}
+.play-fullscreen{width:38px;height:38px}
+.play-frame{flex:1;width:100%;border:0;display:block;background:#000}
+.play-page:fullscreen .play-bar{display:none}
+@media(max-width:860px){.play-page{height:calc(100dvh - 80px)}.play-bar h1 span{display:none}}
