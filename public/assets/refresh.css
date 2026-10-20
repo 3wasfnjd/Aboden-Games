@@ -251,3 +251,5 @@ body.is-play .site-footer{display:none}
 .roblox-soon{margin-bottom:40px;padding:36px 22px}
 .roblox-soon p{margin:14px 0 0}
 .roblox-note{margin-bottom:var(--section-space,90px)}
+.roblox-list{margin-bottom:56px}
+.roblox-card>img{object-fit:cover}
