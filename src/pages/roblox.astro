@@ -1,0 +1,5 @@
+---
+import { renderRoblox } from '../lib/site.ts';
+const html = renderRoblox(import.meta.env.BASE_URL);
+---
+<Fragment set:html={html} />

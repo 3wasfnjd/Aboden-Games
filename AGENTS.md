@@ -64,3 +64,8 @@
 
 - «الان نبي نضيفه في موقع عبودين قيمز»: the owner's Meta Quest game «مفاتيح — Mafateeh», released on the Meta Horizon Store on 2026-10-20 (https://www.meta.com/experiences/app/1431517553369145/), is added as the second Meta Quest game: a card in the games page's Quest section, a related card on the AR page, and its own page at `/games/mafateeh/` (and `/en/games/mafateeh/`). Data in `studio.json` → `mafateeh`.
 - Images: the owner's key art (`assets/posters/mafateeh-quest-keyart.webp`) and the five store screenshots the owner captured on the headset (`mafateeh-quest-shot-1..5.webp`), each recorded in `poster-sources.json`. Like Dahrooj Quest, this is studio content shown by the owner's instruction, not a repository imported into the catalog; no repository link appears on the site.
+
+## Owner instruction — 2026-10-20 (Roblox section)
+
+- «ابي تضيف قسم جديد خاص بروبلكس بالموقع … جهز محتوى وصور والقسم خاص باضافة ماب لروبلكس»: a Roblox maps section at `/roblox/` (and `/en/roblox/`), in the header nav and as a banner on the games page. Maps come from `src/data/roblox-maps.json` and stay empty («قريبًا») until the owner gives a map's name, its Roblox link and its images; never invent a map, link or player count.
+- Art: `assets/posters/roblox-maps-poster.webp`, a studio-designed voxel poster (`scripts/make-roblox-poster.py`), no Roblox logo. The page notes that Roblox is a trademark of Roblox Corporation and the studio is not affiliated.

@@ -52,5 +52,9 @@
   "mafateeh-quest-shot-5.webp": {
     "repository": null,
     "note": "Owner's own Meta Quest 3 headset capture of Mafateeh (camp), the store screenshot chosen with the owner on 2026-10-20, resized to 1600x900."
+  },
+  "roblox-maps-poster.webp": {
+    "repository": null,
+    "note": "Studio-designed voxel poster for the Roblox maps section (a block island with a Najdi mud house, a tower, palms and a sunset; no Roblox logo, no gameplay), made at the owner's request on 2026-10-20 by scripts/make-roblox-poster.py."
   }
 }
