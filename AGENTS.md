@@ -67,5 +67,5 @@
 
 ## Owner instruction — 2026-10-20 (Roblox section)
 
-- «ابي تضيف قسم جديد خاص بروبلكس بالموقع … جهز محتوى وصور والقسم خاص باضافة ماب لروبلكس»: a Roblox maps section at `/roblox/` (and `/en/roblox/`), in the header nav and as a banner on the games page. Maps come from `src/data/roblox-maps.json` and stay empty («قريبًا») until the owner gives a map's name, its Roblox link and its images; never invent a map, link or player count.
-- Art: `assets/posters/roblox-maps-poster.webp`, a studio-designed voxel poster (`scripts/make-roblox-poster.py`), no Roblox logo. The page notes that Roblox is a trademark of Roblox Corporation and the studio is not affiliated.
+- «ابي تضيف قسم جديد خاص بروبلكس بالموقع», then «اي قسم جديد مابات والالعاب — لا صور حقيقيه لروبلكس — لاتختلق»: `/roblox/` (and `/en/roblox/`) is a section for the studio's Roblox MAPS and GAMES, in the header nav and as a banner on the games page. Items come from `src/data/roblox-maps.json` (`items`, each with `kind` map|game) and each list shows «قريبًا» until the owner gives an item's name, its Roblox link and its real images.
+- Never invent a map, game, link, image, description or claim for this section; no designed, generated or stand-in art (the earlier voxel poster was removed at the owner's word). The page notes that Roblox is a trademark of Roblox Corporation and the studio is not affiliated.
