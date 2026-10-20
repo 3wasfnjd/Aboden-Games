@@ -237,3 +237,8 @@ body.is-play .site-footer{display:none}
 .quest-gallery img{width:100%;height:auto;border-radius:16px;border:1px solid var(--line)}
 .quest-gallery img:first-child{grid-column:1/-1}
 @media(max-width:600px){.quest-gallery{grid-template-columns:1fr}.quest-gallery img{border-radius:12px}}
+.quest-card .release-date{display:flex;align-items:center;gap:8px;font-size:12px;color:#c6d3e7;margin-block:-10px 22px}
+.quest-card .release-date .icon{width:16px;height:16px}
+.quest-about{max-width:860px;border-top:1px solid var(--line);padding-top:clamp(32px,4vw,56px)}
+.quest-about h2{margin-bottom:22px}
+.quest-about p:not(.eyebrow){font-size:15px;line-height:2.15;margin-bottom:16px}
