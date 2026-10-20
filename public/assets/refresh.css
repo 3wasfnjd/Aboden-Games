@@ -242,6 +242,7 @@ body.is-play .site-footer{display:none}
 .quest-about{max-width:860px;border-top:1px solid var(--line);padding-top:clamp(32px,4vw,56px)}
 .quest-about h2{margin-bottom:22px}
 .quest-about p:not(.eyebrow){font-size:15px;line-height:2.15;margin-bottom:16px}
-.feature-next{margin-top:clamp(40px,5vw,72px)}
+.feature-next{margin-top:0}
+.feature-divider{border:0;border-top:1px solid var(--line);margin:clamp(48px,6vw,88px) 0}
 .feature-badge{position:absolute;top:20px;right:20px;background:var(--accent,#ff8a3d);color:#0b1730;font-weight:700;font-size:13px;padding:6px 16px;border-radius:30px}
 @media(max-width:600px){.feature-badge{top:12px;right:12px;font-size:11px;padding:4px 12px}}
