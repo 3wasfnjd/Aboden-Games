@@ -4,10 +4,12 @@
     {
       "kind": "map",
       "title": "بوليفارد جود",
-      "titleEn": "",
-      "description": "",
+      "titleEn": "Boulevard Jood",
+      "description": "تمشّي في بوليفارد ملوّن مليء بالمتاجر البناتية الجميلة، وارتاحي في الحديقة الخضراء عند النافورة، واكتشفي البيوت الخشبية اللطيفة على الجهة المقابلة. مكان هادي وحلو تلعبين فيه وتتصورين وتطلعين فيه مع صديقاتك ❤️",
       "image": "assets/roblox/boulevard-joud.webp",
-      "url": ""
+      "url": "",
+      "age": "+16",
+      "_source": "Name, description and age rating from the owner's screenshot of the map's Roblox page (2026-10-20)."
     }
   ]
 }
