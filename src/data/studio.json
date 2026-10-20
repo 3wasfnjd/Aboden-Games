@@ -42,5 +42,13 @@
   "familyPhoto": "assets/team/aboden-family.webp",
   "familyPhotoAlt": "رسم ملوّن لعبودين مع ناصر وجود ونجد حول اللابتوب في استديو عبودين قيمز، وحولهم فقاعات كلام مثل «وش رايكم نسوي لعبة فيها…؟» و«إيش هذا؟ ما فيك مخ!»",
   "teamSource": "Owner message 2026-10-15: team is the owner (عبودين) and the owner's children ناصر وجود ونجد; the children bring the game idea and style, the owner designs and programs with AI assistance.",
-  "familyPhotoSource": "Illustration supplied by the owner on 2026-10-15 for the story and team pages."
+  "familyPhotoSource": "Illustration supplied by the owner on 2026-10-15 for the story and team pages.",
+  "mafateeh": {
+    "title": "مفاتيح",
+    "titleEn": "Mafateeh",
+    "description": "ألغاز هادئة مع الشايب في عالم نجدي مصغّر يطلع على طاولتك بالواقع المختلط: بيوت الطين والمخيم والسوق، حتى صندوق الجد.",
+    "platform": "Meta Quest",
+    "storeUrl": "https://www.meta.com/experiences/app/1431517553369145/",
+    "source": "Owner instruction 2026-10-20: «الان نبي نضيفه في موقع عبودين قيمز» — the owner's Meta Quest game Mafateeh, released on the Meta Horizon Store on 2026-10-20."
+  }
 }

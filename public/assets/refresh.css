@@ -230,3 +230,10 @@ body.is-play .site-footer{display:none}
 .site-footer,.platform-strip,.contact-banner,.play-bar{position:relative;isolation:isolate}
 .site-footer::after,.platform-strip::after,.contact-banner::after,.play-bar::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:#fff;opacity:.035;-webkit-mask:url('/assets/brand/pattern.svg') 0 0/220px 220px repeat;mask:url('/assets/brand/pattern.svg') 0 0/220px 220px repeat}
 .contact-banner{border-radius:22px;padding-inline:clamp(24px,4vw,48px);background:#0e1d38}
+
+/* Meta Quest list (more than one game) and the Mafateeh screenshot gallery */
+.quest-list{display:grid;gap:24px}
+.quest-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:clamp(30px,4vw,56px) 0 var(--section-space)}
+.quest-gallery img{width:100%;height:auto;border-radius:16px;border:1px solid var(--line)}
+.quest-gallery img:first-child{grid-column:1/-1}
+@media(max-width:600px){.quest-gallery{grid-template-columns:1fr}.quest-gallery img{border-radius:12px}}
