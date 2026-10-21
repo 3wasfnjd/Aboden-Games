@@ -69,3 +69,8 @@
 
 - «ابي تضيف قسم جديد خاص بروبلكس بالموقع», then «اي قسم جديد مابات والالعاب — لا صور حقيقيه لروبلكس — لاتختلق»: `/roblox/` (and `/en/roblox/`) is a section for the studio's Roblox MAPS and GAMES, in the header nav and as a banner on the games page. Items come from `src/data/roblox-maps.json` (`items`, each with `kind` map|game) and each list shows «قريبًا» until the owner gives an item's name, its Roblox link and its real images.
 - Never invent a map, game, link, image, description or claim for this section; no designed, generated or stand-in art (the earlier voxel poster was removed at the owner's word). The page notes that Roblox is a trademark of Roblox Corporation and the studio is not affiliated.
+
+## Mafateeh in the browser — 2026-10-21
+
+- Owner: «نقدر نحول مفاتيح ويب بنفس التصميم والديزاين والالغاز» then «في الويب ابيها مجانيه بعد عادي». The Quest game's own web build (built and deployed by the game's repository) is played free at `/play/mafateeh/` (`renderMafateehPlay`, iframe of `studio.json` `mafateeh.webUrl`). Its Quest page, games card and home feature link to it.
+- Mafateeh is not a catalog project (catalog, approvals and cover sources are protected); do not add it there to get a play page.

@@ -1,0 +1,5 @@
+---
+import { renderMafateehPlay } from '../../lib/site.ts';
+const html = renderMafateehPlay(import.meta.env.BASE_URL);
+---
+<Fragment set:html={html} />
