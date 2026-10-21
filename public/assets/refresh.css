@@ -272,7 +272,7 @@ body.is-play .site-footer{display:none}
 .battleship-info .howto{color:var(--white);font-size:15px;margin-block:10px}
 .battleship-info p{font-size:14px;line-height:2.05}
 @media(max-width:700px){.feature-game{grid-template-columns:1fr}.feature-game>img{max-height:300px}.battleship-hero{grid-template-columns:1fr}.battleship-poster{max-width:360px;margin-inline:auto;border-radius:14px}}
-/* Home «جديد» bar: latest additions above the header (src/data/news.json, rotated by app.js) */
+/* Home «جديد» bar: latest additions right under the header (src/data/news.json, rotated by app.js) */
 .news-bar{position:relative;background:linear-gradient(90deg,rgba(255,138,61,.14),rgba(11,23,48,.95) 40%,rgba(11,23,48,.95) 60%,rgba(255,138,61,.1));border-bottom:1px solid rgba(255,138,61,.22);font-size:.88rem}
 .news-inner{display:flex;align-items:center;gap:14px;min-height:52px}
 .news-badge{display:inline-flex;align-items:center;gap:7px;flex:none;padding:4px 12px;border-radius:999px;background:var(--accent,#ff8a3d);color:#1a0d02;font-weight:800;font-size:.8rem;box-shadow:0 0 18px rgba(255,138,61,.35)}
