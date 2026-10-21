@@ -444,7 +444,6 @@
     "العب مفاتيح | عبودين قيمز": "Play Mafateeh | Aboden Games",
     "جديدة · متصفح وجوال": "New · browser and mobile",
     "البارجة الحربية": "Battleship",
-    "بارجتك الحربية قدّام جزيرة في وسط المحيط، وعندك سبعة عشر سلاحًا تختار منها هدفك، والعدو يرد عليك بدفاعاته ودباباته وطائراته.": "Your battleship lies off an island in the middle of the ocean, with seventeen weapons to choose from for your target, and the enemy fights back with its air defences, tanks and jets.",
     "حرب · عبر المتصفح": "War · in the browser",
     "بوستر البارجة الحربية: بارجة تطلق صواريخها على جزيرة في وسط المحيط": "Battleship poster: a battleship firing its missiles at an island in the middle of the ocean",
     "البارجة الحربية | عبودين قيمز": "Battleship | Aboden Games",
@@ -460,9 +459,7 @@
     "مجانية · لعب حر · تنلعب في المتصفح على الجوال والكمبيوتر": "Free · free play · plays in the browser on phone and computer",
     "تاريخ الإطلاق: ٢١ أكتوبر ٢٠٢٦": "Release date: 21 October 2026",
     "مساعدة بخصوص البارجة الحربية": "Help with Battleship",
-    "سبعة عشر سلاحًا.": "Seventeen weapons.",
     "وعدو يرد عليك.": "And an enemy that fights back.",
-    "بارجتك راسية قدّام جزيرة فيها مدينة ومطار وميناء ومصفاة ومحطة كهرباء. تختار السلاح وتلمس الهدف: صاروخ باليستي أو كروز أو فرط صوتي، مدفعية وراجمة صواريخ، مقاتلة ترمي قنابلها وترجع، مروحية هجومية، مسيّرات انتحارية وأسراب مسيّرات، طوربيد يمشي تحت الماء، وحتى قنبلة نووية تنسف كل شي في طريق موجتها.": "Your battleship lies off an island with a city, an airfield, a port, a refinery and a power station. Pick a weapon and tap the target: a ballistic, cruise or hypersonic missile, artillery and a rocket launcher, a strike jet that drops its bombs and flies back, an attack helicopter, kamikaze drones and drone swarms, a torpedo running under the water, and even a nuclear bomb whose shock wave flattens everything in its path.",
     "وما تلعب لحالك: العدو عنده دفاعات جوية تعترض صواريخك، ودبابات ومدرعات تتحرك على الجزيرة، ومنصات صواريخ ومقاتلات تهاجم بارجتك. وتقدر توقف القوات المعادية من الإعدادات وتجرّب أسلحتك على جزيرة هادية.": "And you are not alone: the enemy has air defences that intercept your missiles, tanks and armoured vehicles moving on the island, and missile launchers and jets that attack your battleship. You can switch the enemy forces off in the settings and try your weapons on a quiet island.",
     "في اللعبة جزيرتان، جزيرة السبخة وجزيرة الهلال، وكاميرا تتبّع الصاروخ لين يوصل هدفه، ووقت نهار أو ليل أو يتغيّر تلقائيًا.": "There are two islands, Sabkha Island and Crescent Island, a camera that follows the missile until it reaches its target, and day, night, or a time of day that changes by itself.",
     "الجزيرة والبارجة في بداية الجولة": "The island and the battleship at the start of a round",
@@ -471,6 +468,10 @@
     "ضربة على المدينة في الليل": "A strike on the city at night",
     "القنبلة النووية وموجة الانفجار": "The nuclear bomb and its shock wave",
     "العب البارجة الحربية | عبودين قيمز": "Play Battleship | Aboden Games",
-    "→ البارجة الحربية": "← Battleship"
+    "→ البارجة الحربية": "← Battleship",
+    "بارجتك الحربية قدّام جزيرة في وسط المحيط، وعندك ثمانية عشر سلاحًا تختار منها هدفك، والعدو يرد عليك بدفاعاته ودباباته وطائراته.": "Your battleship lies off an island in the middle of the ocean, with eighteen weapons to choose from for your target, and the enemy fights back with its air defences, tanks and jets.",
+    "ثمانية عشر سلاحًا.": "Eighteen weapons.",
+    "بارجتك راسية قدّام جزيرة فيها مدينة ومطار وميناء ومصفاة ومحطة كهرباء. تختار السلاح وتلمس الهدف: صاروخ باليستي أو كروز أو فرط صوتي، مدفعية وراجمة صواريخ، مقاتلة ترمي قنابلها وترجع، مروحية هجومية، مسيّرات انتحارية وأسراب مسيّرات، طوربيد يمشي تحت الماء، وحتى قنبلة نووية تنسف كل شي في طريق موجتها. وتقدر ترسل طائرة استطلاع تحوم فوق المنطقة وتعلّم مواقع العدو قبل ما تضرب.": "Your battleship lies off an island with a city, an airfield, a port, a refinery and a power station. Pick a weapon and tap the target: a ballistic, cruise or hypersonic missile, artillery and a rocket launcher, a strike jet that drops its bombs and flies back, an attack helicopter, kamikaze drones and drone swarms, a torpedo running under the water, and even a nuclear bomb whose shock wave flattens everything in its path. You can also send a reconnaissance drone to circle the area and mark the enemy's positions before you strike.",
+    "طائرة الاستطلاع تعلّم أهداف العدو فوق القاعدة الجوية": "The reconnaissance drone marking enemy targets over the air base"
   }
 }

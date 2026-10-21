@@ -80,5 +80,9 @@
   "battleship-shot-5.webp": {
     "repository": null,
     "note": "Actual in-game capture of the owner's Battleship web build (2026-10-21, 1600x900 render of the released web version): the nuclear blast and its shock wave."
+  },
+  "battleship-shot-6.webp": {
+    "repository": null,
+    "note": "Actual in-game capture of the owner's Battleship web build (2026-10-21, the release with the reconnaissance drone): the drone's amber marks on enemy targets over the air base."
   }
 }
