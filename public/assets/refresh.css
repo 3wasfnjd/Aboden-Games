@@ -256,3 +256,19 @@ body.is-play .site-footer{display:none}
 /* Mafateeh in the browser (2026-10-21): two links under its feature, the play button and its note */
 .feature-links{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px}
 .quest-details .button-accent+.web-note{font-size:13px;line-height:1.9;margin-block:12px 22px}
+
+/* Battleship (owner, 2026-10-21): the featured web-game card and its page — the owner's portrait poster kept whole */
+.feature-game{display:grid;grid-template-columns:minmax(0,300px) 1fr;align-items:center;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-bottom:34px;transition:border-color .3s,transform .3s}
+.feature-game:hover{border-color:#9cb6df55;transform:translateY(-4px)}
+.feature-game>img{width:100%;height:100%;max-height:440px;object-fit:cover;object-position:center 32%;background:#081327}
+.feature-game>div{padding:clamp(24px,3vw,44px)}
+.feature-game h3{font-size:clamp(26px,1.4vw + 20px,36px);margin-block:16px 10px}
+.feature-game h3 .project-english{display:inline;margin-inline-start:10px;font-size:12px}
+.feature-game p{font-size:var(--fs-small);margin-bottom:22px;max-width:520px}
+.battleship-hero{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:clamp(28px,5vw,70px);align-items:start;margin-bottom:clamp(30px,4vw,56px)}
+.battleship-poster{width:100%;height:auto;border-radius:20px;border:1px solid var(--line)}
+.battleship-info h2{margin-block:20px 24px}
+.battleship-info h3{font-size:20px;margin-top:30px}
+.battleship-info .howto{color:var(--white);font-size:15px;margin-block:10px}
+.battleship-info p{font-size:14px;line-height:2.05}
+@media(max-width:700px){.feature-game{grid-template-columns:1fr}.feature-game>img{max-height:300px}.battleship-hero{grid-template-columns:1fr}.battleship-poster{max-width:360px;margin-inline:auto;border-radius:14px}}

@@ -52,5 +52,15 @@
     "source": "Owner instruction 2026-10-20: «الان نبي نضيفه في موقع عبودين قيمز» — the owner's Meta Quest game Mafateeh, released on the Meta Horizon Store on 2026-10-20.",
     "webUrl": "https://3wasfnjd.github.io/Mafateeh/",
     "webSource": "Owner instruction 2026-10-21: «نقدر نحول مفاتيح ويب بنفس التصميم والديزاين والالغاز» then «في الويب ابيها مجانيه بعد عادي» — the full game, free, built from the Quest project for the browser."
+  },
+  "battleship": {
+    "title": "البارجة الحربية",
+    "titleEn": "Battleship",
+    "description": "بارجتك الحربية قدّام جزيرة في وسط المحيط، وعندك سبعة عشر سلاحًا تختار منها هدفك، والعدو يرد عليك بدفاعاته ودباباته وطائراته.",
+    "howTo": "المس الهدف للإطلاق · اسحب لتدوير الكاميرا · قرّب بإصبعين",
+    "platform": "Web",
+    "released": "2026-10-21",
+    "webUrl": "https://3wasfnjd.github.io/AR-Aboden/table-war-web/",
+    "source": "Owner instruction 2026-10-21: «أبي أضيف لعبة جديدة لموقع عبودين قيمز» then «لعبة البارجه» and «اكتبها انت وارفع اللعبه للموقع» — the owner's web game Battleship (البارجة الحربية), free play in the browser; the owner asked Claude to write its description and how-to-play."
   }
 }
