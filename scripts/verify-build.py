@@ -37,5 +37,11 @@ original=json.loads(Path('migration/destination-original-sha256.json').read_text
 for filename in ['dahrooj-privacy.html','privacy-policies/dahrooj-meta-quest.html']:
  assert hashlib.sha256((root/filename).read_bytes()).hexdigest()==original['dahrooj-privacy.html']
 assert not (root/'privacy-drafts').exists()
+import re
+for p in (root/'en').rglob('*.html'):
+ s=re.sub(r'<script.*?</script>|<style.*?</style>','',p.read_text(),flags=re.S)
+ s=re.sub(r'<a class="lang-switch"[^>]*>[^<]*</a>','',s)
+ for t in re.findall(r'>([^<]*)<',s)+re.findall(r' (?:alt|aria-label|title|content|placeholder)="([^"]*)"',s):
+  if re.search(r'[\u0600-\u06FF]',t):errors.append(f'{p}: untranslated "{t.strip()[:60]}" (add it to src/data/i18n-en.json)')
 if errors:raise SystemExit('\n'.join(errors))
 print(f'PASS: {len(parsed)} HTML pages; internal links, anchors, landmarks, image alt, external link safety and exact privacy bytes.')
