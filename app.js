@@ -39,6 +39,8 @@ if(typeof document!=='undefined') {
 
  // Play page: focus the game for keyboard play and offer full screen where the browser allows it.
  const frame=document.querySelector('.play-frame'),fs=document.querySelector('[data-play-fullscreen]');
+ // iPhone: a game's sound plays even with the silent switch on (Safari 16.4+)
+ if(frame){try{if(navigator.audioSession)navigator.audioSession.type='playback';}catch{}}
  frame?.addEventListener('load',()=>frame.focus());
  if(frame&&fs&&(document.fullscreenEnabled||document.webkitFullscreenEnabled)){fs.hidden=false;fs.addEventListener('click',()=>{const el=document.querySelector('.play-page');(el.requestFullscreen||el.webkitRequestFullscreen)?.call(el);});}
 }
