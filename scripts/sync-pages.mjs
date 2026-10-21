@@ -6,7 +6,7 @@ import { execFileSync } from 'node:child_process';
 const root = process.cwd();
 const dist = join(root, 'dist');
 const manifest = '.pages-files.json';
-const rootFiles = new Set(['index.html', '404.html', 'app.js', 'site.css', 'favicon.svg', 'favicon.ico', 'robots.txt', 'sitemap.xml', 'sitemap-index.xml', 'build-info.json', 'CNAME', 'dahrooj-cover.jpg', 'dahrooj-icon.png', 'dahrooj-privacy.html', 'site.webmanifest', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png']);
+const rootFiles = new Set(['index.html', '404.html', 'app.js', 'site.css', 'favicon.svg', 'favicon.ico', 'robots.txt', 'sitemap.xml', 'sitemap-index.xml', 'build-info.json', 'CNAME', 'dahrooj-cover.jpg', 'dahrooj-icon.png', 'dahrooj-privacy.html', 'site.webmanifest', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'df1dae49e31b378c3f151625ceca736b.txt']);
 const assetDirs = new Set(['assets', 'images', 'projects', 'licenses', '_astro', 'games', 'studio', 'team', 'support', 'contact', 'ar', 'ar-lab', 'roblox', 'en', 'play', '.well-known', 'privacy-policies']);
 function safe(path) {
   if (typeof path !== 'string' || path.includes('\\')) throw new Error('Invalid Pages path');

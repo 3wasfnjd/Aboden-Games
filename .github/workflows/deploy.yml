@@ -63,3 +63,14 @@ jobs:
             sleep 5
           done
           exit 1
+      - name: Tell search engines what changed (IndexNow — Bing, Yandex, Seznam, Naver)
+        if: env.SUPERSEDED != '1'
+        continue-on-error: true
+        env:
+          INDEXNOW_KEY: df1dae49e31b378c3f151625ceca736b
+        run: |
+          grep -o '<loc>[^<]*' dist/sitemap.xml | sed 's/<loc>//' > /tmp/urls.txt
+          jq -n --arg key "$INDEXNOW_KEY" --rawfile urls /tmp/urls.txt \
+            '{host:"abodengames.com",key:$key,keyLocation:("https://abodengames.com/"+$key+".txt"),urlList:($urls|split("\n")|map(select(length>0)))}' > /tmp/indexnow.json
+          curl --connect-timeout 10 --max-time 30 -sS -o /dev/null -w 'IndexNow HTTP %{http_code}\n' \
+            -H 'Content-Type: application/json; charset=utf-8' --data @/tmp/indexnow.json https://api.indexnow.org/indexnow

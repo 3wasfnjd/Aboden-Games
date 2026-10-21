@@ -13,7 +13,7 @@
 - The owner requested completing publication on 2026-10-02. Screenshot approval originally covered nine projects; subsequent removal leaves eight currently approved repositories in approvals.json.
 - Owner instruction: «احذف الرماية بالواقع المعزز». AR-Shooter must stay out of the directory, search, detail routes, published covers and license source list unless explicitly reapproved. Do not delete or modify its original repository.
 - Owner instruction: «عدل صورة هجولة وحط صورة الواجهه للعبه اللي فيها شاص». Use the actual Hajwala images/menu/menu-bg.jpg artwork, verified against its source Git blob. Do not invent artwork or use the old racetrack screenshot.
-- Keep preview mode and noindex until public indexing is explicitly approved.
+- ~~Keep preview mode and noindex until public indexing is explicitly approved.~~ Superseded 2026-10-21: the owner opened search indexing (see the last section).
 - Pages currently serves main at the repository root. The publication workflow validates, builds Astro, commits generated static files and explicitly requests a Pages build. `.nojekyll` prevents Jekyll from parsing Astro source.
 - Edit `src/` and `public/`, NOT generated root HTML/CSS/JS. `scripts/sync-pages.mjs` and `.pages-files.json` manage generated files and remove obsolete generated pages.
 - Keep Arabic RTL/mobile-first design. Respect browser zoom and reduced-motion preferences.
@@ -31,7 +31,7 @@
 - No repository/source links or internal repository names in public site UI. Preserve legally required attribution text.
 - The Meta Quest Dahrooj content was already on the destination site at af212c4. Its inclusion is preservation of existing studio content, not approval to import a new repository.
 - Use the exact approved white/navy logo and Cairo fonts. Contact details and team members must come from the owner; never invent a working inbox or send-success state.
-- Keep the existing noindex policy. Run npm test, npm run build, and python3 scripts/verify-build.py before release.
+- Indexing: see the 2026-10-21 section. Run npm test, npm run build, and python3 scripts/verify-build.py before release.
 
 ## Owner instructions — 2026-10-15 (story, team, AR, accent)
 
@@ -45,7 +45,7 @@
 - Owner asked for better image layout/quality, smaller typography and less all-navy background. Overrides live in `public/assets/refresh.css` (loaded last): fluid type scale, 4:5 poster cards (whole artwork kept with a blurred fill), sand-coloured bands (`.band-sand`).
 - Owner allowed taking images from the game repositories or designing new ones. Higher-resolution copies and the designed AR-lab poster live in `public/assets/posters/`; each is recorded in `src/data/poster-sources.json` and wired through `poster`/`art` in `game-sections.json`. Original `assets/projects/` covers stay byte-identical.
 - Team portraits (`public/assets/team/{aboden,nasser,joud,najd}.webp`; Joud and Najd replaced by the owner's new individual cards on 2026-10-16) are each member's full quadrant of the owner-supplied team illustration, frame and details intact, transparent background kept (WebP with alpha; never flatten to a square), no face crops, no upscaling. Show them small. The group illustration is not shown on the team page.
-- Search indexing stays off (noindex) until the owner says the site is finished.
+- ~~Search indexing stays off (noindex) until the owner says the site is finished.~~ Opened by the owner 2026-10-21.
 - AR lab hosted here (owner instruction 2026-10-15: «التجارب انقل الصفحة لنفس المستودع وخليها بنفس الهوية»): the lab's runtime files from 3wasfnjd/AR-Aboden@56a234f live in `public/ar-lab/` and are served at `/ar-lab/`. Each page links `ar-lab/brand.css` (Cairo, navy/orange, branded way back to `/ar/`) and is noindex; `ar-lab/index.html` redirects to `/ar/`. Licence files (including the GPL-3.0 sand experience notice) are kept. The original repository stays untouched.
 - Tools section on the studio page (owner request 2026-10-15): Claude, ChatGPT, Gemini, Tripo AI, GitHub from `src/data/tools.json`; logos from simple-icons where available, a plain name badge otherwise. The domain registrar logo is pending until the owner names the registrar.
 - Owner instruction 2026-10-15 (later): «الرماية احذفها» — the «رماية عبودين» shooting-gallery experience (and its CC BY duck model) is removed from `/ar-lab/`, the AR page and the published root. «حرب الألوان AR» stays. The AR-lab card description is overridden in `game-sections.json` so it no longer lists shooting. The sand experience (GPL-3.0) is credited on the licences page.
@@ -90,3 +90,12 @@
 
 - Studio games (owner's own titles outside the protected catalog) now live in `src/data/studio-games.json` (moved from `studio.json` `quest`/`mafateeh`/`battleship`, texts unchanged). One entry builds `/games/<slug>/` (`renderStudioGame`, generic `games/[slug].astro`), `/play/<slug>/` when `webUrl` is set (shared `play/[slug].astro`), and its listings: web → featured card (newest by `released`), web grid + search + genre filter, mobile list (`mobile`), home grid; quest → Quest section, AR page related card (`mixedReality`). Detail pages rendered byte-identical to the previous hand-written ones.
 - Battleship now appears in the home grid and the searchable games grid (genre «حرب»). Footer gained the Roblox link. Support FAQ's Meta Quest answer covers Dahrooj and Mafateeh.
+
+## Owner instruction — 2026-10-21 (security + search engines)
+
+- «الان ابيك تحمي الموقع وسد اي ثغرات … وابدا في نشر الموقع في محركات البحث». Studio pages now send `index, follow, max-image-preview:large`; play pages (`/play/…`), the AR-lab redirect project page and 404 are `noindex, follow`; AR-lab apps keep their own noindex. Privacy policies are not in the sitemap and stay byte-identical.
+- `sitemap.xml` (built by `src/pages/sitemap.xml.ts` from `sitemapRoutes()`) lists every indexable page in Arabic and English with hreflang alternates (incl. x-default → Arabic). `verify-build.py` fails if it lists a missing or noindex page, or if robots.txt blocks the site.
+- `robots.txt` allows the site, blocks repository folders GitHub Pages also serves (`/src/`, `/tests/`, `/scripts/`, `/migration/`, `/privacy-drafts/`, `/.github/`, `*.md`) and names the sitemap.
+- Structured data (JSON-LD, data only, CSP-safe, `<` escaped): Organization + WebSite on home, VideoGame on each game page (only facts on the page); English pages get it translated via `toEnglish()`. Game pages use their key art as `og:image`.
+- IndexNow: key file `public/df1dae49e31b378c3f151625ceca736b.txt`; deploy.yml pings api.indexnow.org with the sitemap URLs after each verified publish (Bing, Yandex, Seznam, Naver). Google needs Search Console verification by the owner (pending: owner to add the property; a verification meta/file can be added on request).
+- Security: `npm audit fix` (dev-server Vite/launch-editor advisories; 0 left). No secrets in the repository. Workflows keep least-privilege permissions and SHA-pinned actions.
