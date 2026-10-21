@@ -1,5 +1,7 @@
 # Aboden Fun World: publishing policy
 
+> **Read `PUBLISHING.md` first.** Owner, 2026-10-21: «من اليوم ورايح بتكون مسؤول عن الموقع … ولن يتم أي شي إلا عن طريقك». It is the rulebook for adding a game, Quest title, AR experience, Roblox item or news item: where each category appears, what the owner must supply, and the build/verify/deploy steps.
+
 - Work only in this repository. Never modify a linked project's repository or deployment.
 - The owner must explicitly approve EACH repository before it is added to the website.
 - Approval of the design, implementation or publication does NOT approve any repositories.
