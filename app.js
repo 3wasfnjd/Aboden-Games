@@ -43,4 +43,21 @@ if(typeof document!=='undefined') {
  if(frame){try{if(navigator.audioSession)navigator.audioSession.type='playback';}catch{}}
  frame?.addEventListener('load',()=>frame.focus());
  if(frame&&fs&&(document.fullscreenEnabled||document.webkitFullscreenEnabled)){fs.hidden=false;fs.addEventListener('click',()=>{const el=document.querySelector('.play-page');(el.requestFullscreen||el.webkitRequestFullscreen)?.call(el);});}
+ // Home «جديد» bar: show one addition at a time, every 5 s; pauses on hover/focus, swipe on touch, still with reduced motion.
+ const news=document.querySelector('.news-bar'),items=[...document.querySelectorAll('[data-news-item]')];
+ if(news&&items.length>1){
+  let at=0,timer;const count=news.querySelector('[data-news-count]');
+  const show=i=>{at=(i+items.length)%items.length;items.forEach((el,j)=>el.classList.toggle('is-active',j===at));if(count)count.textContent=`${at+1}/${items.length}`;};
+  const still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const stop=()=>clearInterval(timer),start=()=>{stop();if(!still)timer=setInterval(()=>show(at+1),5000);};
+  news.querySelector('[data-news-next]')?.addEventListener('click',()=>{show(at+1);start();});
+  news.querySelector('[data-news-prev]')?.addEventListener('click',()=>{show(at-1);start();});
+  news.addEventListener('mouseenter',stop);news.addEventListener('mouseleave',start);
+  news.addEventListener('focusin',stop);news.addEventListener('focusout',start);
+  let x0=null;const track=news.querySelector('.news-track');
+  track.addEventListener('touchstart',ev=>{x0=ev.touches[0].clientX;},{passive:true});
+  track.addEventListener('touchend',ev=>{if(x0===null)return;const dx=ev.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>40){show(at+((dx>0)===EN?-1:1));start();}},{passive:true});
+  document.addEventListener('visibilitychange',()=>document.hidden?stop():start());
+  start();
+ }
 }
