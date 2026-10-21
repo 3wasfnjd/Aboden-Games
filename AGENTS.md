@@ -79,3 +79,5 @@
 
 - «أبي أضيف لعبة جديدة لموقع عبودين قيمز» → «لعبة البارجه» → «اكتبها انت وارفع اللعبه للموقع»: the owner's web game «البارجة الحربية — Battleship» is added as a featured card at the top of the games page's web section and in the mobile list, with its own page `/games/battleship/` (and `/en/games/battleship/`) and a play page `/play/battleship/` (`renderBattleshipPlay`, iframe of `studio.json` `battleship.webUrl`). Release date 2026-10-21. The owner asked Claude to write its description and how-to-play (the how-to line is the game's own in-game text).
 - Images: the owner-supplied poster (`assets/posters/battleship-poster.webp`) and six actual captures of the released web build (`battleship-shot-1..6.webp`; shot 6 added with the reconnaissance drone, owner «عدل حسب التعديل الاخير», 2026-10-21), each recorded in `poster-sources.json`. Like Mafateeh, not a catalog project (catalog, approvals and cover sources are protected); no repository link appears on the site.
+
+- verify-build.py now fails the build if any /en/ page still shows Arabic text (outside the language switch); add missing strings to src/data/i18n-en.json.
