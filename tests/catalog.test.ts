@@ -46,8 +46,8 @@ test('no unapproved cards, routes or fixtures appear in homepage',()=>{
  for(const project of loadCatalog()) assert.ok(html.includes(project.slug==='ar-aboden'?'/ar/#experiences':'projects/'+project.slug+'/'));
  assert.ok(!html.includes('projects/aboden-fun/'));
 });
-test('RTL and preview noindex are explicit',()=>{
- const html=renderHome();assert.ok(html.includes('lang="ar" dir="rtl"'));assert.ok(html.includes('noindex, nofollow'));
+test('RTL and search indexing are explicit (owner opened indexing 2026-10-21)',()=>{
+ const html=renderHome();assert.ok(html.includes('lang="ar" dir="rtl"'));assert.ok(html.includes('content="index, follow'));assert.ok(renderNotFound().includes('noindex, follow'));
 });
 test('approved cards and launch links do not require JavaScript',()=>{const html=renderHome();for(const p of loadCatalog()){assert.ok(html.includes(p.title));assert.ok(html.includes(p.slug==='ar-aboden'?'/ar/#experiences':'/play/'+p.slug+'/'));}});
 test('no launch link without a verified URL',()=>{

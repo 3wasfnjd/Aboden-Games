@@ -43,5 +43,15 @@ for p in (root/'en').rglob('*.html'):
  s=re.sub(r'<a class="lang-switch"[^>]*>[^<]*</a>','',s)
  for t in re.findall(r'>([^<]*)<',s)+re.findall(r' (?:alt|aria-label|title|content|placeholder)="([^"]*)"',s):
   if re.search(r'[\u0600-\u06FF]',t):errors.append(f'{p}: untranslated "{t.strip()[:60]}" (add it to src/data/i18n-en.json)')
+# Search: sitemap present, every listed page exists and is indexable, robots.txt allows the site and names the sitemap.
+sm=root/'sitemap.xml'
+if not sm.exists():errors.append('Missing sitemap.xml')
+else:
+ for loc in re.findall(r'<loc>https://abodengames\.com/([^<]*)</loc>',sm.read_text()):
+  f=root/loc/'index.html'
+  if not f.exists():errors.append(f'sitemap lists missing page: {loc}')
+  elif 'noindex' in f.read_text():errors.append(f'sitemap lists a noindex page: {loc}')
+rb=(root/'robots.txt').read_text()
+if re.search(r'^Disallow: /$',rb,re.M) or 'Sitemap: https://abodengames.com/sitemap.xml' not in rb:errors.append('robots.txt blocks the site or lacks the sitemap')
 if errors:raise SystemExit('\n'.join(errors))
 print(f'PASS: {len(parsed)} HTML pages; internal links, anchors, landmarks, image alt, external link safety and exact privacy bytes.')

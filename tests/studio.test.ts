@@ -28,7 +28,7 @@ test('all public studio HTML removes repository links and internal repository na
   // The owner-requested tools section may name GitHub as a tool; everything else must not.
   assert.doesNotMatch(html.replace(/<section class="tools"[\s\S]*?<\/section>/,'').replace(/<[^>]*>/g,''),/GitHub|مستودع|3wasfnjd\//i);
   assert.doesNotMatch(html,/\{\{[A-Z_]+\}\}/);
-  assert.match(html,/noindex, nofollow/);
+  assert.match(html,/<meta name="robots" content="(?:no)?index, follow/);assert.doesNotMatch(html,/nofollow/);
   assert.doesNotMatch(html,/href="[^"']*(?:privacy-policies|dahrooj-privacy)/);
  }
 });
@@ -114,4 +114,14 @@ test('play pages keep players on abodengames.com: no GitHub links anywhere in th
   assert.equal((en.replace(/<a class="lang-switch"[^>]*>عربي<\/a>/,'').replace(/<[^>]*>/g,' ').match(/[\u0600-\u06FF]/g)||[]).length,0);
  }
  for(const html of [renderHome(),renderGames(),...games.map(p=>renderProject(p))])assert.doesNotMatch(html,/href="https?:\/\/[^"]*github/);
+});
+test('search: sitemap lists every indexable page in both languages, play pages stay noindex, JSON-LD is safe',async()=>{
+ const {sitemapRoutes,renderSitemap,renderStudioPlay,renderStudioGame,studioGames}=await import('../src/lib/site.ts');
+ const xml=renderSitemap('2026-10-21'),routes=sitemapRoutes();
+ assert.equal((xml.match(/<url>/g)||[]).length,routes.length*2);
+ for(const r of ['','games/','roblox/',...studioGames().map(g=>`games/${g.slug}/`)]){assert.ok(xml.includes(`<loc>https://abodengames.com/${r}</loc>`));assert.ok(xml.includes(`<loc>https://abodengames.com/en/${r}</loc>`));}
+ assert.doesNotMatch(xml,/play\/|privacy|ar-lab|404/);
+ for(const g of studioGames().filter(g=>g.webUrl))assert.match(renderStudioPlay(g.slug),/content="noindex, follow"/);
+ const game=renderStudioGame(studioGames()[0].slug),ld=game.match(/<script type="application\/ld\+json">([^<]*)<\/script>/);
+ assert.ok(ld);assert.equal(JSON.parse(ld![1])['@type'],'VideoGame');
 });
