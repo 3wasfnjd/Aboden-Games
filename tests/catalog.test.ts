@@ -2,7 +2,7 @@ import test from 'node:test';
 import {existsSync, readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import { loadCatalog, validateCatalog, type Project, type Approval } from '../src/lib/catalog.ts';
-import { escapeHtml, renderHome, renderProject, renderLicenses, renderNotFound, renderGames } from '../src/lib/site.ts';
+import { escapeHtml, renderHome, renderProject, renderLicenses, renderNotFound, renderGames, studioGames } from '../src/lib/site.ts';
 import { normalizeSearch } from '../public/app.js';
 
 // Synthetic test-only data. Never loaded by the site; NOT a real owner approval.
@@ -38,8 +38,11 @@ test('homepage has base-aware CSS, JS and page links',()=>{
 test('root deployment can use the same renderer',()=>assert.ok(renderHome('/').includes('href="/site.css"')));
 test('no unapproved cards, routes or fixtures appear in homepage',()=>{
  const html=renderHome();
- assert.equal((html.match(/data-project /g)||[]).length,8);assert.ok(!html.includes('test-fixture'));
- assert.equal((renderGames().match(/data-filter=/g)||[]).length,6);
+ // catalog projects plus the owner's studio web games (src/data/studio-games.json)
+ const studioWeb=studioGames().filter(g=>g.platform==='web');
+ assert.equal((html.match(/data-project /g)||[]).length,8+studioWeb.length);assert.ok(!html.includes('test-fixture'));
+ for(const g of studioWeb) assert.ok(html.includes(`games/${g.slug}/`));
+ assert.equal((renderGames().match(/data-filter=/g)||[]).length,7);
  for(const project of loadCatalog()) assert.ok(html.includes(project.slug==='ar-aboden'?'/ar/#experiences':'projects/'+project.slug+'/'));
  assert.ok(!html.includes('projects/aboden-fun/'));
 });

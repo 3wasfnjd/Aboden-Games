@@ -1,9 +1,13 @@
 ---
 import { loadCatalog } from '../../lib/catalog.ts';
-import { renderPlay } from '../../lib/site.ts';
+import { renderPlay, studioGames, renderStudioPlay } from '../../lib/site.ts';
 export function getStaticPaths() {
-  return loadCatalog().filter(p => p.liveUrl && p.slug !== 'ar-aboden').map(project => ({ params: { slug: project.slug }, props: { project } }));
+  return [
+    ...loadCatalog().filter(p => p.liveUrl && p.slug !== 'ar-aboden').map(project => ({ params: { slug: project.slug }, props: { project } })),
+    ...studioGames().filter(g => g.webUrl).map(g => ({ params: { slug: g.slug }, props: { project: undefined } })),
+  ];
 }
-const html = renderPlay(Astro.props.project, import.meta.env.BASE_URL);
+const { project } = Astro.props;
+const html = project ? renderPlay(project, import.meta.env.BASE_URL) : renderStudioPlay(Astro.params.slug, import.meta.env.BASE_URL);
 ---
 <Fragment set:html={html} />

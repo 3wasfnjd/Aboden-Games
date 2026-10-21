@@ -85,3 +85,8 @@
 - verify-build.py now fails the build if any /en/ page still shows Arabic text (outside the language switch); add missing strings to src/data/i18n-en.json.
 
 - Home «جديد» bar (owner 2026-10-21: «الرئيسيه فقط / تمام / بدون», then «نزلها تحت البنر الرئيسي … تحت عبودين قيمز»): right under the header (first thing in main) on the home page only, no close button. Items live in src/data/news.json (newest first; currently Battleship, Mafateeh, Boulevard Jood); app.js rotates them every 5 s. Add each new item's English to i18n-en.json.
+
+## Owner instruction — 2026-10-21 («عدل ووائم كل شي بالموقع»)
+
+- Studio games (owner's own titles outside the protected catalog) now live in `src/data/studio-games.json` (moved from `studio.json` `quest`/`mafateeh`/`battleship`, texts unchanged). One entry builds `/games/<slug>/` (`renderStudioGame`, generic `games/[slug].astro`), `/play/<slug>/` when `webUrl` is set (shared `play/[slug].astro`), and its listings: web → featured card (newest by `released`), web grid + search + genre filter, mobile list (`mobile`), home grid; quest → Quest section, AR page related card (`mixedReality`). Detail pages rendered byte-identical to the previous hand-written ones.
+- Battleship now appears in the home grid and the searchable games grid (genre «حرب»). Footer gained the Roblox link. Support FAQ's Meta Quest answer covers Dahrooj and Mafateeh.
