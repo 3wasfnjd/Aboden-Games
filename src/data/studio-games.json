@@ -1,0 +1,209 @@
+{
+ "_note": "Studio games outside the protected catalog (owner's own titles). One entry = its page /games/<slug>/, play page /play/<slug>/ (when webUrl), and every listing its platform gets (see PUBLISHING.md). platform: web | quest. Text is the owner's or written at the owner's request; never invent. Add English for new text in i18n-en.json.",
+ "games": [
+  {
+   "slug": "dahrooj-quest",
+   "platform": "quest",
+   "title": "دحروج",
+   "titleEn": "Dahrooj",
+   "description": "ارمِ وفجّر وفرقع دحاريج الجلي الملونة، في حديقة مشمسة أو في غرفتك بالواقع المختلط.",
+   "released": "",
+   "storeUrl": "",
+   "webUrl": "",
+   "keyArt": {
+    "src": "assets/posters/dahrooj-quest-keyart.webp",
+    "alt": "الصورة الرئيسية لدحروج على Meta Quest: دحروج بالشماغ مع شخصيات الكرات في الحديقة",
+    "cardAlt": "دحروج على Meta Quest",
+    "w": 1672,
+    "h": 941
+   },
+   "mixedReality": "العب داخل غرفتك بالواقع المختلط.",
+   "page": {
+    "kicker": "DAHROOJ / META QUEST",
+    "headline": "دحروج.",
+    "tagline": "المتعة حولك.",
+    "pitch": [
+     "من حديقة اللعبة",
+     "إلى غرفتك."
+    ],
+    "body": [
+     "دحاريج جلي ملونة وأكثر من ٢٠ نمطًا للعب. تنقّل بين الواقع الافتراضي والواقع المختلط، والعب في حديقة مشمسة أو داخل مساحتك."
+    ],
+    "facts": [],
+    "supportName": "دحروج — Meta Quest",
+    "supportLabel": "مساعدة بخصوص دحروج",
+    "presskit": {
+     "src": "assets/posters/dahrooj-quest-presskit.webp",
+     "alt": "لوحة دحروج التعريفية: أيقونة التطبيق، بانر ترويجي، لقطات الواقع الافتراضي والمختلط، الأنماط التسعة، القائمة، وستايلات الشخصيات",
+     "w": 1672,
+     "h": 941
+    },
+    "title": "دحروج — Meta Quest | عبودين قيمز"
+   },
+   "source": "Existing destination index.html at af212c4; retained studio content, no new repository added. Cover kept for store/privacy links: dahrooj-cover.jpg."
+  },
+  {
+   "slug": "mafateeh",
+   "platform": "quest",
+   "title": "مفاتيح",
+   "titleEn": "Mafateeh",
+   "description": "ألغاز هادئة مع الشايب في عالم نجدي مصغّر يطلع على طاولتك بالواقع المختلط: بيوت الطين والمخيم والسوق، حتى صندوق الجد.",
+   "released": "2026-10-20",
+   "storeUrl": "https://www.meta.com/experiences/app/1431517553369145/",
+   "webUrl": "https://3wasfnjd.github.io/Mafateeh/",
+   "playDescription": "العب مفاتيح مجانًا في المتصفح: نفس مراحل الشايب وألغازه، باللمس أو الماوس.",
+   "keyArt": {
+    "src": "assets/posters/mafateeh-quest-keyart.webp",
+    "alt": "الصورة الرئيسية لمفاتيح: الشايب والقط والصقر وصندوق الجد في حوش نجدي",
+    "cardAlt": "مفاتيح على Meta Quest",
+    "w": 1672,
+    "h": 941
+   },
+   "cardLines": [
+    {
+     "icon": "quest",
+     "text": "أُطلقت على متجر Meta Horizon في ٢٠ أكتوبر ٢٠٢٦"
+    },
+    {
+     "icon": "web",
+     "text": "وتنلعب مجانًا في المتصفح"
+    }
+   ],
+   "mixedReality": "عالم نجدي مصغّر يطلع على طاولتك بالواقع المختلط.",
+   "page": {
+    "kicker": "MAFATEEH / META QUEST",
+    "headline": "مفاتيح.",
+    "tagline": "عالم نجدي على طاولتك.",
+    "pitch": [
+     "من الدرعية",
+     "إلى طاولتك."
+    ],
+    "body": [
+     "إحدى عشرة مرحلة مع الشايب: ترسم درب القط، وترسل الصقر، وتطلّع الوايت من بين السيارات، وتولّع الفوانيس، وتصد الغزوة، حتى تفتح صندوق الجد. المشهد على قاعدة خشبية تحت قبة زجاجية، يطلع على طاولتك أو أرضك بالواقع المختلط."
+    ],
+    "facts": [
+     "مجانية · بالعربية والإنجليزية · <bdi>Meta Quest 3 / 3S</bdi> · المتصفح",
+     "تاريخ الإطلاق في المتجر: ٢٠ أكتوبر ٢٠٢٦"
+    ],
+    "webPlayLabel": "العب مجانًا في المتصفح",
+    "webPlayNote": "نفس المراحل والألغاز على الجوال أو الكمبيوتر: باللمس أو الماوس، والطاولة في درعية افتراضية.",
+    "supportName": "مفاتيح — Meta Quest",
+    "supportLabel": "مساعدة بخصوص مفاتيح",
+    "about": {
+     "title": [
+      "رحلة الشايب",
+      "في نجد القديمة."
+     ],
+     "paragraphs": [
+      "«مفاتيح» لعبة ألغاز هادئة بالواقع المختلط، مستوحاة من الدرعية ونجد. تلبس نظارتك فتكتشف طاولتك، ويطلع عليها عالم صغير على قاعدة خشبية بنقوش ذهبية تحت قبة زجاجية: بيوت طين وأبواب خشب ملوّنة ونخيل وكثبان وبيت شعر وسوق.",
+      "ترافق الشايب في إحدى عشرة مرحلة، ولكل مرحلة لغزها: ترسم درب القط بين الشوك، وتبني درجًا من الحجارة، وترسل الصقر من وكر إلى وكر، وتطلّع الوايت من بين السيارات، وتولّع فوانيس المجلس، وتعيد إيقاع الطبول، وترتّب النجوم، وتقايض في السوق، وتجري الماء في السواقي، وتصد غزوة على الخيل والجمال، حتى تفتح صندوق الجد بتذكارات الرحلة.",
+      "في كل مرحلة مفتاح ذهبي مخفي ونجوم حسب سرعة الحل، والأجواء تتغير بين النهار والمغرب والليل والمطر والغبار. اللعبة مجانية، بلا إعلانات ولا جمع بيانات، وتشتغل بدون إنترنت."
+     ],
+     "note": "أُطلقت على متجر Meta Horizon في ٢٠ أكتوبر ٢٠٢٦، من عبودين قيمز."
+    },
+    "shots": [
+     {
+      "src": "assets/posters/mafateeh-quest-shot-1.webp",
+      "alt": "ساحة القصر والشايب"
+     },
+     {
+      "src": "assets/posters/mafateeh-quest-shot-2.webp",
+      "alt": "الطبول أمام القصر"
+     },
+     {
+      "src": "assets/posters/mafateeh-quest-shot-3.webp",
+      "alt": "الغزوة على الخيل والجمال"
+     },
+     {
+      "src": "assets/posters/mafateeh-quest-shot-4.webp",
+      "alt": "فوانيس المجلس وقت المغرب"
+     },
+     {
+      "src": "assets/posters/mafateeh-quest-shot-5.webp",
+      "alt": "المخيم والسيارات"
+     }
+    ],
+    "title": "مفاتيح — Meta Quest | عبودين قيمز"
+   },
+   "source": "Owner instruction 2026-10-20: «الان نبي نضيفه في موقع عبودين قيمز» — the owner's Meta Quest game Mafateeh, released on the Meta Horizon Store on 2026-10-20.",
+   "webSource": "Owner instruction 2026-10-21: «نقدر نحول مفاتيح ويب بنفس التصميم والديزاين والالغاز» then «في الويب ابيها مجانيه بعد عادي» — the full game, free, built from the Quest project for the browser."
+  },
+  {
+   "slug": "battleship",
+   "platform": "web",
+   "title": "البارجة الحربية",
+   "titleEn": "Battleship",
+   "description": "بارجتك الحربية قدّام جزيرة في وسط المحيط، وعندك ثمانية عشر سلاحًا تختار منها هدفك، والعدو يرد عليك بدفاعاته ودباباته وطائراته.",
+   "released": "2026-10-21",
+   "webUrl": "https://3wasfnjd.github.io/AR-Aboden/table-war-web/",
+   "genre": "حرب",
+   "mobile": true,
+   "cardTag": "جديدة · متصفح وجوال",
+   "keyArt": {
+    "src": "assets/posters/battleship-poster.webp",
+    "alt": "بوستر البارجة الحربية: بارجة تطلق صواريخها على جزيرة في وسط المحيط",
+    "w": 850,
+    "h": 1850
+   },
+   "page": {
+    "kicker": "BATTLESHIP / WEB",
+    "headline": "البارجة الحربية.",
+    "tagline": "جزيرة في وسط المحيط.",
+    "tag": "متصفح · جوال",
+    "pitch": [
+     "اختر سلاحك.",
+     "وحدد هدفك."
+    ],
+    "howTo": "المس الهدف للإطلاق · اسحب لتدوير الكاميرا · قرّب بإصبعين",
+    "body": [
+     "اختر السلاح من زر الأسلحة أسفل الشاشة، والإعدادات من الزر المقابل: الخريطة والقوات المعادية والكاميرا والوقت والسرعة."
+    ],
+    "facts": [
+     "مجانية · لعب حر · تنلعب في المتصفح على الجوال والكمبيوتر",
+     "تاريخ الإطلاق: ٢١ أكتوبر ٢٠٢٦"
+    ],
+    "supportName": "البارجة الحربية",
+    "supportLabel": "مساعدة بخصوص البارجة الحربية",
+    "about": {
+     "title": [
+      "ثمانية عشر سلاحًا.",
+      "وعدو يرد عليك."
+     ],
+     "paragraphs": [
+      "بارجتك راسية قدّام جزيرة فيها مدينة ومطار وميناء ومصفاة ومحطة كهرباء. تختار السلاح وتلمس الهدف: صاروخ باليستي أو كروز أو فرط صوتي، مدفعية وراجمة صواريخ، مقاتلة ترمي قنابلها وترجع، مروحية هجومية، مسيّرات انتحارية وأسراب مسيّرات، طوربيد يمشي تحت الماء، وحتى قنبلة نووية تنسف كل شي في طريق موجتها. وتقدر ترسل طائرة استطلاع تحوم فوق المنطقة وتعلّم مواقع العدو قبل ما تضرب.",
+      "وما تلعب لحالك: العدو عنده دفاعات جوية تعترض صواريخك، ودبابات ومدرعات تتحرك على الجزيرة، ومنصات صواريخ ومقاتلات تهاجم بارجتك. وتقدر توقف القوات المعادية من الإعدادات وتجرّب أسلحتك على جزيرة هادية.",
+      "في اللعبة جزيرتان، جزيرة السبخة وجزيرة الهلال، وكاميرا تتبّع الصاروخ لين يوصل هدفه، ووقت نهار أو ليل أو يتغيّر تلقائيًا."
+     ]
+    },
+    "shots": [
+     {
+      "src": "assets/posters/battleship-shot-1.webp",
+      "alt": "الجزيرة والبارجة في بداية الجولة"
+     },
+     {
+      "src": "assets/posters/battleship-shot-2.webp",
+      "alt": "كاميرا الصاروخ فوق المدينة"
+     },
+     {
+      "src": "assets/posters/battleship-shot-3.webp",
+      "alt": "المروحية الهجومية فوق الجزيرة"
+     },
+     {
+      "src": "assets/posters/battleship-shot-4.webp",
+      "alt": "ضربة على المدينة في الليل"
+     },
+     {
+      "src": "assets/posters/battleship-shot-5.webp",
+      "alt": "القنبلة النووية وموجة الانفجار"
+     },
+     {
+      "src": "assets/posters/battleship-shot-6.webp",
+      "alt": "طائرة الاستطلاع تعلّم أهداف العدو فوق القاعدة الجوية"
+     }
+    ],
+    "title": "البارجة الحربية | عبودين قيمز"
+   },
+   "source": "Owner instruction 2026-10-21: «أبي أضيف لعبة جديدة لموقع عبودين قيمز» then «لعبة البارجه» and «اكتبها انت وارفع اللعبه للموقع» — the owner's web game Battleship (البارجة الحربية), free play in the browser; the owner asked Claude to write its description and how-to-play."
+  }
+ ]
+}

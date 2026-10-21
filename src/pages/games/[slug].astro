@@ -1,0 +1,8 @@
+---
+import { studioGames, renderStudioGame } from '../../lib/site.ts';
+export function getStaticPaths() {
+  return studioGames().map(g => ({ params: { slug: g.slug } }));
+}
+const html = renderStudioGame(Astro.params.slug, import.meta.env.BASE_URL);
+---
+<Fragment set:html={html} />
