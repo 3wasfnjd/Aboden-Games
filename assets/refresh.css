@@ -253,3 +253,6 @@ body.is-play .site-footer{display:none}
 .roblox-note{margin-bottom:var(--section-space,90px)}
 .roblox-list{margin-bottom:56px}
 .roblox-card>img{object-fit:cover}
+/* Mafateeh in the browser (2026-10-21): two links under its feature, the play button and its note */
+.feature-links{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px}
+.quest-details .button-accent+.web-note{font-size:13px;line-height:1.9;margin-block:12px 22px}
