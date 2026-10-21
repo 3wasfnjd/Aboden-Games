@@ -82,4 +82,4 @@
 
 - verify-build.py now fails the build if any /en/ page still shows Arabic text (outside the language switch); add missing strings to src/data/i18n-en.json.
 
-- Home «جديد» bar (owner 2026-10-21: «الرئيسيه فقط / تمام / بدون»): above the header on the home page only, no close button. Items live in src/data/news.json (newest first; currently Battleship, Mafateeh, Boulevard Jood); app.js rotates them every 5 s. Add each new item's English to i18n-en.json.
+- Home «جديد» bar (owner 2026-10-21: «الرئيسيه فقط / تمام / بدون», then «نزلها تحت البنر الرئيسي … تحت عبودين قيمز»): right under the header (first thing in main) on the home page only, no close button. Items live in src/data/news.json (newest first; currently Battleship, Mafateeh, Boulevard Jood); app.js rotates them every 5 s. Add each new item's English to i18n-en.json.

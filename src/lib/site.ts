@@ -14,12 +14,12 @@ const launchUrl=(p:Project,b:string)=>p.slug==='ar-aboden'?`${b}ar/#experiences`
 const internal=(p:Project)=>p.slug==='ar-aboden';
 const poster=(p:Project)=>sections()[p.slug]?.poster||p.cover;
 const art=(p:Project)=>sections()[p.slug]?.art||p.cover;
-function page(content:string,title:string,description:string,base:string,route='',top=''):string {
+function page(content:string,title:string,description:string,base:string,route=''):string {
  const b=basePath(base);const nav=[['','الرئيسية'],['games/','الألعاب'],['ar/','الواقع المعزز'],['roblox/','روبلوكس'],['studio/','الاستديو'],['team/','الفريق'],['support/','الدعم'],['contact/','تواصل معنا']].map(([url,label])=>`<a href="${b}${url}" ${route===url?'aria-current="page"':''}>${label}</a>`).join('');
  const bilingual=route!=='404.html';
  const langSwitch=bilingual?`<a class="lang-switch" href="${b}en/${route}" data-route="${route}" hreflang="en" lang="en">EN</a>`:'';
  const alternates=bilingual?`<link rel="alternate" hreflang="ar" href="https://abodengames.com${b}${route}"/><link rel="alternate" hreflang="en" href="https://abodengames.com${b}en/${route}"/>`:'';
- return replace(template('layout'),{CONTENT:content,TITLE:e(title),DESCRIPTION:e(description),BASE:b,CANONICAL:`https://abodengames.com${b}${route}`,NAV:nav,LANG_SWITCH:langSwitch,ALTERNATES:alternates,TOP:top});
+ return replace(template('layout'),{CONTENT:content,TITLE:e(title),DESCRIPTION:e(description),BASE:b,CANONICAL:`https://abodengames.com${b}${route}`,NAV:nav,LANG_SWITCH:langSwitch,ALTERNATES:alternates});
 }
 // English edition (/en/): the Arabic page translated node by node from src/data/i18n-en.json, laid out left-to-right.
 const AR_CHARS=/[\u0600-\u06FF]/;
@@ -57,9 +57,9 @@ export function projectCard(p:Project,base='/'):string {
 export function renderHome(base='/'):string {
  const b=basePath(base),projects=loadCatalog();
  const fam=studio();
- return page(replace(template('home'),{VR_CHAR:character(b,'aboden-vr'),TEASER_ART:fam.familyPhoto?`<figure class="teaser-art"><img src="${b}${e(fam.familyPhoto)}" alt="${e(fam.familyPhotoAlt)}" width="1536" height="1024" loading="lazy" decoding="async"/></figure>`:'',TEASER_CLASS:fam.familyPhoto?' has-art':'',BASE:b,ARROW:icon('arrow'),WEB:icon('web'),MOBILE:icon('mobile'),QUEST:icon('quest'),CARDS:projects.map(p=>projectCard(p,b)).join('')}),'عبودين قيمز | أفكار نلعبها. وعوالم نكتشفها.','استديو عبودين قيمز للألعاب والتجارب التفاعلية. اكتشف ألعاب الويب والجوال وMeta Quest.',b,'',newsBar(b));
+ return page(newsBar(b)+replace(template('home'),{VR_CHAR:character(b,'aboden-vr'),TEASER_ART:fam.familyPhoto?`<figure class="teaser-art"><img src="${b}${e(fam.familyPhoto)}" alt="${e(fam.familyPhotoAlt)}" width="1536" height="1024" loading="lazy" decoding="async"/></figure>`:'',TEASER_CLASS:fam.familyPhoto?' has-art':'',BASE:b,ARROW:icon('arrow'),WEB:icon('web'),MOBILE:icon('mobile'),QUEST:icon('quest'),CARDS:projects.map(p=>projectCard(p,b)).join('')}),'عبودين قيمز | أفكار نلعبها. وعوالم نكتشفها.','استديو عبودين قيمز للألعاب والتجارب التفاعلية. اكتشف ألعاب الويب والجوال وMeta Quest.',b);
 }
-// Home only: the «جديد» bar above the header, latest additions from src/data/news.json (app.js rotates them).
+// Home only: the «جديد» bar right under the header, latest additions from src/data/news.json (app.js rotates them).
 function newsBar(b:string):string {
  const items=(data('news').items as {title:string;line:string;href:string;image:string}[]);if(!items.length)return '';
  const links=items.map((n,i)=>`<a class="news-item${i?'':' is-active'}" href="${b}${e(n.href)}" data-news-item><img src="${b}${e(n.image)}" alt="" width="40" height="40" decoding="async"/><strong>${e(n.title)}</strong><span>${e(n.line)}</span>${icon('arrow')}</a>`).join('');
