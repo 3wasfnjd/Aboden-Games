@@ -99,3 +99,8 @@
 - Structured data (JSON-LD, data only, CSP-safe, `<` escaped): Organization + WebSite on home, VideoGame on each game page (only facts on the page); English pages get it translated via `toEnglish()`. Game pages use their key art as `og:image`.
 - IndexNow: key file `public/df1dae49e31b378c3f151625ceca736b.txt`; deploy.yml pings api.indexnow.org with the sitemap URLs after each verified publish (Bing, Yandex, Seznam, Naver). Google needs Search Console verification by the owner (pending: owner to add the property; a verification meta/file can be added on request).
 - Security: `npm audit fix` (dev-server Vite/launch-editor advisories; 0 left). No secrets in the repository. Workflows keep least-privilege permissions and SHA-pinned actions.
+
+## Owner instruction — 2026-10-22 (Roblox: عالم نجد)
+
+- «اضفها للموقع ماب جديد روبلكس»: the Roblox experience «عالم نجد — Najd's Toybox» is first in `/roblox/` experiences, with the owner's key art (`assets/roblox/najd-toybox.webp`, `imagePosition` keeps its title in view) and two more owner images under the card (`shots` → `.roblox-gallery`, uncropped). Description verbatim from the owner, one paragraph per line; no age rating given, none shown. Share link without its tracking `stamp`.
+- It leads the home «جديد» bar; Boulevard Jood left the bar (3-item limit) and stays on `/roblox/`.
