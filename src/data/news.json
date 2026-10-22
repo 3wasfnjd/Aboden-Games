@@ -1,8 +1,23 @@
 {
   "_note": "Owner request 2026-10-21: a «جديد» bar above the header on the home page only, showing the latest additions (newest first), no close button. To add one, put it first: {\"title\":\"\",\"line\":\"\",\"href\":\"<route>/\",\"image\":\"assets/...\"}. Add the English of title/line to i18n-en.json.",
   "items": [
-    {"title": "البارجة الحربية", "line": "لعبة ويب جديدة، العبها الحين", "href": "games/battleship/", "image": "assets/posters/battleship-poster.webp"},
-    {"title": "مفاتيح", "line": "جديد على Meta Quest، والعبها مجانًا في المتصفح", "href": "games/mafateeh/", "image": "assets/posters/mafateeh-quest-keyart.webp"},
-    {"title": "بوليفارد جود", "line": "أول تجربة لنا في روبلوكس", "href": "roblox/", "image": "assets/roblox/boulevard-joud.webp"}
+    {
+      "title": "عالم نجد",
+      "line": "ماب جديد في روبلوكس: سباق الكيبورد والدبدوب العملاق",
+      "href": "roblox/",
+      "image": "assets/roblox/najd-toybox.webp"
+    },
+    {
+      "title": "البارجة الحربية",
+      "line": "لعبة ويب جديدة، العبها الحين",
+      "href": "games/battleship/",
+      "image": "assets/posters/battleship-poster.webp"
+    },
+    {
+      "title": "مفاتيح",
+      "line": "جديد على Meta Quest، والعبها مجانًا في المتصفح",
+      "href": "games/mafateeh/",
+      "image": "assets/posters/mafateeh-quest-keyart.webp"
+    }
   ]
 }

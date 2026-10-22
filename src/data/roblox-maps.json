@@ -3,6 +3,30 @@
   "items": [
     {
       "kind": "map",
+      "title": "عالم نجد",
+      "titleEn": "Najd's Toybox",
+      "description": "🧸🌈 حياكم في عالم نجد!\n\nعالم مليان ألوان وألعاب ودمى عملاقة! اجمع أصحابك، واستكشف الحديقة، وابدأ مغامرتك بطريقتك 🎀\n\n⌨️ تحدَّ نفسك في سباق الكيبورد، وزِد سرعتك، واحتفل بوصولك لنقاط الأمان بالألعاب النارية والقصاصات والفقاعات!\n\n🛝 انطلق في زحليقة طويلة مليانة لفّات وتعرّجات من أعلى الماب!\n\n🚂 خذ لفة بالقطار، واستمتع بالأراجيح وألعاب الكرات.\n\n✨ اختَر تأثير انطلاقك المفضّل: قوس قزح، نار، قلوب، نجوم أو ورود.\n\n🧸 قابل الدبدوب العملاق والبنت في وسط الحديقة، والتقط معهم صورك!\n\nالعب، تسابق، أو خذ لك جلسة مع أصحابك وسط عالم الألعاب 💖",
+      "image": "assets/roblox/najd-toybox.webp",
+      "shots": [
+        {
+          "src": "assets/roblox/najd-toybox-race.webp",
+          "alt": "سباق الكيبورد في عالم نجد: البنت تركض على أزرار الكيبورد والدبدوب العملاق خلفها",
+          "w": 1672,
+          "h": 941
+        },
+        {
+          "src": "assets/roblox/najd-toybox-bear.webp",
+          "alt": "البنت تحضن الدبدوب العملاق في وسط حديقة عالم نجد",
+          "w": 1254,
+          "h": 1254
+        }
+      ],
+      "url": "https://www.roblox.com/share?code=83368733ed70b8448b086da0cdae4326&type=ExperienceDetails",
+      "_source": "Owner message 2026-10-22: «اضفها للموقع ماب جديد روبلكس» with the three images, the Roblox share link (tracking 'stamp' parameter dropped) and the description, used verbatim (the closing «عبودين قيمز | ABODEN GAMES» signature omitted). English name from the key art («NAJD'S TOYBOX»). No age rating given, so none is shown.",
+      "imagePosition": "85% center"
+    },
+    {
+      "kind": "map",
       "title": "بوليفارد جود",
       "titleEn": "Boulevard Jood",
       "description": "تمشّي في بوليفارد ملوّن مليء بالمتاجر البناتية الجميلة، وارتاحي في الحديقة الخضراء عند النافورة، واكتشفي البيوت الخشبية اللطيفة على الجهة المقابلة. مكان هادي وحلو تلعبين فيه وتتصورين وتطلعين فيه مع صديقاتك ❤️",
