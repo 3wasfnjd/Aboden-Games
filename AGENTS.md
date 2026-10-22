@@ -104,3 +104,7 @@
 
 - «اضفها للموقع ماب جديد روبلكس»: the Roblox experience «عالم نجد — Najd's Toybox» is first in `/roblox/` experiences, with the owner's key art (`assets/roblox/najd-toybox.webp`, `imagePosition` keeps its title in view) and two more owner images under the card (`shots` → `.roblox-gallery`, uncropped). Description verbatim from the owner, one paragraph per line; no age rating given, none shown. Share link without its tracking `stamp`.
 - It leads the home «جديد» bar; Boulevard Jood left the bar (3-item limit) and stays on `/roblox/`.
+
+## Owner instruction — 2026-10-22 (home «تحت الأضواء»)
+
+- «الموقع جديد ممكن الان نطلع العاب الرئيسيه بعدين نحصرها على الجديد دحروج ومفاتيح والبارجة»: the spotlight now shows Dahrooj Quest, Mafateeh, Battleship, driven by `spotlight` in `studio-games.json` (`order`, `badge`, `line`, `play`, `poster`). Later it is to show only the newest additions, when the owner says. Dahrooj and Mafateeh render as before; Battleship's tall poster is shown whole on a blurred copy (`.feature-poster`). Section note now «OUR GAMES / WEB + META QUEST».
