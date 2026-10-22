@@ -108,3 +108,4 @@
 ## Owner instruction — 2026-10-22 (home «تحت الأضواء»)
 
 - «الموقع جديد ممكن الان نطلع العاب الرئيسيه بعدين نحصرها على الجديد دحروج ومفاتيح والبارجة»: the spotlight now shows Dahrooj Quest, Mafateeh, Battleship, driven by `spotlight` in `studio-games.json` (`order`, `badge`, `line`, `play`, `poster`). Later it is to show only the newest additions, when the owner says. Dahrooj and Mafateeh render as before; Battleship's tall poster is shown whole on a blurred copy (`.feature-poster`). Section note now «OUR GAMES / WEB + META QUEST».
+- 2026-10-22 «بعطيك صوره غيرها»: the owner's wide Battleship key art (`assets/posters/battleship-keyart.webp`, recorded in poster-sources.json) replaces the tall poster in the spotlight (`spotlight.art`); the poster stays on the game page and cards.

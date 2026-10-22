@@ -222,13 +222,17 @@
    "source": "Owner instruction 2026-10-21: «أبي أضيف لعبة جديدة لموقع عبودين قيمز» then «لعبة البارجه» and «اكتبها انت وارفع اللعبه للموقع» — the owner's web game Battleship (البارجة الحربية), free play in the browser; the owner asked Claude to write its description and how-to-play.",
    "spotlight": {
     "order": 3,
-    "alt": "بوستر البارجة الحربية: بارجة تطلق صواريخها على جزيرة في وسط المحيط",
+    "alt": "الصورة الرئيسية للبارجة الحربية: بارجة تطلق صواريخها ومدافعها على جزيرة عند الغروب",
     "badge": "جديد على الويب",
     "cta": "اكتشف البارجة الحربية",
     "label": "BATTLESHIP",
     "line": "ثمانية عشر سلاحًا قدّام جزيرة في وسط المحيط، والعدو يرد عليك. أُطلقت ٢١ أكتوبر ٢٠٢٦.",
     "play": "العب الآن",
-    "poster": true
+    "art": {
+     "src": "assets/posters/battleship-keyart.webp",
+     "w": 1672,
+     "h": 941
+    }
    }
   }
  ]

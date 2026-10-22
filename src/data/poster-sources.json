@@ -84,5 +84,10 @@
   "battleship-shot-6.webp": {
     "repository": null,
     "note": "Actual in-game capture of the owner's Battleship web build (2026-10-21, the release with the reconnaissance drone): the drone's amber marks on enemy targets over the air base."
+  },
+  "battleship-keyart.webp": {
+    "source": "owner-supplied",
+    "sha256": "e506b427b32e4cae9129a5e985bb7fe3cbfe7de35efc2a33f76dc1fb3e60aaab",
+    "note": "Owner's wide Battleship key art, sent 2026-10-22 («بعطيك صوره غيرها») to replace the tall poster in the home «تحت الأضواء» section. Re-encoded to WebP at full 1672x941; no crop."
   }
 }
