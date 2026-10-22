@@ -1,5 +1,5 @@
 {
- "_note": "Studio games outside the protected catalog (owner's own titles). One entry = its page /games/<slug>/, play page /play/<slug>/ (when webUrl), and every listing its platform gets (see PUBLISHING.md). platform: web | quest. Text is the owner's or written at the owner's request; never invent. Add English for new text in i18n-en.json.",
+ "_note": "Studio games outside the protected catalog (owner's own titles). One entry = its page /games/<slug>/, play page /play/<slug>/ (when webUrl), and every listing its platform gets (see PUBLISHING.md). platform: web | quest. Text is the owner's or written at the owner's request; never invent. Add English for new text in i18n-en.json. spotlight: shown in the home «تحت الأضواء» section in `order` (owner 2026-10-22: the main games for now — Dahrooj, Mafateeh, Battleship — later only the newest).",
  "games": [
   {
    "slug": "dahrooj-quest",
@@ -40,7 +40,14 @@
     },
     "title": "دحروج — Meta Quest | عبودين قيمز"
    },
-   "source": "Existing destination index.html at af212c4; retained studio content, no new repository added. Cover kept for store/privacy links: dahrooj-cover.jpg."
+   "source": "Existing destination index.html at af212c4; retained studio content, no new repository added. Cover kept for store/privacy links: dahrooj-cover.jpg.",
+   "spotlight": {
+    "order": 1,
+    "alt": "عالم دحروج الملون — نسخة Meta Quest",
+    "cta": "اكتشف دحروج",
+    "label": "DAHROOJ",
+    "line": "ارمِ، فجّر، وفرقع. في عالم افتراضي أو داخل غرفتك."
+   }
   },
   {
    "slug": "mafateeh",
@@ -126,7 +133,16 @@
     "title": "مفاتيح — Meta Quest | عبودين قيمز"
    },
    "source": "Owner instruction 2026-10-20: «الان نبي نضيفه في موقع عبودين قيمز» — the owner's Meta Quest game Mafateeh, released on the Meta Horizon Store on 2026-10-20.",
-   "webSource": "Owner instruction 2026-10-21: «نقدر نحول مفاتيح ويب بنفس التصميم والديزاين والالغاز» then «في الويب ابيها مجانيه بعد عادي» — the full game, free, built from the Quest project for the browser."
+   "webSource": "Owner instruction 2026-10-21: «نقدر نحول مفاتيح ويب بنفس التصميم والديزاين والالغاز» then «في الويب ابيها مجانيه بعد عادي» — the full game, free, built from the Quest project for the browser.",
+   "spotlight": {
+    "order": 2,
+    "alt": "مفاتيح: الشايب والقط والصقر وصندوق الجد في حوش نجدي — Meta Quest",
+    "badge": "جديد على Meta Quest",
+    "cta": "اكتشف مفاتيح",
+    "label": "MAFATEEH",
+    "line": "ألغاز هادئة مع الشايب في عالم نجدي يطلع على طاولتك. أُطلقت ٢٠ أكتوبر ٢٠٢٦.",
+    "play": "العب مجانًا في المتصفح"
+   }
   },
   {
    "slug": "battleship",
@@ -203,7 +219,17 @@
     ],
     "title": "البارجة الحربية | عبودين قيمز"
    },
-   "source": "Owner instruction 2026-10-21: «أبي أضيف لعبة جديدة لموقع عبودين قيمز» then «لعبة البارجه» and «اكتبها انت وارفع اللعبه للموقع» — the owner's web game Battleship (البارجة الحربية), free play in the browser; the owner asked Claude to write its description and how-to-play."
+   "source": "Owner instruction 2026-10-21: «أبي أضيف لعبة جديدة لموقع عبودين قيمز» then «لعبة البارجه» and «اكتبها انت وارفع اللعبه للموقع» — the owner's web game Battleship (البارجة الحربية), free play in the browser; the owner asked Claude to write its description and how-to-play.",
+   "spotlight": {
+    "order": 3,
+    "alt": "بوستر البارجة الحربية: بارجة تطلق صواريخها على جزيرة في وسط المحيط",
+    "badge": "جديد على الويب",
+    "cta": "اكتشف البارجة الحربية",
+    "label": "BATTLESHIP",
+    "line": "ثمانية عشر سلاحًا قدّام جزيرة في وسط المحيط، والعدو يرد عليك. أُطلقت ٢١ أكتوبر ٢٠٢٦.",
+    "play": "العب الآن",
+    "poster": true
+   }
   }
  ]
 }
