@@ -38,7 +38,8 @@ test('game platform sections distinguish touch web games and Quest',()=>{
  const groups=JSON.parse(read('src/data/game-sections.json'));
  assert.deepEqual(Object.keys(groups).sort(),loadCatalog().map(p=>p.slug).sort());
  assert.equal(groups['ar-aboden'].mobile,false);
- assert.doesNotMatch(renderQuest(),/href="https:\/\/.*(?:store|horizon)/);
+ // Dahrooj Quest launched on the Meta Horizon Store 2026-10-23: its page links the store listing.
+ assert.match(renderQuest(),/href="https:\/\/www\.meta\.com\/experiences\/app\/1436171999570367\/" target="_blank" rel="noopener noreferrer"/);
 });
 test('contact and support show the studio email as text, no forms',()=>{
  const studio=JSON.parse(read('src/data/studio.json'));
