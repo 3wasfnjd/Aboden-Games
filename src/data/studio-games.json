@@ -7,8 +7,8 @@
    "title": "دحروج",
    "titleEn": "Dahrooj",
    "description": "ارمِ وفجّر وفرقع دحاريج الجلي الملونة، في حديقة مشمسة أو في غرفتك بالواقع المختلط.",
-   "released": "",
-   "storeUrl": "",
+   "released": "2026-10-23",
+   "storeUrl": "https://www.meta.com/experiences/app/1436171999570367/",
    "webUrl": "",
    "keyArt": {
     "src": "assets/posters/dahrooj-quest-keyart.webp",
@@ -29,7 +29,10 @@
     "body": [
      "دحاريج جلي ملونة وأكثر من ٢٠ نمطًا للعب. تنقّل بين الواقع الافتراضي والواقع المختلط، والعب في حديقة مشمسة أو داخل مساحتك."
     ],
-    "facts": [],
+    "facts": [
+     "متوفرة الآن على متجر Meta Horizon · السعر ‎$7.99",
+     "تاريخ الإطلاق في المتجر: ٢٣ أكتوبر ٢٠٢٦"
+    ],
     "supportName": "دحروج — Meta Quest",
     "supportLabel": "مساعدة بخصوص دحروج",
     "presskit": {
@@ -46,8 +49,20 @@
     "alt": "عالم دحروج الملون — نسخة Meta Quest",
     "cta": "اكتشف دحروج",
     "label": "DAHROOJ",
-    "line": "ارمِ، فجّر، وفرقع. في عالم افتراضي أو داخل غرفتك."
-   }
+    "line": "ارمِ، فجّر، وفرقع. في عالم افتراضي أو داخل غرفتك.",
+    "badge": "جديد على Meta Quest"
+   },
+   "price": {
+    "amount": "7.99",
+    "currency": "USD"
+   },
+   "cardLines": [
+    {
+     "icon": "quest",
+     "text": "أُطلقت على متجر Meta Horizon في ٢٣ أكتوبر ٢٠٢٦ · ‎$7.99"
+    }
+   ],
+   "storeSource": "Owner message 2026-10-23: the Meta Horizon Store link for Dahrooj (tracking parameters dropped), «اليوم تم الاطلاق في متجر ميتا كويست بقيمة 7.99». Currency not stated by the owner; shown as US dollars (the store's price currency) — confirm with the owner."
   },
   {
    "slug": "mafateeh",
@@ -137,7 +152,6 @@
    "spotlight": {
     "order": 2,
     "alt": "مفاتيح: الشايب والقط والصقر وصندوق الجد في حوش نجدي — Meta Quest",
-    "badge": "جديد على Meta Quest",
     "cta": "اكتشف مفاتيح",
     "label": "MAFATEEH",
     "line": "ألغاز هادئة مع الشايب في عالم نجدي يطلع على طاولتك. أُطلقت ٢٠ أكتوبر ٢٠٢٦.",

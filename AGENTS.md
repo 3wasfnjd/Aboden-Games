@@ -109,3 +109,7 @@
 
 - «الموقع جديد ممكن الان نطلع العاب الرئيسيه بعدين نحصرها على الجديد دحروج ومفاتيح والبارجة»: the spotlight now shows Dahrooj Quest, Mafateeh, Battleship, driven by `spotlight` in `studio-games.json` (`order`, `badge`, `line`, `play`, `poster`). Later it is to show only the newest additions, when the owner says. Dahrooj and Mafateeh render as before; Battleship's tall poster is shown whole on a blurred copy (`.feature-poster`). Section note now «OUR GAMES / WEB + META QUEST».
 - 2026-10-22 «بعطيك صوره غيرها»: the owner's wide Battleship key art (`assets/posters/battleship-keyart.webp`, recorded in poster-sources.json) replaces the tall poster in the spotlight (`spotlight.art`); the poster stays on the game page and cards.
+
+## Owner message — 2026-10-23 (Dahrooj on the Meta Horizon Store)
+
+- «هذا رابط لعبة دحروج اليوم تم الاطلاق في متجر ميتا كويست بقيمة 7.99»: `dahrooj-quest` gets `storeUrl` (https://www.meta.com/experiences/app/1436171999570367/, tracking parameters dropped), `released` 2026-10-23 and `price` 7.99 USD (currency assumed from the store; owner to confirm). Its page shows the store button and price, the Quest card a release line, JSON-LD an Offer. It leads the «جديد» bar (Mafateeh left the bar) and takes the «جديد على Meta Quest» spotlight badge from Mafateeh.
