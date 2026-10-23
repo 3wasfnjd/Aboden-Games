@@ -30,7 +30,7 @@
      "دحاريج جلي ملونة وأكثر من ٢٠ نمطًا للعب. تنقّل بين الواقع الافتراضي والواقع المختلط، والعب في حديقة مشمسة أو داخل مساحتك."
     ],
     "facts": [
-     "متوفرة الآن على متجر Meta Horizon · السعر ‎$7.99",
+     "متوفرة الآن على متجر Meta Horizon لنظارات Meta Quest — ‎$7.99",
      "تاريخ الإطلاق في المتجر: ٢٣ أكتوبر ٢٠٢٦"
     ],
     "supportName": "دحروج — Meta Quest",
@@ -41,7 +41,23 @@
      "w": 1672,
      "h": 941
     },
-    "title": "دحروج — Meta Quest | عبودين قيمز"
+    "title": "دحروج — Meta Quest | عبودين قيمز",
+    "promos": [
+     {
+      "icon": "🎮",
+      "title": "جرّب دحروج مجانًا",
+      "text": "العب 15 دقيقة مجانًا قبل ما تشتري. إذا عجبتك اشترها وكمّل من نفس المكان، تقدمك محفوظ."
+     },
+     {
+      "icon": "🏷️",
+      "title": "خصم الجمعة البيضاء 40٪",
+      "codeBefore": "استخدم الكود",
+      "code": "BF2026",
+      "codeAfter": "وقت الشراء.",
+      "text": "من 23 نوفمبر إلى 2 ديسمبر 2026.",
+      "ends": "2026-12-02"
+     }
+    ]
    },
    "source": "Existing destination index.html at af212c4; retained studio content, no new repository added. Cover kept for store/privacy links: dahrooj-cover.jpg.",
    "spotlight": {
@@ -62,7 +78,8 @@
      "text": "أُطلقت على متجر Meta Horizon في ٢٣ أكتوبر ٢٠٢٦ · ‎$7.99"
     }
    ],
-   "storeSource": "Owner message 2026-10-23: the Meta Horizon Store link for Dahrooj (tracking parameters dropped), «اليوم تم الاطلاق في متجر ميتا كويست بقيمة 7.99». Currency not stated by the owner; shown as US dollars (the store's price currency) — confirm with the owner."
+   "storeSource": "Owner message 2026-10-23: the Meta Horizon Store link for Dahrooj (tracking parameters dropped), «اليوم تم الاطلاق في متجر ميتا كويست بقيمة 7.99». Price $7.99 confirmed by the owner's promo text (2026-10-23).",
+   "promoSource": "Owner's promo text, Arabic and English, 2026-10-23: 15-minute free trial; Black Friday 40% off with code BF2026, 23 Nov – 2 Dec 2026 (hidden after 2 Dec by app.js data-ends)."
   },
   {
    "slug": "mafateeh",

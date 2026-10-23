@@ -113,3 +113,4 @@
 ## Owner message — 2026-10-23 (Dahrooj on the Meta Horizon Store)
 
 - «هذا رابط لعبة دحروج اليوم تم الاطلاق في متجر ميتا كويست بقيمة 7.99»: `dahrooj-quest` gets `storeUrl` (https://www.meta.com/experiences/app/1436171999570367/, tracking parameters dropped), `released` 2026-10-23 and `price` 7.99 USD (currency assumed from the store; owner to confirm). Its page shows the store button and price, the Quest card a release line, JSON-LD an Offer. It leads the «جديد» bar (Mafateeh left the bar) and takes the «جديد على Meta Quest» spotlight badge from Mafateeh.
+- 2026-10-23, owner promo text (AR/EN): Dahrooj page shows two offers from `page.promos` — the 15-minute free trial and Black Friday 40% off with code BF2026 (23 Nov – 2 Dec 2026). `ends` → `data-ends`, and app.js hides an offer after that day (Riyadh time); remove it from the data after it ends. Price $7.99 confirmed. The «جديد» line mentions the free trial.
