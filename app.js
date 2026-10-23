@@ -43,6 +43,8 @@ if(typeof document!=='undefined') {
  if(frame){try{if(navigator.audioSession)navigator.audioSession.type='playback';}catch{}}
  frame?.addEventListener('load',()=>frame.focus());
  if(frame&&fs&&(document.fullscreenEnabled||document.webkitFullscreenEnabled)){fs.hidden=false;fs.addEventListener('click',()=>{const el=document.querySelector('.play-page');(el.requestFullscreen||el.webkitRequestFullscreen)?.call(el);});}
+ // Time-limited offers: hide once their last day (Riyadh time) has passed.
+ document.querySelectorAll('[data-ends]').forEach(el=>{const end=new Date(el.dataset.ends+'T23:59:59+03:00');if(!isNaN(end)&&Date.now()>end)el.hidden=true;});
  // Home «جديد» bar: show one addition at a time, every 5 s; pauses on hover/focus, swipe on touch, still with reduced motion.
  const news=document.querySelector('.news-bar'),items=[...document.querySelectorAll('[data-news-item]')];
  if(news&&items.length>1){

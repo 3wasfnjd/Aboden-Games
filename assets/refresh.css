@@ -303,3 +303,9 @@ html[dir=ltr] .news-nav button{transform:scaleX(-1)}
 .feature-poster::before{content:"";position:absolute;inset:-40px;background:var(--feature-art) center/cover;filter:blur(30px) saturate(1.2);opacity:.8;z-index:-1}
 .feature-poster img{width:auto;height:100%;max-width:100%;object-fit:contain;filter:drop-shadow(0 14px 30px #02081a99)}
 @media(max-width:640px){.feature-poster{aspect-ratio:1/1}}
+/* Game page offers (free trial, time-limited codes) */
+.promo-list{display:grid;gap:12px;margin:18px 0 22px}
+.promo{border:1px solid rgba(255,138,61,.35);background:rgba(255,138,61,.08);border-radius:14px;padding:14px 18px}
+.promo h3{font-size:1rem;margin:0 0 4px;color:#fff}
+.promo p{margin:2px 0 0;font-size:.9rem}
+.promo-code{display:inline-block;padding:1px 10px;border-radius:8px;background:var(--accent,#ff8a3d);color:#1a0d02;font-weight:800;letter-spacing:.06em}
