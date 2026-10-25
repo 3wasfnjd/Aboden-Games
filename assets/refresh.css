@@ -311,3 +311,9 @@ html[dir=ltr] .news-nav button{transform:scaleX(-1)}
 .promo-code{display:inline-block;padding:1px 10px;border-radius:8px;background:var(--accent,#ff8a3d);color:#1a0d02;font-weight:800;letter-spacing:.06em}
 /* Gallery: an even count leaves the last image alone in its row; let it span the full width like the first */
 .quest-gallery img:nth-child(even):last-child{grid-column:1/-1}
+/* Web game with landscape key art: the art takes the full width above the info (game page) or half the card (featured card) */
+.battleship-hero.is-wide{grid-template-columns:1fr}
+.battleship-hero.is-wide .battleship-poster{max-width:100%}
+.feature-game.is-wide{grid-template-columns:minmax(0,1.15fr) 1fr}
+.feature-game.is-wide>img{height:100%;max-height:none;aspect-ratio:16/9;object-position:center}
+@media(max-width:700px){.feature-game.is-wide{grid-template-columns:1fr}.feature-game.is-wide>img{height:auto}}
