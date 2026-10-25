@@ -122,3 +122,4 @@
 - Gallery CSS: with an even number of shots the last spans the full width.
 - 2026-10-25 «اكتب نبذة اهدا من الاستديو لصديقي محمد العمر ابوحصة صاحب كساب»: the Kassab about note is now the studio's dedication to Mohammed Al-Omar «Abu Hessa».
 - 2026-10-25 «استبدلها بالبوستر»: Kassab's poster is now the owner's wide key art (`assets/posters/kassab-keyart.webp`; the title-screen poster is removed). Web games with landscape key art get `.is-wide` layouts: full-width art on the game page, a wider half in the featured card.
+- 2026-10-25 «عدل معاد فيه فرمل وهاند بريك»: Kassab how-to no longer mentions brake or handbrake (the game has only the gas button).
