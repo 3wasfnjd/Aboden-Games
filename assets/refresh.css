@@ -309,3 +309,5 @@ html[dir=ltr] .news-nav button{transform:scaleX(-1)}
 .promo h3{font-size:1rem;margin:0 0 4px;color:#fff}
 .promo p{margin:2px 0 0;font-size:.9rem}
 .promo-code{display:inline-block;padding:1px 10px;border-radius:8px;background:var(--accent,#ff8a3d);color:#1a0d02;font-weight:800;letter-spacing:.06em}
+/* Gallery: an even count leaves the last image alone in its row; let it span the full width like the first */
+.quest-gallery img:nth-child(even):last-child{grid-column:1/-1}
