@@ -101,7 +101,7 @@
   "استراتيجية": "Strategy",
   "استراتيجية / WEB GAME": "STRATEGY / WEB GAME",
   "استراتيجية · عبر المتصفح": "Strategy · In the browser",
-  "اسحب يسار الشاشة يمين ويسار للدركسون · بنزين وفرامل وهاند · ↺ يرجّع السيارة": "Drag the left of the screen left and right to steer · gas, brake and handbrake · ↺ resets the car",
+  "اسحب يسار الشاشة يمين ويسار للدركسون · زر البنزين للسرعة · ↺ يرجّع السيارة": "Drag the left of the screen left and right to steer · the gas button to speed up · ↺ resets the car",
   "اضغط «إلى الجبهة». حدّد فرقة ثم اضغط على الأرض للتحرك، أو العلم للاستيلاء، أو عدو ظاهر للهجوم. السيطرة على نقطتين من ثلاث تستنزف تذاكر الخصم. اسحب لتحريك الكاميرا، واستخدم أمر الانسحاب لاستعادة القوة.": "Press “To the front”. Select a squad, then tap the ground to move, a flag to capture, or a visible enemy to attack. Holding two of the three points drains the enemy's tickets. Drag to move the camera, and use the retreat order to recover strength.",
   "افتح المتصفح. وابدأ.": "Open your browser. Start playing.",
   "افتح المختبر واختر التجربة. اسمح بالكاميرا والحركة عند طلبهما للتجارب التي تحتاجهما. دعم الواقع المعزز يختلف حسب الجهاز والمتصفح؛ الكتابة على الرمل لا تحتاج كاميرا لكنها تتطلب WebGPU.": "Open the lab and pick an experience. Allow camera and motion access when an experience asks for them. AR support varies by device and browser; sand writing needs no camera but requires WebGPU.",
