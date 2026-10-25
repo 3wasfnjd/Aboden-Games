@@ -317,3 +317,5 @@ html[dir=ltr] .news-nav button{transform:scaleX(-1)}
 .feature-game.is-wide{grid-template-columns:minmax(0,1.15fr) 1fr}
 .feature-game.is-wide>img{height:100%;max-height:none;aspect-ratio:16/9;object-position:center}
 @media(max-width:700px){.feature-game.is-wide{grid-template-columns:1fr}.feature-game.is-wide>img{height:auto}}
+/* Studio game page: the owner's dedication, right above the poster. */
+.game-dedication{margin:0 auto 18px;width:fit-content;max-width:100%;padding:10px 20px;border-radius:22px;background:color-mix(in srgb,var(--accent) 14%,transparent);border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);font-weight:700;text-align:center;line-height:1.7}
