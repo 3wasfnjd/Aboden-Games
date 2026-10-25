@@ -265,6 +265,100 @@
      "h": 941
     }
    }
+  },
+  {
+   "slug": "kassab",
+   "platform": "web",
+   "title": "كسّاب",
+   "titleEn": "Kassab",
+   "description": "لعبة هجولة في الطعوس للجوال، عالم مفتوح فيه حي نجدي وواحة ومزرعة وبيت شعر ومخيم بدو.",
+   "released": "2026-10-25",
+   "webUrl": "https://3wasfnjd.github.io/Kassab/",
+   "genre": "قيادة",
+   "mobile": true,
+   "cardTag": "جديدة · الجوال بالعرض",
+   "keyArt": {
+    "src": "assets/posters/kassab-poster.webp",
+    "alt": "شاشة بداية كسّاب: وانيت GMC في الطعوس قدّام بيت الشعر",
+    "w": 1206,
+    "h": 2004
+   },
+   "page": {
+    "kicker": "KASSAB / WEB",
+    "headline": "كسّاب.",
+    "tagline": "هجولة في الطعوس.",
+    "tag": "متصفح · جوال",
+    "pitch": [
+     "عالم مفتوح.",
+     "وطعوس وفزعات."
+    ],
+    "howTo": "اسحب يسار الشاشة يمين ويسار للدركسون · بنزين وفرامل وهاند · ↺ يرجّع السيارة",
+    "body": [
+     "«راديو» يغيّر الأغنية، والخريطة الصغيرة تكبر باللمس. والأفضل تلعبها على الجوال بالعرض."
+    ],
+    "facts": [
+     "مجانية · تنلعب في المتصفح · الأفضل على الجوال بالعرض",
+     "انضافت للموقع: ٢٥ أكتوبر ٢٠٢٦"
+    ],
+    "supportName": "كسّاب",
+    "supportLabel": "مساعدة بخصوص كسّاب",
+    "about": {
+     "title": [
+      "طعوس وفزعات.",
+      "ويوم كامل كل عشر دقايق."
+     ],
+     "paragraphs": [
+      "هجولة بالوانيت في طعوس طبيعية، والغبار وآثار الكفرات وراك وورا المركبات الثانية. وفي العالم حي نجدي فيه سوق ودكاكين، وواحة ومزرعة، وبيت شعر، ومخيم بدو.",
+      "يوم كامل كل عشر دقايق، وفي الليل تشتغل أنوار السيارة والفوانيس والخيام. والطقس يتغير لحاله: صحو، غبار، غائم، عاصفة رملية، ومطر. ولما يجي المطر يسيل الوادي ويتجمع ماؤه عند المزرعة.",
+      "وفي الطريق فزعات: وايت مغرّز تفزع له وتسحبه بالحبل، ووانيت يروح ويرجع على الطريق. والناس والإبل والغنم يتحركون حولك ويبعدون عن السيارة، وفيه راديو بأربع أغاني."
+     ],
+     "note": "اهداء لصديقي ابوحصه 💕"
+    },
+    "shots": [
+     {
+      "src": "assets/posters/kassab-shot-1.webp",
+      "alt": "الوانيت يهجول بين الإبل والراعي، والغبار وآثار الكفرات وراه"
+     },
+     {
+      "src": "assets/posters/kassab-shot-2.webp",
+      "alt": "الكرفان والوايت عند المخيم، والراعي جالس جنب القهوة"
+     },
+     {
+      "src": "assets/posters/kassab-shot-3.webp",
+      "alt": "فزعة: الوانيت يسحب الوايت المغرّز بالحبل من الطعس"
+     },
+     {
+      "src": "assets/posters/kassab-shot-4.webp",
+      "alt": "الراعي وحماره مع الغنم في الطعوس"
+     },
+     {
+      "src": "assets/posters/kassab-shot-5.webp",
+      "alt": "الحي النجدي في الليل، وأنوار الوانيت على السور"
+     },
+     {
+      "src": "assets/posters/kassab-shot-6.webp",
+      "alt": "الوانيت في الطعوس وقت المطر والغبار"
+     },
+     {
+      "src": "assets/posters/kassab-shot-7.webp",
+      "alt": "خيّال على حصانه نازل من الطعس"
+     },
+     {
+      "src": "assets/posters/kassab-shot-8.webp",
+      "alt": "مخيم البدو: بيت الشعر والخيمة والإبل والحظيرة"
+     },
+     {
+      "src": "assets/posters/kassab-shot-9.webp",
+      "alt": "الحي النجدي والسوق من فوق"
+     },
+     {
+      "src": "assets/posters/kassab-shot-10.webp",
+      "alt": "الوانيت يهجول على الطعس والغبار وراه"
+     }
+    ],
+    "title": "كسّاب | عبودين قيمز"
+   },
+   "source": "Owner message 2026-10-25: «https://3wasfnjd.github.io/Kassab/ اضفها» with ten gameplay captures and the title screen. Description, controls and features from the game repository's own README (3wasfnjd/Kassab); the dedication is the game's title-screen line. Date is the day it was added to the site."
   }
  ]
 }

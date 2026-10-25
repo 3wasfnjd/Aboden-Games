@@ -89,5 +89,60 @@
     "source": "owner-supplied",
     "sha256": "e506b427b32e4cae9129a5e985bb7fe3cbfe7de35efc2a33f76dc1fb3e60aaab",
     "note": "Owner's wide Battleship key art, sent 2026-10-22 («بعطيك صوره غيرها») to replace the tall poster in the home «تحت الأضواء» section. Re-encoded to WebP at full 1672x941; no crop."
+  },
+  "kassab-poster.webp": {
+    "source": "owner-supplied",
+    "sha256": "c4491385b05f0bec0c22d84a6c8c9d468a81c94b52d520bbcf590636cdd6aed0",
+    "note": "Owner's Kassab title-screen capture, sent 2026-10-25 with «اضفها». Re-encoded to WebP at full size; no crop."
+  },
+  "kassab-shot-1.webp": {
+    "source": "owner-supplied",
+    "sha256": "f8e0ea5889854e7fc9ffd044417faaf94a66f99e40af9dc700c4ff96de2fc167",
+    "note": "Owner's capture of the released Kassab web build, sent 2026-10-25 with «اضفها». Re-encoded to WebP, resized 1920x1080 → 1600x900; no crop."
+  },
+  "kassab-shot-2.webp": {
+    "source": "owner-supplied",
+    "sha256": "b99beb31d0e68efe9c601af8c24e0410cd49f5ff60b8e0d3ff8ec87152682a3f",
+    "note": "Owner's capture of the released Kassab web build, sent 2026-10-25 with «اضفها». Re-encoded to WebP, resized 1920x1080 → 1600x900; no crop."
+  },
+  "kassab-shot-3.webp": {
+    "source": "owner-supplied",
+    "sha256": "840c39974c7685b9e51fa98df7c6d489293fc78719f048b0ddbb58f2e90a449d",
+    "note": "Owner's capture of the released Kassab web build, sent 2026-10-25 with «اضفها». Re-encoded to WebP, resized 1920x1080 → 1600x900; no crop."
+  },
+  "kassab-shot-4.webp": {
+    "source": "owner-supplied",
+    "sha256": "51fb3647b87554a92445799c66bede5964d6e92846fdf68acd8e394211ef759e",
+    "note": "Owner's capture of the released Kassab web build, sent 2026-10-25 with «اضفها». Re-encoded to WebP, resized 1920x1080 → 1600x900; no crop."
+  },
+  "kassab-shot-5.webp": {
+    "source": "owner-supplied",
+    "sha256": "29b030c006bd6166da7924e20b952ac0d5b62e2047de4633b5d75849cdd0ec42",
+    "note": "Owner's capture of the released Kassab web build, sent 2026-10-25 with «اضفها». Re-encoded to WebP, resized 1920x1080 → 1600x900; no crop."
+  },
+  "kassab-shot-6.webp": {
+    "source": "owner-supplied",
+    "sha256": "83495e5e570064209a6cc0553dd58fa5b3ba965cd3eb4c3416be9cfbc3e8f15f",
+    "note": "Owner's capture of the released Kassab web build, sent 2026-10-25 with «اضفها». Re-encoded to WebP, resized 1920x1080 → 1600x900; no crop."
+  },
+  "kassab-shot-7.webp": {
+    "source": "owner-supplied",
+    "sha256": "b33722811d1169ab95177b7d2db9082d1ee553f19da40248388b167913016349",
+    "note": "Owner's capture of the released Kassab web build, sent 2026-10-25 with «اضفها». Re-encoded to WebP, resized 1920x1080 → 1600x900; no crop."
+  },
+  "kassab-shot-8.webp": {
+    "source": "owner-supplied",
+    "sha256": "51f5f400b10eb0484f11435c9bfab37d676221d633df76c818542a3da9dc51fc",
+    "note": "Owner's capture of the released Kassab web build, sent 2026-10-25 with «اضفها». Re-encoded to WebP, resized 1920x1080 → 1600x900; no crop."
+  },
+  "kassab-shot-9.webp": {
+    "source": "owner-supplied",
+    "sha256": "efdaeddc018b6429ac92600e75f3b37a1806ebaebe2f21e8008ed2d0341ef7b7",
+    "note": "Owner's capture of the released Kassab web build, sent 2026-10-25 with «اضفها». Re-encoded to WebP, resized 1920x1080 → 1600x900; no crop."
+  },
+  "kassab-shot-10.webp": {
+    "source": "owner-supplied",
+    "sha256": "359a7f7b36c236e1b1d8ceea4534d4caaa1be76e639ddefb063fe797f67f8549",
+    "note": "Owner's capture of the released Kassab web build, sent 2026-10-25 with «اضفها». Re-encoded to WebP, resized 1920x1080 → 1600x900; no crop."
   }
 }
