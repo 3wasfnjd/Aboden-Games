@@ -125,3 +125,4 @@
 - 2026-10-25 «عدل معاد فيه فرمل وهاند بريك»: Kassab how-to no longer mentions brake or handbrake (the game has only the gas button).
 - 2026-10-25 «الاهداء ارفعه فوق البوستر»: Kassab's dedication moved from the about section to just above the poster (`page.dedication` in studio-games.json, any studio game can use it).
 - 2026-10-25 «عدل طعوس الهجولة الى تطعيس كساب في اي مكان في الصفحه»: Kassab says «تطعيس» instead of «هجولة» everywhere (tagline «تطعيس كسّاب.», description, about text, image alts, «جديد» bar); English "dune bashing".
+- 2026-10-25 the owner sent the about text with its first paragraph starting «هجولة بكساب في طعوس طبيعية»; used as given (the other two paragraphs were unchanged).
