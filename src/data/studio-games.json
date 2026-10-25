@@ -278,10 +278,10 @@
    "mobile": true,
    "cardTag": "جديدة · الجوال بالعرض",
    "keyArt": {
-    "src": "assets/posters/kassab-poster.webp",
-    "alt": "شاشة بداية كسّاب: وانيت GMC في الطعوس قدّام بيت الشعر",
-    "w": 1206,
-    "h": 2004
+    "src": "assets/posters/kassab-keyart.webp",
+    "alt": "الصورة الرئيسية لكسّاب: وانيت GMC يهجول في الطعوس، وخلفه الحي النجدي والمخيم والإبل والغنم",
+    "w": 1672,
+    "h": 941
    },
    "page": {
     "kicker": "KASSAB / WEB",

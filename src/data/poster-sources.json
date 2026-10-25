@@ -90,11 +90,6 @@
     "sha256": "e506b427b32e4cae9129a5e985bb7fe3cbfe7de35efc2a33f76dc1fb3e60aaab",
     "note": "Owner's wide Battleship key art, sent 2026-10-22 («بعطيك صوره غيرها») to replace the tall poster in the home «تحت الأضواء» section. Re-encoded to WebP at full 1672x941; no crop."
   },
-  "kassab-poster.webp": {
-    "source": "owner-supplied",
-    "sha256": "c4491385b05f0bec0c22d84a6c8c9d468a81c94b52d520bbcf590636cdd6aed0",
-    "note": "Owner's Kassab title-screen capture, sent 2026-10-25 with «اضفها». Re-encoded to WebP at full size; no crop."
-  },
   "kassab-shot-1.webp": {
     "source": "owner-supplied",
     "sha256": "f8e0ea5889854e7fc9ffd044417faaf94a66f99e40af9dc700c4ff96de2fc167",
@@ -144,5 +139,10 @@
     "source": "owner-supplied",
     "sha256": "359a7f7b36c236e1b1d8ceea4534d4caaa1be76e639ddefb063fe797f67f8549",
     "note": "Owner's capture of the released Kassab web build, sent 2026-10-25 with «اضفها». Re-encoded to WebP, resized 1920x1080 → 1600x900; no crop."
+  },
+  "kassab-keyart.webp": {
+    "source": "owner-supplied",
+    "sha256": "230cf14c7b0c25370175021c547ca254de3ec29229d413805c0e4a7d207437c3",
+    "note": "Owner's Kassab key art, sent 2026-10-25 «استبدلها بالبوستر» to replace the title-screen poster. Re-encoded to WebP at full size; no crop."
   }
 }
