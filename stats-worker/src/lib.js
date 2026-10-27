@@ -11,8 +11,8 @@ export const daysAgo = (ms, n) => dayOf(ms - n * 86400000);
 
 // Every game the site lists, with the routes that belong to it.
 export function games() {
-  const list = studio.games.map(g => ({ slug: g.slug, title: g.title, titleEn: g.titleEn, platform: g.platform, page: `/games/${g.slug}/`, play: g.webUrl ? `/play/${g.slug}/` : null }));
-  for (const p of catalog) if (p.category === 'games' && p.liveUrl) list.push({ slug: p.slug, title: p.title, titleEn: p.titleEn, platform: 'web', page: `/projects/${p.slug}/`, play: `/play/${p.slug}/` });
+  const list = studio.games.map(g => ({ slug: g.slug, title: g.title, titleEn: g.titleEn, platform: g.platform, image: g.spotlight?.art?.src || g.keyArt.src, page: `/games/${g.slug}/`, play: g.webUrl ? `/play/${g.slug}/` : null }));
+  for (const p of catalog) if (p.category === 'games' && p.liveUrl) list.push({ slug: p.slug, title: p.title, titleEn: p.titleEn, platform: 'web', image: p.cover, page: `/projects/${p.slug}/`, play: `/play/${p.slug}/` });
   return list;
 }
 

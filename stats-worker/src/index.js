@@ -95,10 +95,10 @@ export class Stats extends DurableObject {
       const [games, votes] = await Promise.all([`https://games.roblox.com/v1/games?universeIds=${ids}`, `https://games.roblox.com/v1/games/votes?universeIds=${ids}`].map(u => fetch(u).then(r => r.ok ? r.json() : { data: [] })));
       out = items.map((x, i) => {
         const g = games.data.find(d => d.id === universes[i]) || {}, v = votes.data.find(d => d.id === universes[i]) || {};
-        return { title: x.title, titleEn: x.titleEn, playing: g.playing ?? null, visits: g.visits ?? null, favorites: g.favoritedCount ?? null, up: v.upVotes ?? null, down: v.downVotes ?? null };
+        return { title: x.title, titleEn: x.titleEn, image: x.image, playing: g.playing ?? null, visits: g.visits ?? null, favorites: g.favoritedCount ?? null, up: v.upVotes ?? null, down: v.downVotes ?? null };
       });
     } catch {
-      return hit ? JSON.parse(hit.v) : items.map(x => ({ title: x.title, titleEn: x.titleEn, error: true }));
+      return hit ? JSON.parse(hit.v) : items.map(x => ({ title: x.title, titleEn: x.titleEn, image: x.image, error: true }));
     }
     this.sql.exec('INSERT INTO cache VALUES(?,?,?) ON CONFLICT DO UPDATE SET t=excluded.t, v=excluded.v', 'roblox', now, JSON.stringify(out));
     return out;
@@ -136,7 +136,7 @@ export default {
     if (url.pathname === '/dashboard' || url.pathname === '/api/summary') {
       if (!(await authorized(request, env))) return new Response('يلزم الدخول', { status: 401, headers: { ...PRIVATE, 'WWW-Authenticate': 'Basic realm="Aboden Games stats", charset="UTF-8"', 'Content-Type': 'text/plain; charset=utf-8' } });
       if (url.pathname === '/api/summary') return Response.json(await stub.summary(), { headers: PRIVATE });
-      return new Response(dashboardHtml, { headers: { ...PRIVATE, 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'" } });
+      return new Response(dashboardHtml, { headers: { ...PRIVATE, 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; img-src data: https://abodengames.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'" } });
     }
     if (url.pathname === '/') return Response.redirect(`${url.origin}/dashboard`, 302);
     return new Response('Not found', { status: 404 });
