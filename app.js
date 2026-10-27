@@ -63,3 +63,24 @@ if(typeof document!=='undefined') {
   start();
  }
 }
+// Owner-only visit counter (stats-worker/): one beacon per page view, a heartbeat each minute while the page is visible
+// (that is how the dashboard knows who is on the site or in a game right now), and a note when a store button is pressed.
+// No cookies; a random id lives only as long as this browser tab. Off when the page has no stats-endpoint meta,
+// and for visitors who ask not to be tracked (Global Privacy Control / Do Not Track).
+if(typeof document!=='undefined'){
+ const endpoint=document.querySelector('meta[name="stats-endpoint"]')?.content;
+ const optOut=navigator.globalPrivacyControl===true||navigator.doNotTrack==='1';
+ if(endpoint&&!optOut){
+  let id='',isNew=0;
+  try{id=sessionStorage.getItem('aboden-stats')||'';}catch{}
+  if(!id){id=Array.from(crypto.getRandomValues(new Uint8Array(10)),b=>(b%36).toString(36)).join('');isNew=1;try{sessionStorage.setItem('aboden-stats',id);}catch{}}
+  const send=o=>{const body=JSON.stringify({...o,id,p:location.pathname});try{if(navigator.sendBeacon?.(endpoint,new Blob([body],{type:'text/plain'})))return;}catch{}fetch(endpoint,{method:'POST',body,keepalive:true,mode:'no-cors'}).catch(()=>{});};
+  let ref='';try{const r=document.referrer&&new URL(document.referrer);if(r&&r.host!==location.host)ref=r.hostname.toLowerCase();}catch{}
+  send({t:'v',n:isNew,r:ref});
+  let last=Date.now();
+  const beat=()=>{if(document.visibilityState==='visible'){last=Date.now();send({t:'p'});}};
+  setInterval(beat,60000);
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&Date.now()-last>30000)beat();});
+  document.addEventListener('click',event=>{const a=event.target.closest?.('a[href]');if(!a)return;try{const h=new URL(a.href).hostname;if(/(^|\.)meta\.com$|(^|\.)oculus\.com$/.test(h))send({t:'e',e:'store'});else if(/(^|\.)roblox\.com$/.test(h))send({t:'e',e:'roblox'});}catch{}});
+ }
+}
