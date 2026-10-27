@@ -1,0 +1,14 @@
+{
+  "name": "aboden-stats",
+  "private": true,
+  "description": "Owner-only stats dashboard for abodengames.com (Cloudflare Worker + Durable Object). See README.md.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node --test test/*.test.js"
+  },
+  "devDependencies": {
+    "wrangler": "4.148.0"
+  }
+}

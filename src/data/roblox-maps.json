@@ -1,5 +1,5 @@
 {
-  "_note": "Owner instructions 2026-10-20: «ابي تضيف قسم جديد خاص بروبلكس بالموقع», then «اي قسم جديد مابات والالعاب — لا صور حقيقيه لروبلكس — لاتختلق». The section lists the studio's Roblox maps and games. Add an item only when the owner gives its name, its Roblox link and its real images: {\"kind\":\"map\"|\"game\",\"title\":\"\",\"titleEn\":\"\",\"description\":\"\",\"image\":\"assets/roblox/<file>\",\"url\":\"https://www.roblox.com/games/<id>/\"}. No designed or stand-in art.",
+  "_note": "Owner instructions 2026-10-20: «ابي تضيف قسم جديد خاص بروبلكس بالموقع», then «اي قسم جديد مابات والالعاب — لا صور حقيقيه لروبلكس — لاتختلق». The section lists the studio's Roblox maps and games. Add an item only when the owner gives its name, its Roblox link and its real images: {\"kind\":\"map\"|\"game\",\"title\":\"\",\"titleEn\":\"\",\"description\":\"\",\"image\":\"assets/roblox/<file>\",\"url\":\"https://www.roblox.com/games/<id>/\"}. No designed or stand-in art. Optional \"placeId\" (the number in roblox.com/games/<placeId>/, from the owner) feeds the owner stats dashboard (stats-worker/README.md).",
   "items": [
     {
       "kind": "map",
