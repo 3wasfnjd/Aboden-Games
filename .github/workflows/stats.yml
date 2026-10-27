@@ -1,0 +1,52 @@
+name: Deploy owner stats dashboard
+# Cloudflare Worker in stats-worker/ (owner request 2026-10-27). Skips with a notice until the owner adds the three
+# repository secrets described in stats-worker/README.md.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'stats-worker/**'
+      - 'src/data/studio-games.json'
+      - 'src/data/catalog.json'
+      - 'src/data/roblox-maps.json'
+      - '.github/workflows/stats.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: stats-worker
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: github.repository == 'aboden-games1/aboden-games1.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
+    steps:
+      - name: Check the Cloudflare secrets
+        id: ready
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ] && [ -n "$DASHBOARD_PASSWORD" ]; then
+            echo "ok=1" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::Stats dashboard not deployed yet: add CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and DASHBOARD_PASSWORD (stats-worker/README.md)."
+          fi
+      - if: steps.ready.outputs.ok == '1'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - if: steps.ready.outputs.ok == '1'
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: stats-worker/package-lock.json
+      - if: steps.ready.outputs.ok == '1'
+        name: Test and deploy the Worker, then set the dashboard password
+        working-directory: stats-worker
+        run: |
+          npm ci --no-audit --no-fund
+          npm test
+          npx wrangler deploy
+          printf '%s' "$DASHBOARD_PASSWORD" | npx wrangler secret put DASHBOARD_PASSWORD

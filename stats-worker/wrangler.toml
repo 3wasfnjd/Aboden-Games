@@ -1,0 +1,16 @@
+# Owner-only stats for abodengames.com (see README.md). Deployed by .github/workflows/stats.yml.
+name = "aboden-stats"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[[durable_objects.bindings]]
+name = "STATS"
+class_name = "Stats"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Stats"]
+
+[observability]
+enabled = true

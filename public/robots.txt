@@ -7,6 +7,7 @@ Disallow: /tests/
 Disallow: /scripts/
 Disallow: /migration/
 Disallow: /privacy-drafts/
+Disallow: /stats-worker/
 Disallow: /node_modules/
 Disallow: /.github/
 Disallow: /*.md$

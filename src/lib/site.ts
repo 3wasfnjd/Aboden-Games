@@ -26,8 +26,10 @@ function page(content:string,title:string,description:string,base:string,route='
  const langSwitch=bilingual?`<a class="lang-switch" href="${b}en/${route}" data-route="${route}" hreflang="en" lang="en">EN</a>`:'';
  const alternates=bilingual?`<link rel="alternate" hreflang="ar" href="https://abodengames.com${b}${route}"/><link rel="alternate" hreflang="en" href="https://abodengames.com${b}en/${route}"/><link rel="alternate" hreflang="x-default" href="https://abodengames.com${b}${route}"/>`:'';
  // JSON-LD is data, not script: the CSP's script-src does not apply to it. '<' is escaped so text can never close the tag.
+ // Owner-only visit counter (src/data/stats.json, stats-worker/): app.js reads the endpoint from this meta; empty = off.
+ const stats=String(data('stats').endpoint||''),statsOrigin=stats?new URL(stats).origin:'';
  const jsonld=meta.jsonld?`<script type="application/ld+json">${JSON.stringify(meta.jsonld).replace(/</g,'\\u003c')}</script>`:'';
- return replace(template('layout'),{CONTENT:content,TITLE:e(title),DESCRIPTION:e(description),BASE:b,CANONICAL:`https://abodengames.com${b}${route}`,NAV:nav,LANG_SWITCH:langSwitch,ALTERNATES:alternates,ROBOTS:meta.robots||'index, follow, max-image-preview:large',OG_IMAGE:`${SITE}/${(meta.image||'assets/brand/og-image.png').replace(/^\//,'')}`,JSONLD:jsonld});
+ return replace(template('layout'),{CONTENT:content,TITLE:e(title),DESCRIPTION:e(description),BASE:b,CANONICAL:`https://abodengames.com${b}${route}`,NAV:nav,LANG_SWITCH:langSwitch,ALTERNATES:alternates,ROBOTS:meta.robots||'index, follow, max-image-preview:large',OG_IMAGE:`${SITE}/${(meta.image||'assets/brand/og-image.png').replace(/^\//,'')}`,JSONLD:jsonld,STATS:stats?`<meta name="stats-endpoint" content="${e(stats)}"/>`:'',CONNECT:statsOrigin?` ${statsOrigin}`:''});
 }
 // English edition (/en/): the Arabic page translated node by node from src/data/i18n-en.json, laid out left-to-right.
 const AR_CHARS=/[\u0600-\u06FF]/;
