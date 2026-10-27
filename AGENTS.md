@@ -127,3 +127,4 @@
 - 2026-10-25 «عدل طعوس الهجولة الى تطعيس كساب في اي مكان في الصفحه»: Kassab says «تطعيس» instead of «هجولة» everywhere (tagline «تطعيس كسّاب.», description, about text, image alts, «جديد» bar); English "dune bashing".
 - 2026-10-25 the owner sent the about text with its first paragraph starting «هجولة بكساب في طعوس طبيعية»; used as given (the other two paragraphs were unchanged).
 - 2026-10-27 «نقدر نسوي لوحة تحكم ونشوف كم عدد زيارات العابنا وكم لاعب حاليا داخلها» → proposal approved «كاملة»: owner-only dashboard in `stats-worker/` (Cloudflare Worker), site counter in `public/app.js` switched on by `src/data/stats.json` endpoint; cookie-free, no IPs, honours GPC/DNT. Setup steps in `stats-worker/README.md`. Roblox numbers need each item's `placeId`.
+- 2026-10-27 owner added the Cloudflare secrets («تم»); Worker deployed at https://aboden-stats.3wasf-njd1.workers.dev, site counter switched on (`src/data/stats.json`). Roblox placeIds still to come from the owner.
