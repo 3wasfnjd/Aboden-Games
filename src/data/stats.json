@@ -1,4 +1,4 @@
 {
   "_note": "Owner request 2026-10-27: «لوحة تحكم ونشوف كم عدد زيارات العابنا وكم لاعب حاليا داخلها» — full dashboard approved («كاملة»). endpoint = the stats Worker's beacon URL (https://aboden-stats.<subdomain>.workers.dev/c, see stats-worker/README.md). Empty = no counting: no beacon, no extra connect-src.",
-  "endpoint": ""
+  "endpoint": "https://aboden-stats.3wasf-njd1.workers.dev/c"
 }

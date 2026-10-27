@@ -9,6 +9,7 @@ on:
       - 'src/data/studio-games.json'
       - 'src/data/catalog.json'
       - 'src/data/roblox-maps.json'
+      - 'src/data/stats.json'
       - '.github/workflows/stats.yml'
   workflow_dispatch:
 permissions:
@@ -50,3 +51,11 @@ jobs:
           npm test
           npx wrangler deploy
           printf '%s' "$DASHBOARD_PASSWORD" | npx wrangler secret put DASHBOARD_PASSWORD
+      - if: steps.ready.outputs.ok == '1'
+        name: Smoke check (dashboard asks for the password; beacons from other sites are refused)
+        run: |
+          url=$(node -p "require('./src/data/stats.json').endpoint.replace(/\\/c$/,'')")
+          [ -n "$url" ] || exit 0
+          test "$(curl -s -o /dev/null -w '%{http_code}' "$url/dashboard")" = 401
+          test "$(curl -s -o /dev/null -w '%{http_code}' -X POST -H 'Origin: https://example.com' -d '{}' "$url/c")" = 403
+          test "$(curl -s -o /dev/null -w '%{http_code}' -u "aboden:$DASHBOARD_PASSWORD" "$url/api/summary")" = 200
