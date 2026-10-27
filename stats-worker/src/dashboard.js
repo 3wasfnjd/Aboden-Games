@@ -70,15 +70,14 @@ table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;marg
 .bars{list-style:none;margin:0;padding:0}.bars li{display:grid;grid-template-columns:minmax(0,1fr) 36% auto;gap:10px;align-items:center;padding:6px 0}
 .bars .lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bars .track{height:10px;background:color-mix(in srgb,var(--c) 14%,transparent);border-radius:5px;overflow:hidden}
 .bars .fill{display:block;height:100%;background:var(--c);border-radius:5px}.bars .n{font-variant-numeric:tabular-nums;color:var(--muted);min-width:2ch;text-align:end}
-.err{background:#3a1520;border:1px solid #7a2c3c;border-radius:12px;padding:10px 14px;margin-bottom:12px;display:none}
-footer{margin-top:24px;text-align:center}
+.notes ul{margin:0;padding-inline-start:20px;color:var(--muted);font-size:13.5px}.notes li{margin:4px 0}
+.pill.stale{background:rgba(248,113,113,.12);color:var(--red);border-color:rgba(248,113,113,.3)}
 @media (prefers-reduced-motion:reduce){.dot{animation:none}}
 @media (max-width:520px){.big b{font-size:46px}.rbi{grid-template-columns:96px 1fr}.rbi img{width:96px}}
 </style></head><body><main>
 <div class="top"><div class="brand"><div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff"><rect x="3" y="7" width="12" height="12" rx="3" transform="rotate(-12 9 13)"/><rect x="14" y="3" width="7" height="7" rx="2" opacity=".85"/></svg></div>
-<div><h1>لوحة عبودين قيمز</h1><span class="pill"><span class="dot"></span><span id="updated">مباشر</span></span></div></div>
+<div><h1>لوحة عبودين قيمز</h1><span class="pill" id="pill"><span class="dot"></span><span id="updated">مباشر</span></span></div></div>
 <div class="seg" role="group" aria-label="الفترة"><button data-range="today" aria-pressed="false">اليوم</button><button data-range="week" aria-pressed="true">٧ أيام</button><button data-range="month" aria-pressed="false">٣٠ يوم</button></div></div>
-<div class="err" id="err">تعذّر تحديث الأرقام، بنحاول مرة ثانية بعد شوي.</div>
 
 <section class="now" aria-label="الحين">
 <div class="big site"><div class="lbl"><span class="dot"></span>بالموقع الحين</div><b class="num" id="n-live">–</b><div class="sub" id="n-live-sub"></div></div>
@@ -101,13 +100,12 @@ footer{margin-top:24px;text-align:center}
 
 <section class="card"><div class="head"><h2><span class="ic" style="background:rgba(243,154,43,.16);color:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="6"/><path d="M6 12h4M8 10v4"/><circle cx="16" cy="11" r="1" fill="currentColor"/><circle cx="18" cy="13" r="1" fill="currentColor"/></svg></span>ألعابنا <small class="muted" id="g-range"></small></h2></div>
 <div class="games" id="games"></div><button class="more" id="more" hidden></button>
-<p class="muted"><small>«يلعبون الحين» = صفحة اللعب مفتوحة عندهم آخر دقيقتين. «مرات اللعب» = فتح صفحة «العب الآن» في موقعنا.</small></p></section>
+</section>
 
 <section class="two">
 <div class="card"><div class="head"><h2><span class="ic" style="background:rgba(248,113,113,.16);color:var(--red)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.2 2 2 18.8 18.8 22 22 5.2zm8.4 13.2-4.8-.9.9-4.8 4.8.9z"/></svg></span>روبلوكس <small class="muted">أرقام روبلوكس الرسمية</small></h2></div><div class="rb" id="roblox"></div></div>
 <div class="card quest"><div class="head"><h2><span class="ic" style="background:rgba(91,140,255,.16);color:var(--meta)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="4"/><circle cx="8" cy="12" r="2"/><circle cx="16" cy="12" r="2"/></svg></span>ميتا كويست</h2></div>
 <div class="qs" id="quest"></div>
-<p>ميتا ما تعطي أرقام المبيعات واللاعبين برا لوحة المطورين، فوق هي زيارات صفحات ألعاب كويست في موقعنا وضغطات زر المتجر.</p>
 <a class="btn" href="https://developers.meta.com/horizon/manage/" target="_blank" rel="noopener noreferrer">افتح لوحة مطوري ميتا ↗</a></div>
 </section>
 
@@ -117,7 +115,11 @@ footer{margin-top:24px;text-align:center}
 <div class="card" style="--c:var(--purple)"><h2 style="margin-bottom:10px">📱 الأجهزة <small class="muted">٧ أيام</small></h2><ul class="bars" id="devices"></ul></div>
 <div class="card" style="--c:var(--blue)"><h2 style="margin-bottom:10px">🔗 من وين جوا <small class="muted">٧ أيام</small></h2><ul class="bars" id="refs"></ul></div>
 </section>
-<footer class="muted"><small>بدون كوكيز وبدون تخزين عناوين IP · العدّ بتوقيت السعودية من يوم تركيب العداد · يتحدث كل ٣٠ ثانية</small></footer>
+<section class="card notes"><h2 style="margin-bottom:8px">📝 ملاحظات</h2><ul>
+<li>«يلعبون الحين» = صفحة اللعب مفتوحة عندهم آخر دقيقتين. «مرات اللعب» = فتح صفحة «العب الآن» في موقعنا.</li>
+<li>ميتا ما تعطي أرقام المبيعات واللاعبين برا لوحة المطورين؛ قسم ميتا كويست فيه زيارات صفحات ألعاب كويست في موقعنا وضغطات زر المتجر.</li>
+<li id="note-roblox" hidden>أرقام روبلوكس تطلع بعد ربط أرقام التجارب (Start Place ID).</li>
+<li>بدون كوكيز وبدون تخزين عناوين IP. العدّ بتوقيت السعودية من يوم تركيب العداد، والصفحة تتحدث كل ٣٠ ثانية.</li></ul></section>
 </main>
 <script>
 const SITE='https://abodengames.com/',$=id=>document.getElementById(id),fmt=n=>n==null?'–':Number(n).toLocaleString('ar-SA');
@@ -167,14 +169,15 @@ function render(){
  const rows=[...G].sort((a,b)=>score(b)-score(a)),active=rows.filter(g=>score(g)>0),shown=showAll||active.length===0?rows:active;
  $('games').innerHTML=shown.map(g=>gameCard(g).replace('class="game','class="game'+(score(g)?'':' idle'))).join('');
  const hidden=rows.length-shown.length;$('more').hidden=!hidden&&!showAll;$('more').textContent=showAll?'إخفاء الألعاب بدون نشاط':'عرض باقي الألعاب ('+fmt(hidden)+' بدون نشاط '+RANGE[r]+')';
- $('roblox').innerHTML=data.roblox.length?data.roblox.map(x=>'<div class="rbi">'+(x.image?'<img src="'+SITE+esc(x.image)+'" alt="" loading="lazy"/>':'<div></div>')+'<div><b>'+esc(x.title)+'</b>'+(x.error?'<p class="muted" style="margin:4px 0 0">تعذّر الوصول لروبلوكس الحين.</p>':'<dl><dt class="muted">🟢 يلعبون الحين</dt><dd>'+fmt(x.playing)+'</dd><dt class="muted">👣 الزيارات</dt><dd>'+fmt(x.visits)+'</dd><dt class="muted">⭐ المفضلة</dt><dd>'+fmt(x.favorites)+'</dd><dt class="muted">👍 الإعجاب</dt><dd>'+(x.up+x.down?Math.round(x.up/(x.up+x.down)*100)+'٪':'–')+'</dd></dl>')+'</div></div>').join(''):'<div class="empty">بانتظار أرقام التجارب (Start Place ID) عشان تطلع هنا أرقام «عالم نجد» و«بوليفارد جود».</div>';
+ $('roblox').innerHTML=data.roblox.length?data.roblox.map(x=>'<div class="rbi">'+(x.image?'<img src="'+SITE+esc(x.image)+'" alt="" loading="lazy"/>':'<div></div>')+'<div><b>'+esc(x.title)+'</b>'+(x.error?'<p class="muted" style="margin:4px 0 0">تعذّر الوصول لروبلوكس الحين.</p>':'<dl><dt class="muted">🟢 يلعبون الحين</dt><dd>'+fmt(x.playing)+'</dd><dt class="muted">👣 الزيارات</dt><dd>'+fmt(x.visits)+'</dd><dt class="muted">⭐ المفضلة</dt><dd>'+fmt(x.favorites)+'</dd><dt class="muted">👍 الإعجاب</dt><dd>'+(x.up+x.down?Math.round(x.up/(x.up+x.down)*100)+'٪':'–')+'</dd></dl>')+'</div></div>').join(''):'<div class="empty">قريبًا</div>';
+ $('note-roblox').hidden=data.roblox.length>0;
  const Q=G.filter(g=>g.platform==='quest');
  $('quest').innerHTML=Q.map(g=>'<div><small class="muted">'+esc(g.title)+'</small><b class="num">'+fmt(g.pageViews[r])+'</b><small class="muted">زيارة · '+fmt(g.storeClicks?.[r==='month'?'month':'week'])+' ضغطة متجر</small></div>').join('');
  bars('pages',data.pages,x=>pageName(x.route));bars('countries',data.countries,x=>country(x.value));bars('devices',data.devices,x=>DEVICES[x.value]||x.value);bars('refs',data.refs,x=>x.value==='(مباشر)'?'↩︎ مباشر (بدون رابط)':x.value);
  $('daily-table').innerHTML='<thead><tr><th>اليوم</th><th>زيارات</th><th>مشاهدات</th></tr></thead><tbody>'+[...data.daily].reverse().map(x=>'<tr><td>'+x.day+'</td><td>'+fmt(x.visits)+'</td><td>'+fmt(x.views)+'</td></tr>').join('')+'</tbody>';
  chart();$('updated').textContent='مباشر · آخر تحديث '+new Date(data.now).toLocaleTimeString('ar-SA',{hour:'numeric',minute:'2-digit'});
 }
-async function load(){try{const res=await fetch('/api/summary',{cache:'no-store'});if(!res.ok)throw 0;data=await res.json();$('err').style.display='none';render();}catch{$('err').style.display='block';}}
+async function load(){try{const res=await fetch('/api/summary',{cache:'no-store'});if(!res.ok)throw 0;data=await res.json();$('pill').classList.remove('stale');render();}catch{$('pill').classList.add('stale');$('updated').textContent='ما تحدّث، بنعيد المحاولة';}}
 document.querySelectorAll('[data-range]').forEach(b=>b.addEventListener('click',()=>{range=b.dataset.range;document.querySelectorAll('[data-range]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render();}));
 $('more').addEventListener('click',()=>{showAll=!showAll;render();});
 addEventListener('resize',()=>data&&chart());load();setInterval(()=>{if(!document.hidden)load();},30000);
